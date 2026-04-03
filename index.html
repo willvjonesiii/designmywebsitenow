@@ -97,7 +97,10 @@
       color: var(--gold); text-decoration: none;
       display: flex; align-items: center; gap: 0.8rem;
     }
-    .brand-mark { width: 26px; height: 26px; flex-shrink: 0; }
+    .brand-mark { width: 28px; height: 28px; flex-shrink: 0; mix-blend-mode: screen; }
+    .phil-wm    { position: absolute; right: -1.5rem; bottom: -1.5rem; width: 150px; height: 150px; opacity: 0.12; pointer-events: none; mix-blend-mode: screen; }
+    .cta-band-mark { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: min(70vw,580px); opacity: 0.07; pointer-events: none; mix-blend-mode: screen; }
+    .footer-mark { width: 22px; height: 22px; mix-blend-mode: screen; }
     .nav-links {
       display: flex; align-items: center; gap: 2.75rem; list-style: none;
     }
@@ -281,10 +284,7 @@
       position: relative; overflow: hidden; transition: background 0.3s;
     }
     .phil-card:hover { background: var(--ink3); }
-    .phil-wm {
-      position: absolute; right: -1.5rem; bottom: -1.5rem;
-      opacity: 0.045; pointer-events: none;
-    }
+    /* .phil-wm defined above with brand marks */
     .phil-num {
       font-family: 'Cinzel', serif; font-size: 0.58rem;
       letter-spacing: 0.3em; color: var(--gold);
@@ -617,11 +617,7 @@
 <!-- ═══════════ NAV ═══════════ -->
 <nav class="nav" id="mainNav">
   <a href="#" class="nav-brand">
-    <svg class="brand-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="46" stroke="#c9a86e" stroke-width="1.5" opacity="0.65"/>
-      <polygon points="50,8 91,72 9,72"  stroke="#c9a86e" stroke-width="1.5" fill="none" opacity="0.85"/>
-      <polygon points="50,92 9,28 91,28" stroke="#c9a86e" stroke-width="1.5" fill="none" opacity="0.85"/>
-    </svg>
+    <img class="brand-mark" src="images/merkaba.png" alt="">
     DMWN
   </a>
   <ul class="nav-links" id="navLinks">
@@ -703,10 +699,7 @@
   <div class="phil-grid">
 
     <div class="phil-card rv">
-      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
-        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
-        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
-      </svg>
+      <img class="phil-wm" src="images/merkaba.png" alt="">
       <span class="phil-num">01 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
       <h3 class="phil-title">Your website is an <em>energetic portal</em></h3>
       <p class="phil-body">Every person who lands on your site enters your field before they ever meet you. Slow load times, cluttered layouts, and broken links are energetic leaks. <strong>Your digital space deserves the same intentional curation as your healing room.</strong></p>
@@ -714,10 +707,7 @@
     </div>
 
     <div class="phil-card rv rv-d1">
-      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
-        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
-        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
-      </svg>
+      <img class="phil-wm" src="images/merkaba.png" alt="">
       <span class="phil-num">02 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
       <h3 class="phil-title">First impressions are <em>felt, not read</em></h3>
       <p class="phil-body">Your visitors decide within 3 seconds whether they feel safe enough to stay. That feeling comes from color, space, and imagery — not your words. <strong>Design your homepage the way you would set a sacred space.</strong> What does someone feel the moment they walk in?</p>
@@ -725,10 +715,7 @@
     </div>
 
     <div class="phil-card rv rv-d2">
-      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
-        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
-        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
-      </svg>
+      <img class="phil-wm" src="images/merkaba.png" alt="">
       <span class="phil-num">03 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
       <h3 class="phil-title">Fonts carry <em>frequency</em></h3>
       <p class="phil-body">A harsh corporate font on a sound healing page creates dissonance before a word is read. Typography has its own energy. <strong>The fonts on your site should feel like an extension of your practice</strong> — soft, intentional, and aligned with who you are.</p>
@@ -736,10 +723,7 @@
     </div>
 
     <div class="phil-card rv">
-      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
-        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
-        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
-      </svg>
+      <img class="phil-wm" src="images/merkaba.png" alt="">
       <span class="phil-num">04 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
       <h3 class="phil-title">White space is <em>not empty space</em></h3>
       <p class="phil-body">In healing work you know that silence holds as much power as sound. The same is true in design. <strong>Crowding your site out of fear of emptiness blocks the energy of what you're offering.</strong> Let your site breathe.</p>
@@ -747,10 +731,7 @@
     </div>
 
     <div class="phil-card rv rv-d1">
-      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
-        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
-        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
-      </svg>
+      <img class="phil-wm" src="images/merkaba.png" alt="">
       <span class="phil-num">05 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
       <h3 class="phil-title">Your colors are speaking when <em>you aren't</em></h3>
       <p class="phil-body">Color is vibration. <strong>Every color on your site is communicating something to your visitor's nervous system</strong> before their conscious mind catches up. Choose your palette the way you choose what to wear to a ceremony.</p>
@@ -758,10 +739,7 @@
     </div>
 
     <div class="phil-card rv rv-d2">
-      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
-        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
-        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
-      </svg>
+      <img class="phil-wm" src="images/merkaba.png" alt="">
       <span class="phil-num">06 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
       <h3 class="phil-title">Stock photos <em>break the spell</em></h3>
       <p class="phil-body">Generic smiling stock images are the digital equivalent of synthetic crystals. Your visitors can feel the inauthenticity. <strong>Real photos of you, your space, and your actual work create resonance.</strong></p>
@@ -918,12 +896,7 @@
 
 <!-- ═══════════ CTA BAND ═══════════ -->
 <section class="cta-band">
-  <svg class="cta-band-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="46"    stroke="#c9a86e" stroke-width="0.75"/>
-    <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="0.75" fill="none"/>
-    <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="0.75" fill="none"/>
-    <circle cx="50" cy="50" r="18"    stroke="#c9a86e" stroke-width="0.75"/>
-  </svg>
+  <img class="cta-band-mark" src="images/merkaba.png" alt="">
   <h2 class="cta-title rv">Your clients <em>feel</em> your site before they read it.</h2>
   <p class="cta-sub rv">Make sure what they feel is aligned with the medicine you carry.</p>
   <div class="rv rv-d1">
@@ -980,11 +953,7 @@
   <div class="footer-grid">
     <div>
       <div class="footer-brand-name">
-        <svg width="20" height="20" viewBox="0 0 100 100" fill="none">
-          <circle cx="50" cy="50" r="46"    stroke="#c9a86e" stroke-width="2" opacity="0.7"/>
-          <polygon points="50,8 91,72 9,72"  stroke="#c9a86e" stroke-width="2" fill="none"/>
-          <polygon points="50,92 9,28 91,28" stroke="#c9a86e" stroke-width="2" fill="none"/>
-        </svg>
+        <img class="footer-mark" src="images/merkaba.png" alt="">
         DMWN
       </div>
       <p class="footer-tagline">Conscious Web Design for energy workers, healers, and sacred feminine practitioners.</p>
