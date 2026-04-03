@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DMWN · Conscious Web Design for Energy Workers</title>
   <meta name="description" content="Premium custom web design for energy workers, healers, shamanic coaches, and sacred feminine practitioners. We build digital sanctuaries.">
+  <link rel="icon" type="image/png" href="images/merkaba.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -40,20 +41,21 @@
     }
 
     /* ── CURSOR ── */
-    .cursor-dot {
+    .cursor-merkaba {
       position: fixed; top: 0; left: 0; z-index: 9999;
-      pointer-events: none; width: 8px; height: 8px;
-      border-radius: 50%; background: var(--gold);
-      transform: translate(-50%,-50%);
-      transition: transform 0.08s ease;
+      pointer-events: none;
+      width: 36px; height: 36px;
+      transform: translate(-50%,-50%) rotate(0deg);
+      mix-blend-mode: screen;
+      transition: width 0.2s ease, height 0.2s ease;
+      animation: cursorSpin 12s linear infinite;
     }
-    .cursor-ring {
-      position: fixed; top: 0; left: 0; z-index: 9998;
-      pointer-events: none; width: 34px; height: 34px;
-      border-radius: 50%; border: 1px solid rgba(201,168,110,0.55);
-      transform: translate(-50%,-50%);
-      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease,
-                  left 0.08s ease, top 0.08s ease;
+    .cursor-merkaba.hovering {
+      width: 52px; height: 52px;
+    }
+    @keyframes cursorSpin {
+      from { transform: translate(-50%,-50%) rotate(0deg); }
+      to   { transform: translate(-50%,-50%) rotate(360deg); }
     }
 
     /* ── NOISE OVERLAY ── */
@@ -909,8 +911,7 @@
 <body>
 
 <!-- CURSOR -->
-<div class="cursor-dot"  id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<img class="cursor-merkaba" id="cursorMerkaba" src="images/merkaba.png" alt="">
 
 <!-- ═══════════ NAV ═══════════ -->
 <nav class="nav" id="mainNav">
@@ -1392,27 +1393,14 @@
 
 <script>
 /* ── CURSOR ── */
-const dot  = document.getElementById('cursorDot');
-const ring = document.getElementById('cursorRing');
-let mx = 0, my = 0;
+const cursorEl = document.getElementById('cursorMerkaba');
 document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  dot.style.left  = mx + 'px';
-  dot.style.top   = my + 'px';
-  ring.style.left = mx + 'px';
-  ring.style.top  = my + 'px';
+  cursorEl.style.left = e.clientX + 'px';
+  cursorEl.style.top  = e.clientY + 'px';
 });
-document.querySelectorAll('a, button, .port-card, .phil-card, .svc-card').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    ring.style.width  = '54px';
-    ring.style.height = '54px';
-    ring.style.borderColor = 'rgba(201,168,110,0.9)';
-  });
-  el.addEventListener('mouseleave', () => {
-    ring.style.width  = '34px';
-    ring.style.height = '34px';
-    ring.style.borderColor = 'rgba(201,168,110,0.55)';
-  });
+document.querySelectorAll('a, button, .port-card, .oracle-card, .svc-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursorEl.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => cursorEl.classList.remove('hovering'));
 });
 
 /* ── SCROLL REVEAL ── */
