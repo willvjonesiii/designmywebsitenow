@@ -295,12 +295,15 @@
     .deck-pip:nth-child(3) { transform: rotate(2deg); }
     .deck-pile.dealt-out .deck-pip { opacity: 0; transform: scale(0.8); }
 
-    /* Row of 3×2 oracle cards */
+    /* Row of 3×2 oracle cards — constrained width keeps cards portrait and both rows on screen */
     .oracle-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: clamp(1rem, 2vw, 1.75rem);
+      gap: clamp(0.75rem, 1.5vw, 1.25rem);
       perspective: 1400px;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Each card — 3:4 ratio, uniform across all 6 */
