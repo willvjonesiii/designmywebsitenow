@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeFraming — See It On Your Wall Before You Buy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0A0A0A;
+      --black-soft: #1A1A1A;
+      --black-card: #141414;
+      --off-white: #F5F4F0;
+      --off-white-dark: #E8E7E3;
+      --white: #FFFFFF;
+      --gray-100: #F0EFEB;
+      --gray-200: #D8D7D3;
+      --gray-400: #999894;
+      --gray-500: #6B6A66;
+      --gray-700: #3A3A38;
+      --accent: #FFFFFF;
+      --font-body: 'Inter', sans-serif;
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --max-w: 1280px;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition: 0.3s var(--ease);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--off-white);
+      color: var(--black);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--black); color: var(--white); }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2.5rem; }
+
+    /* ── Nav ──────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%;
+      z-index: 9000;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0.9rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+    .nav-logo span { font-weight: 300; }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none; align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--black);
+      background: var(--white);
+      border: none;
+      padding: 0.55rem 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .nav-cta:hover { background: var(--off-white); }
+
+    /* ── Hero — Dark Block ────────────────────────── */
+    .hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 10rem 0 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%; height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--gray-500);
+    }
+    .hero h1 {
+      font-family: var(--font-body);
+      font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 .italic-accent {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .hero-sub {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--gray-400);
+      max-width: 440px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; align-items: center;
+    }
+    .btn-white {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--black);
+      background: var(--white);
+      border: none;
+      padding: 0.9rem 2.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-white:hover {
+      background: var(--off-white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255,255,255,0.1);
+    }
+    .btn-outline-white {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--white);
+      background: transparent;
+      border: 1.5px solid var(--gray-700);
+      padding: 0.85rem 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-outline-white:hover {
+      border-color: var(--white);
+    }
+
+    /* Hero — Mini frame preview */
+    .hero-preview {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: var(--black-soft);
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-wall {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.5;
+      transition: opacity 0.6s ease;
+    }
+    .hero-frame-demo {
+      position: relative;
+      z-index: 2;
+      width: 45%;
+      aspect-ratio: 3/4;
+      background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500&q=80');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 12px solid #1A1A1A;
+      transition: border var(--transition), box-shadow var(--transition);
+    }
+    .hero-frame-label {
+      position: absolute;
+      bottom: 1.25rem; left: 1.25rem;
+      z-index: 3;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 1rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .hero-frame-label span {
+      color: var(--gray-400);
+      font-weight: 400;
+    }
+
+    /* ── Wall Visualizer — Off-white Block ─────────── */
+    .visualizer {
+      background: var(--off-white);
+      padding: 6rem 0;
+    }
+    .viz-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 0.75rem;
+    }
+    .section-heading {
+      font-family: var(--font-body);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 0.75rem;
+    }
+    .section-heading .serif {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .section-sub {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--gray-500);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* The actual visualizer tool */
+    .viz-tool {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+    }
+    .viz-main {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+    }
+    .viz-canvas {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      cursor: crosshair;
+      background: #DDD;
+    }
+    .viz-wall-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: opacity 0.5s ease;
+    }
+    .viz-wall-bg.active { opacity: 1; z-index: 1; }
+    .viz-wall-bg:not(.active) { opacity: 0; z-index: 0; }
+    .wall-living {
+      background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80');
+    }
+    .wall-bedroom {
+      background-image: url('https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&q=80');
+    }
+    .wall-office {
+      background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80');
+    }
+    .wall-gallery {
+      background-image: url('https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=1200&q=80');
+    }
+    .wall-minimal {
+      background-image: url('https://images.unsplash.com/photo-1598928506311-c55ez633a2d1?w=1200&q=80');
+      background-color: #E8E5E0;
+    }
+
+    /* Draggable frame on wall */
+    .viz-frame {
+      position: absolute;
+      z-index: 10;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      transition: border-color 0.3s ease, border-width 0.3s ease, box-shadow 0.3s ease;
+      cursor: grab;
+    }
+    .viz-frame:active { cursor: grabbing; }
+    .viz-frame-inner {
+      width: 240px;
+      aspect-ratio: 3/4;
+      background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Frame styles */
+    .viz-frame.frame-black {
+      border: 14px solid #1A1A1A;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35), inset 0 0 0 2px rgba(0,0,0,0.1);
+    }
+    .viz-frame.frame-white {
+      border: 14px solid #F0EFEB;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.25), inset 0 0 0 2px rgba(0,0,0,0.05);
+    }
+    .viz-frame.frame-oak {
+      border: 16px solid #A0845C;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3), inset 0 0 0 2px rgba(0,0,0,0.08);
+    }
+    .viz-frame.frame-gold {
+      border: 16px solid #C5A65A;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3), inset 0 0 0 3px rgba(197,166,90,0.3);
+    }
+    .viz-frame.frame-floating {
+      border: 4px solid transparent;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+      outline: 2px solid rgba(0,0,0,0.08);
+      outline-offset: 12px;
+    }
+
+    /* Mat styles */
+    .viz-frame.mat-on {
+      padding: 20px;
+      background: var(--white);
+    }
+    .viz-frame.mat-on.frame-floating {
+      padding: 14px;
+    }
+
+    /* Viz sidebar */
+    .viz-sidebar {
+      background: var(--black);
+      color: var(--white);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      overflow-y: auto;
+    }
+    .viz-sidebar-section h4 {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Wall selector */
+    .wall-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+    .wall-thumb {
+      aspect-ratio: 16/10;
+      background-size: cover;
+      background-position: center;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+      opacity: 0.5;
+    }
+    .wall-thumb:hover { opacity: 0.8; }
+    .wall-thumb.active {
+      border-color: var(--white);
+      opacity: 1;
+    }
+    .wall-thumb span {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.7);
+      font-size: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.35rem;
+      text-align: center;
+    }
+    .wt-living { background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=200&q=60'); }
+    .wt-bedroom { background-image: url('https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=200&q=60'); }
+    .wt-office { background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&q=60'); }
+    .wt-gallery { background-image: url('https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=200&q=60'); }
+    .wt-minimal { background-color: #E8E5E0; }
+
+    /* Frame selector */
+    .frame-options {
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .frame-opt {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.55rem 0.65rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+      transition: all var(--transition);
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-body);
+      text-align: left;
+      width: 100%;
+    }
+    .frame-opt:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.03); }
+    .frame-opt.active { border-color: var(--white); background: rgba(255,255,255,0.06); }
+    .frame-swatch {
+      width: 28px; height: 28px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .frame-swatch.fs-black { background: #1A1A1A; }
+    .frame-swatch.fs-white { background: #F0EFEB; }
+    .frame-swatch.fs-oak { background: #A0845C; }
+    .frame-swatch.fs-gold { background: #C5A65A; }
+    .frame-swatch.fs-floating { background: transparent; border: 2px solid var(--gray-500); }
+    .frame-opt-text {
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .frame-opt-text span {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 400;
+      color: var(--gray-500);
+    }
+
+    /* Mat toggle */
+    .mat-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .mat-toggle label {
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+    .toggle-switch {
+      width: 42px; height: 22px;
+      background: var(--gray-700);
+      border-radius: 100px;
+      position: relative;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .toggle-switch.on { background: var(--white); }
+    .toggle-switch .toggle-dot {
+      width: 16px; height: 16px;
+      background: var(--black);
+      border-radius: 50%;
+      position: absolute;
+      top: 3px; left: 3px;
+      transition: left var(--transition);
+    }
+    .toggle-switch.on .toggle-dot { left: 23px; }
+
+    /* Size selector */
+    .size-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+    }
+    .size-opt {
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: all var(--transition);
+      background: transparent;
+      color: var(--gray-400);
+      font-family: var(--font-body);
+    }
+    .size-opt:hover { border-color: rgba(255,255,255,0.2); color: var(--white); }
+    .size-opt.active { border-color: var(--white); color: var(--white); background: rgba(255,255,255,0.06); }
+
+    .viz-tool-cta {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--black);
+      background: var(--white);
+      border: none;
+      padding: 0.8rem;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .viz-tool-cta:hover { background: var(--off-white); }
+
+    /* Viz instruction overlay */
+    .viz-instruction {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      z-index: 15;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 0.85rem;
+      font-size: 0.62rem;
+      font-weight: 600;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      pointer-events: none;
+    }
+
+    /* ── How It Works — Black Block ───────────────── */
+    .how-section {
+      background: var(--black);
+      color: var(--white);
+      padding: 6rem 0;
+    }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 3rem;
+    }
+    .how-step {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+    }
+    .how-step:last-child { border-right: none; }
+    .how-num {
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.06);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+    }
+    .how-step h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .how-step p {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--gray-400);
+      line-height: 1.65;
+    }
+
+    /* ── Services — Off-white Block ───────────────── */
+    .services-section {
+      background: var(--off-white);
+      padding: 6rem 0;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .svc-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    .svc-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+    .svc-img {
+      width: 100%;
+      aspect-ratio: 3/2;
+      position: relative;
+      overflow: hidden;
+    }
+    .svc-img-fill {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transform 0.6s var(--ease);
+    }
+    .svc-card:hover .svc-img-fill { transform: scale(1.05); }
+    .svc-img-fill.sv1 { background-image: url('https://images.unsplash.com/photo-1579541814924-49fef17c5be5?w=700&q=80'); }
+    .svc-img-fill.sv2 { background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=700&q=80'); }
+        .service-img-fill.s3 { background-image: url('https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=700&q=80');
+    }
+    .svc-body {
+      padding: 1.5rem;
+    }
+    .svc-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.4rem;
+    }
+    .svc-body p {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--gray-500);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+    .svc-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--gray-200);
+    }
+    .svc-price {
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+    .svc-price span {
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .svc-arrow {
+      width: 36px; height: 36px;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .svc-arrow:hover { background: var(--gray-700); }
+
+    /* ── Stats — Black Block ──────────────────────── */
+    .stats-section {
+      background: var(--black);
+      color: var(--white);
+      padding: 4rem 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 2rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item h3 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .stat-item p {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* ── Testimonials — Off-white Block ────────────── */
+    .testimonials-section {
+      background: var(--off-white);
+      padding: 6rem 0;
+    }
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .test-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 2rem;
+      transition: all var(--transition);
+    }
+    .test-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    }
+    .test-stars {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+      color: var(--black);
+    }
+    .test-card blockquote {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--gray-500);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+    .test-author {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .test-avatar {
+      width: 36px; height: 36px;
+      background: var(--black);
+      color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700;
+    }
+    .test-author-info h5 { font-size: 0.82rem; font-weight: 600; }
+    .test-author-info span { font-size: 0.68rem; color: var(--gray-400); }
+
+    /* ── CTA — Black Block ────────────────────────── */
+    .cta-section {
+      background: var(--black);
+      color: var(--white);
+      padding: 6rem 0;
+    }
+    .cta-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .cta-inner h2 {
+      font-family: var(--font-body);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+    .cta-inner h2 .serif {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .cta-inner p {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--gray-400);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+      max-width: 420px;
+    }
+    .cta-form-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2.5rem;
+    }
+    .cta-form-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+    }
+    .form-field { margin-bottom: 0.75rem; }
+    .form-field label {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: var(--white);
+      outline: none;
+      transition: border var(--transition);
+    }
+    .form-field input:focus,
+    .form-field select:focus { border-color: var(--white); }
+    .form-field input::placeholder { color: var(--gray-700); }
+    .form-field select { color: var(--gray-500); }
+    .form-field select option { background: var(--black); color: var(--white); }
+    .btn-form-submit {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--black);
+      background: var(--white);
+      border: none;
+      padding: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: all var(--transition);
+    }
+    .btn-form-submit:hover { background: var(--off-white); }
+
+    /* ── Footer — Black ───────────────────────────── */
+    footer {
+      background: var(--black-soft);
+      color: var(--white);
+      padding: 4rem 0 2rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .footer-brand h3 span { font-weight: 300; }
+    .footer-brand p {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--gray-500);
+      line-height: 1.7;
+      max-width: 260px;
+    }
+    .footer-col h4 {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-700);
+      margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--gray-500);
+      text-decoration: none;
+      padding: 0.3rem 0;
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p {
+      font-size: 0.65rem;
+      color: var(--gray-700);
+    }
+
+    /* ── Responsive ───────────────────────────────── */
+    @media (max-width: 1100px) {
+      .viz-main { grid-template-columns: 1fr; }
+      .viz-sidebar { flex-direction: row; flex-wrap: wrap; padding: 1.5rem; }
+      .viz-sidebar-section { flex: 1; min-width: 200px; }
+      .cta-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-preview { max-width: 100%; aspect-ratio: 16/10; }
+      .how-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-step { border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .how-step:nth-child(2) { border-right: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .test-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 7rem 0 3rem; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .how-grid { grid-template-columns: 1fr; }
+      .how-step { border-right: none; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-item { border-right: none; }
+      .wall-options { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Nav ─────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">WE<span>FRAMING</span></a>
+      <ul class="nav-links">
+        <li><a href="#">Visualizer</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Pricing</a></li>
+      </ul>
+      <div style="display:flex; gap:0.6rem; align-items:center;">
+        <a href="#" style="font-size:0.78rem; font-weight:500; color:var(--gray-400); text-decoration:none; cursor:pointer;">Log In</a>
+        <button class="nav-cta">Start Your Frame</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Hero — Black Block ──────────────────────── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-eyebrow">Custom Framing, Reimagined</div>
+          <h1>SEE IT ON YOUR WALL <span class="italic-accent">before</span> YOU BUY</h1>
+          <p class="hero-sub">The first framing service with real-time wall visualization. Preview your art in your space, choose your frame, and we'll deliver it ready to hang.</p>
+          <div class="hero-actions">
+            <button class="btn-white">Try The Visualizer →</button>
+            <button class="btn-outline-white">View Our Work</button>
+          </div>
+        </div>
+        <div class="hero-preview">
+          <div class="hero-wall"></div>
+          <div class="hero-frame-demo"></div>
+          <div class="hero-frame-label">Live Preview <span>· Drag to Reposition</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Wall Visualizer — Off-white Block ────────── -->
+  <section class="visualizer" id="visualizer">
+    <div class="container">
+      <div class="viz-header">
+        <p class="section-eyebrow">Interactive Visualizer</p>
+        <h2 class="section-heading">YOUR ART. YOUR WALL. <span class="serif">In real time.</span></h2>
+        <p class="section-sub">Choose a room, pick your frame style, and see exactly how it'll look — before we build a single thing.</p>
+      </div>
+      <div class="viz-tool">
+        <div class="viz-main">
+          <div class="viz-canvas" id="vizCanvas">
+            <div class="viz-instruction">↕ Drag frame to reposition on wall</div>
+            <div class="viz-wall-bg wall-living active" data-wall="living"></div>
+            <div class="viz-wall-bg wall-bedroom" data-wall="bedroom"></div>
+            <div class="viz-wall-bg wall-office" data-wall="office"></div>
+            <div class="viz-wall-bg wall-gallery" data-wall="gallery"></div>
+            <div class="viz-wall-bg wall-minimal" data-wall="minimal"></div>
+            <div class="viz-frame frame-black" id="vizFrame">
+              <div class="viz-frame-inner" id="vizFrameInner"></div>
+            </div>
+          </div>
+          <div class="viz-sidebar">
+            <div class="viz-sidebar-section">
+              <h4>Choose Room</h4>
+              <div class="wall-options">
+                <div class="wall-thumb wt-living active" data-wall="living"><span>Living</span></div>
+                <div class="wall-thumb wt-bedroom" data-wall="bedroom"><span>Bedroom</span></div>
+                <div class="wall-thumb wt-office" data-wall="office"><span>Office</span></div>
+                <div class="wall-thumb wt-gallery" data-wall="gallery"><span>Gallery</span></div>
+                <div class="wall-thumb wt-minimal" data-wall="minimal"><span>Minimal</span></div>
+              </div>
+            </div>
+            <div class="viz-sidebar-section">
+              <h4>Frame Style</h4>
+              <div class="frame-options">
+                <button class="frame-opt active" data-frame="frame-black">
+                  <div class="frame-swatch fs-black"></div>
+                  <div class="frame-opt-text">Classic Black<span>Matte finish · 14mm</span></div>
+                </button>
+                <button class="frame-opt" data-frame="frame-white">
+                  <div class="frame-swatch fs-white"></div>
+                  <div class="frame-opt-text">Gallery White<span>Semi-gloss · 14mm</span></div>
+                </button>
+                <button class="frame-opt" data-frame="frame-oak">
+                  <div class="frame-swatch fs-oak"></div>
+                  <div class="frame-opt-text">Natural Oak<span>Wood grain · 16mm</span></div>
+                </button>
+                <button class="frame-opt" data-frame="frame-gold">
+                  <div class="frame-swatch fs-gold"></div>
+                  <div class="frame-opt-text">Antique Gold<span>Gilded · 16mm</span></div>
+                </button>
+                <button class="frame-opt" data-frame="frame-floating">
+                  <div class="frame-swatch fs-floating"></div>
+                  <div class="frame-opt-text">Floating<span>Borderless · 4mm gap</span></div>
+                </button>
+              </div>
+            </div>
+            <div class="viz-sidebar-section">
+              <h4>Mat Board</h4>
+              <div class="mat-toggle">
+                <label>White Mat</label>
+                <div class="toggle-switch" id="matToggle">
+                  <div class="toggle-dot"></div>
+                </div>
+              </div>
+            </div>
+            <div class="viz-sidebar-section">
+              <h4>Frame Size</h4>
+              <div class="size-options">
+                <button class="size-opt" data-size="160">8×10"</button>
+                <button class="size-opt" data-size="200">16×20"</button>
+                <button class="size-opt active" data-size="240">24×36"</button>
+                <button class="size-opt" data-size="300">30×40"</button>
+                <button class="size-opt" data-size="360">36×48"</button>
+              </div>
+            </div>
+            <div class="viz-sidebar-section" style="flex-basis:100%;">
+              <button class="viz-tool-cta">Order This Frame →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── How It Works — Black Block ──────────────── -->
+  <section class="how-section">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:1rem;">
+        <p class="section-eyebrow" style="color:var(--gray-500);">The Process</p>
+        <h2 class="section-heading" style="color:var(--white);">FOUR STEPS TO <span class="serif">perfection</span></h2>
+      </div>
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="how-num">01</div>
+          <h3>Upload</h3>
+          <p>Snap a photo of your art or upload a file. We accept any format, any size.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">02</div>
+          <h3>Visualize</h3>
+          <p>Use our wall visualizer to see your piece framed in your space — before committing.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">03</div>
+          <h3>Customize</h3>
+          <p>Choose frame, mat, glass, and size. Every option is museum-quality and archival-grade.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">04</div>
+          <h3>Receive</h3>
+          <p>Handcrafted and shipped in protective packaging. Arrives ready to hang in 3–5 days.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Services — Off-white Block ──────────────── -->
+  <section class="services-section">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:3rem;">
+        <p class="section-eyebrow">What We Frame</p>
+        <h2 class="section-heading">EVERY PIECE <span class="serif">deserves it</span></h2>
+      </div>
+      <div class="services-grid">
+        <div class="svc-card">
+          <div class="svc-img"><div class="svc-img-fill sv1"></div></div>
+          <div class="svc-body">
+            <h3>Custom Art Framing</h3>
+            <p>Museum-quality framing for paintings, prints, and photographs with acid-free matting and UV glass.</p>
+            <div class="svc-footer">
+              <div class="svc-price">$89 <span>starting</span></div>
+              <button class="svc-arrow">→</button>
+            </div>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-img"><div class="svc-img-fill sv2"></div></div>
+          <div class="svc-body">
+            <h3>Gallery Wall Design</h3>
+            <p>We design your complete gallery wall — frames, layout, spacing — delivered as a ready-to-install kit.</p>
+            <div class="svc-footer">
+              <div class="svc-price">$249 <span>starting</span></div>
+              <button class="svc-arrow">→</button>
+            </div>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-img"><div class="svc-img-fill sv3"></div></div>
+          <div class="svc-body">
+            <h3>Shadow Boxes</h3>
+            <p>Preserve jerseys, medals, and memorabilia in handcrafted shadow boxes with archival materials.</p>
+            <div class="svc-footer">
+              <div class="svc-price">$159 <span>starting</span></div>
+              <button class="svc-arrow">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Stats — Black Block ─────────────────────── -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item"><h3>12,500+</h3><p>Frames crafted</p></div>
+        <div class="stat-item"><h3>4.9 ★</h3><p>Customer rating</p></div>
+        <div class="stat-item"><h3>48hr</h3><p>Avg turnaround</p></div>
+        <div class="stat-item"><h3>100%</h3><p>Guarantee</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Testimonials — Off-white Block ──────────── -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div style="text-align:center;">
+        <p class="section-eyebrow">What People Say</p>
+        <h2 class="section-heading">DON'T TAKE OUR <span class="serif">word for it</span></h2>
+      </div>
+      <div class="test-grid">
+        <div class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <blockquote>"The wall visualizer sold me. I could see exactly how my print would look above my couch before I ordered. The finished frame was even better in person."</blockquote>
+          <div class="test-author">
+            <div class="test-avatar">SR</div>
+            <div class="test-author-info"><h5>Sarah R.</h5><span>Interior Designer · New York</span></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <blockquote>"I've used other online framers. This is the first one where the end result actually matched what I expected. The preview tool is a game-changer."</blockquote>
+          <div class="test-author">
+            <div class="test-avatar">MK</div>
+            <div class="test-author-info"><h5>Michael K.</h5><span>Art Collector · Chicago</span></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">★★★★★</div>
+          <blockquote>"Ordered 8 frames for our office rebrand. Tried every option in the visualizer first. Delivered in 5 days. Perfect quality. Will use again."</blockquote>
+          <div class="test-author">
+            <div class="test-avatar">LP</div>
+            <div class="test-author-info"><h5>Lisa P.</h5><span>Creative Director · Austin</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA — Black Block ───────────────────────── -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner">
+        <div>
+          <p class="section-eyebrow" style="color:var(--gray-500);">Ready to Start?</p>
+          <h2>TURN YOUR WALLS INTO A <span class="serif">gallery</span></h2>
+          <p>Upload your piece, preview it on your wall, choose your frame. Free shipping over $150. 100% satisfaction guaranteed.</p>
+          <button class="btn-white">Try The Visualizer →</button>
+        </div>
+        <div class="cta-form-card">
+          <h3>Get a Free Quote</h3>
+          <div class="form-field">
+            <label>Name</label>
+            <input type="text" placeholder="Jane Smith" disabled />
+          </div>
+          <div class="form-field">
+            <label>Email</label>
+            <input type="email" placeholder="jane@example.com" disabled />
+          </div>
+          <div class="form-field">
+            <label>What are you framing?</label>
+            <select disabled>
+              <option>Select a category</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Size</label>
+            <input type="text" placeholder='e.g. 24" × 36"' disabled />
+          </div>
+          <button class="btn-form-submit">Get My Free Quote</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ──────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>WE<span>FRAMING</span></h3>
+          <p>Museum-quality custom framing with real-time wall visualization. See it before you buy it.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="#">Custom Framing</a>
+          <a href="#">Gallery Walls</a>
+          <a href="#">Shadow Boxes</a>
+          <a href="#">Canvas Stretching</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Process</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="#">Help Center</a>
+          <a href="#">Shipping</a>
+          <a href="#">Returns</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 WeFraming. All rights reserved.</p>
+        <p>Design by [Your Studio Name]</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── Visualizer Engine ───────────────────────── -->
+  <script>
+    (() => {
+      // ── Nav scroll ──
+      const nav = document.querySelector('nav');
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+      }, { passive: true });
+
+      // ── Wall switcher ──
+      const wallThumbs = document.querySelectorAll('.wall-thumb');
+      const wallBgs = document.querySelectorAll('.viz-wall-bg');
+
+      wallThumbs.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          const wall = thumb.dataset.wall;
+          wallThumbs.forEach(t => t.classList.remove('active'));
+          thumb.classList.add('active');
+          wallBgs.forEach(bg => {
+            bg.classList.toggle('active', bg.dataset.wall === wall);
+          });
+        });
+      });
+
+      // ── Frame style switcher ──
+      const frameOpts = document.querySelectorAll('.frame-opt');
+      const vizFrame = document.getElementById('vizFrame');
+      let currentFrame = 'frame-black';
+
+      frameOpts.forEach(opt => {
+        opt.addEventListener('click', () => {
+          frameOpts.forEach(o => o.classList.remove('active'));
+          opt.classList.add('active');
+          vizFrame.classList.remove('frame-black', 'frame-white', 'frame-oak', 'frame-gold', 'frame-floating');
+          currentFrame = opt.dataset.frame;
+          vizFrame.classList.add(currentFrame);
+        });
+      });
+
+      // ── Mat toggle ──
+      const matToggle = document.getElementById('matToggle');
+      let matOn = false;
+      matToggle.addEventListener('click', () => {
+        matOn = !matOn;
+        matToggle.classList.toggle('on', matOn);
+        vizFrame.classList.toggle('mat-on', matOn);
+      });
+
+      // ── Size switcher ──
+      const sizeOpts = document.querySelectorAll('.size-opt');
+      const frameInner = document.getElementById('vizFrameInner');
+
+      sizeOpts.forEach(opt => {
+        opt.addEventListener('click', () => {
+          sizeOpts.forEach(o => o.classList.remove('active'));
+          opt.classList.add('active');
+          const size = parseInt(opt.dataset.size);
+          frameInner.style.width = size + 'px';
+        });
+      });
+
+      // ── Drag frame on wall ──
+      let isDragging = false;
+      let dragOffsetX = 0;
+      let dragOffsetY = 0;
+
+      vizFrame.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        const rect = vizFrame.getBoundingClientRect();
+        dragOffsetX = e.clientX - rect.left - rect.width / 2;
+        dragOffsetY = e.clientY - rect.top - rect.height / 2;
+        vizFrame.style.transition = 'none';
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const canvas = document.getElementById('vizCanvas');
+        const canvasRect = canvas.getBoundingClientRect();
+        const x = e.clientX - canvasRect.left - dragOffsetX;
+        const y = e.clientY - canvasRect.top - dragOffsetY;
+        const pctX = (x / canvasRect.width) * 100;
+        const pctY = (y / canvasRect.height) * 100;
+        vizFrame.style.left = Math.max(10, Math.min(90, pctX)) + '%';
+        vizFrame.style.top = Math.max(10, Math.min(90, pctY)) + '%';
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          vizFrame.style.transition = '';
+        }
+      });
+
+      // ── Touch support for mobile ──
+      vizFrame.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        const touch = e.touches[0];
+        const rect = vizFrame.getBoundingClientRect();
+        dragOffsetX = touch.clientX - rect.left - rect.width / 2;
+        dragOffsetY = touch.clientY - rect.top - rect.height / 2;
+        vizFrame.style.transition = 'none';
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const touch = e.touches[0];
+        const canvas = document.getElementById('vizCanvas');
+        const canvasRect = canvas.getBoundingClientRect();
+        const x = touch.clientX - canvasRect.left - dragOffsetX;
+        const y = touch.clientY - canvasRect.top - dragOffsetY;
+        const pctX = (x / canvasRect.width) * 100;
+        const pctY = (y / canvasRect.height) * 100;
+        vizFrame.style.left = Math.max(10, Math.min(90, pctX)) + '%';
+        vizFrame.style.top = Math.max(10, Math.min(90, pctY)) + '%';
+      }, { passive: false });
+
+      document.addEventListener('touchend', () => {
+        if (isDragging) {
+          isDragging = false;
+          vizFrame.style.transition = '';
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

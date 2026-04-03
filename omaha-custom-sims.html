@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omaha Custom Sims — Premium Golf Simulator Design & Installation | Omaha, NE</title>
+<meta name="description" content="Custom-designed indoor golf simulators built and installed by Omaha's dedicated specialists. From concept to first swing — free consultations available.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080c18;--bg-alt:#0d1225;
+  --neon:#00e676;--neon-hover:#69f0ae;--neon-glow:rgba(0,230,118,.25);--neon-subtle:rgba(0,230,118,.08);
+  --glass:rgba(16,24,48,.45);--glass-border:rgba(0,230,118,.12);
+  --white:#ffffff;--text-primary:#e2e8f5;--text-secondary:#8892a8;--text-muted:#505a6e;
+  --display:'Syne',sans-serif;--body:'Jost',sans-serif;
+  --radius:16px;--radius-sm:10px;--radius-xs:6px;
+  --shadow:0 8px 32px rgba(0,0,0,.35);--shadow-glow:0 0 30px rgba(0,230,118,.15);
+  --transition:.35s cubic-bezier(.16,1,.3,1);
+  --nav-h:62px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}a{text-decoration:none;color:inherit}ul{list-style:none}
+section[id]{scroll-margin-top:80px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--neon);outline-offset:2px}
+
+/* GOLF BALL CURSOR — desktop only, disabled on touch */
+@media(pointer:fine){
+  html,body{
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='13' cy='13' r='11' fill='white' stroke='%23ddd' stroke-width='.5'/%3E%3Ccircle cx='9' cy='9' r='1.1' fill='%23d0d0d0'/%3E%3Ccircle cx='14' cy='8' r='1.1' fill='%23d0d0d0'/%3E%3Ccircle cx='11' cy='13' r='1.1' fill='%23d0d0d0'/%3E%3Ccircle cx='16' cy='12' r='1.1' fill='%23d0d0d0'/%3E%3Ccircle cx='10' cy='17' r='1.1' fill='%23d0d0d0'/%3E%3Ccircle cx='15' cy='16' r='1.1' fill='%23d0d0d0'/%3E%3C/svg%3E") 13 13,auto;
+  }
+  a,button,[role="button"]{
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='13' cy='13' r='11' fill='%2300e676' stroke='%2300c864' stroke-width='.5'/%3E%3Ccircle cx='9' cy='9' r='1.1' fill='%2300c864'/%3E%3Ccircle cx='14' cy='8' r='1.1' fill='%2300c864'/%3E%3Ccircle cx='11' cy='13' r='1.1' fill='%2300c864'/%3E%3Ccircle cx='16' cy='12' r='1.1' fill='%2300c864'/%3E%3Ccircle cx='10' cy='17' r='1.1' fill='%2300c864'/%3E%3Ccircle cx='15' cy='16' r='1.1' fill='%2300c864'/%3E%3C/svg%3E") 13 13,pointer;
+  }
+}
+
+body{font-family:var(--body);font-weight:400;color:var(--text-primary);background:var(--bg);line-height:1.7;overflow-x:hidden}
+
+.eyebrow{font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neon);margin-bottom:1rem}
+.container{max-width:1240px;margin:0 auto;padding:0 2rem}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-heading{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--white);margin-bottom:.75rem;letter-spacing:-.01em}
+.section-sub{font-size:1.02rem;color:var(--text-secondary);max-width:560px;margin:0 auto;line-height:1.7}
+
+/* PRELOADER */
+.preloader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .7s,visibility .7s}
+.preloader.loaded{opacity:0;visibility:hidden;pointer-events:none}
+.preloader-text{font-family:var(--display);font-size:clamp(1.2rem,4vw,1.6rem);font-weight:800;color:var(--white);letter-spacing:.1em;text-transform:uppercase;opacity:0;animation:preIn .8s ease forwards .1s}
+.preloader-text span{color:var(--neon)}
+@keyframes preIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ===== NAV ===== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-h);display:flex;align-items:center;
+  background:rgba(8,12,24,.45);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(0,230,118,.08);
+  transition:all .4s;
+}
+.nav.scrolled{background:rgba(8,12,24,.96);box-shadow:0 0 20px rgba(0,0,0,.3)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;height:100%}
+.nav-logo{font-family:var(--display);font-size:1rem;font-weight:800;color:var(--white);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.nav-logo span{color:var(--neon)}
+.nav-links{display:flex;align-items:center;gap:1.75rem;margin-left:auto}
+.nav-links a{font-family:var(--body);font-size:.82rem;font-weight:500;color:var(--text-secondary);letter-spacing:.03em;white-space:nowrap;transition:color .3s;padding:.25rem 0}
+.nav-links a:hover{color:var(--neon)}
+.nav-cta{display:inline-flex;align-items:center;padding:.6rem 1.3rem;background:var(--neon);color:var(--bg)!important;font-weight:700!important;font-size:.75rem!important;letter-spacing:.08em;text-transform:uppercase;border-radius:var(--radius-xs);white-space:nowrap;flex-shrink:0;transition:all .3s;margin-left:.5rem}
+.nav-cta:hover{background:var(--neon-hover);transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;-webkit-tap-highlight-color:transparent}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* MOBILE NAV PANEL */
+.mobile-menu{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;
+  background:rgba(8,12,24,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--glass-border);
+  padding:1.5rem 2rem 2rem;
+  transform:translateY(-100%);opacity:0;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .3s;
+  z-index:999;
+}
+.mobile-menu.open{transform:translateY(0);opacity:1}
+.mobile-menu a{
+  display:block;font-family:var(--body);font-size:1.05rem;font-weight:500;
+  color:var(--text-secondary);padding:.85rem 0;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  transition:color .3s;-webkit-tap-highlight-color:transparent;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover,.mobile-menu a:active{color:var(--neon)}
+.mobile-menu .mobile-cta{
+  display:block;text-align:center;margin-top:1rem;padding:1rem;
+  background:var(--neon);color:var(--bg);font-family:var(--display);
+  font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;
+  border-radius:var(--radius-xs);-webkit-tap-highlight-color:transparent;
+}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;display:flex;align-items:center;
+  min-height:100vh;min-height:100dvh;
+  overflow:hidden;background:var(--bg);
+  padding-top:calc(var(--nav-h) + 2rem);
+  padding-bottom:5rem;
+}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.35;animation:heroZoom 22s ease-out forwards}
+@keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(110deg,rgba(8,12,24,.96) 0%,rgba(8,12,24,.8) 45%,rgba(8,12,24,.4) 75%,rgba(8,12,24,.2) 100%);z-index:1}
+.hero-grid-bg{position:absolute;inset:0;z-index:2;background-image:linear-gradient(rgba(0,230,118,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,230,118,.035) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-fade{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to bottom,transparent,var(--bg));z-index:3}
+.hero-content{position:relative;z-index:5;max-width:700px}
+.hero-eyebrow{font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--neon);margin-bottom:1.25rem;opacity:0;animation:fu .9s ease forwards .2s;display:flex;align-items:center;gap:.75rem}
+.hero-eyebrow::before{content:'';width:32px;height:2px;background:var(--neon)}
+.hero-heading{font-family:var(--display);font-size:clamp(2.2rem,5.2vw,4.2rem);font-weight:800;color:var(--white);line-height:1.05;letter-spacing:-.02em;margin-bottom:1.25rem;opacity:0;animation:fu .9s ease forwards .35s;text-transform:uppercase}
+.hero-heading .accent{color:var(--neon)}
+.hero-sub{font-family:var(--body);font-size:clamp(.95rem,2.5vw,1.1rem);font-weight:300;color:var(--text-secondary);line-height:1.75;max-width:500px;margin-bottom:2rem;opacity:0;animation:fu .9s ease forwards .55s}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fu .9s ease forwards .75s}
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+.hero-club-wrap{
+  position:absolute;right:8%;bottom:10%;z-index:4;
+  width:140px;height:420px;transform-origin:70px 20px;
+  transform:rotate(-15deg);
+  transition:transform .25s cubic-bezier(.22,1,.36,1);
+  opacity:.2;pointer-events:none;
+}
+
+/* BUTTONS */
+.btn-neon{display:inline-flex;align-items:center;justify-content:center;padding:.9rem 2.2rem;background:var(--neon);color:var(--bg);font-family:var(--display);font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:var(--radius-xs);white-space:nowrap;flex-shrink:0;transition:all .3s;min-height:48px;-webkit-tap-highlight-color:transparent}
+.btn-neon:hover{background:var(--neon-hover);transform:translateY(-2px);box-shadow:0 0 28px rgba(0,230,118,.35)}
+.btn-glass{display:inline-flex;align-items:center;justify-content:center;padding:.9rem 2.2rem;background:var(--glass);color:var(--white);font-family:var(--display);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--glass-border);border-radius:var(--radius-xs);backdrop-filter:blur(12px);white-space:nowrap;flex-shrink:0;transition:all .3s;min-height:48px;-webkit-tap-highlight-color:transparent}
+.btn-glass:hover{border-color:var(--neon);color:var(--neon);transform:translateY(-2px)}
+.btn-dark{display:inline-flex;align-items:center;justify-content:center;padding:1rem 2.5rem;background:var(--bg);color:var(--white);font-family:var(--display);font-weight:700;font-size:.84rem;letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:var(--radius-xs);white-space:nowrap;flex-shrink:0;transition:all .3s;min-height:48px;-webkit-tap-highlight-color:transparent}
+.btn-dark:hover{background:var(--bg-alt);transform:translateY(-2px);box-shadow:var(--shadow)}
+
+/* SCROLL INDICATOR */
+.scroll-ind{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.scroll-ind span{font-family:var(--display);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--text-muted)}
+.scroll-ind-line{width:1px;height:36px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
+.scroll-ind-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:50%;background:var(--neon);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%{top:-50%}100%{top:120%}}
+
+/* STATS */
+.stats{padding:4.5rem 0;background:var(--bg-alt);border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.stat-card{text-align:center;padding:2rem 1.25rem;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);backdrop-filter:blur(10px);transition:all var(--transition)}
+.stat-card:hover{border-color:var(--neon);box-shadow:var(--shadow-glow);transform:translateY(-4px)}
+.stat-icon{width:36px;height:36px;margin:0 auto 1rem}
+.stat-icon svg{width:100%;height:100%;stroke:var(--neon);stroke-width:1.5;fill:none}
+.stat-number{font-family:var(--display);font-size:clamp(1rem,2.5vw,1.25rem);font-weight:700;color:var(--white);margin-bottom:.3rem}
+.stat-label{font-size:.85rem;color:var(--text-secondary)}
+
+/* ABOUT */
+.about{padding:clamp(4rem,8vw,7rem) 0}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-img-wrap{position:relative;border-radius:var(--radius);overflow:hidden}
+.about-img-wrap img{width:100%;height:520px;object-fit:cover}
+.about-img-wrap::after{content:'';position:absolute;inset:0;border:1px solid var(--glass-border);border-radius:var(--radius);pointer-events:none}
+.about-badge{position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:var(--radius-sm);padding:1.25rem 1.5rem}
+.about-badge p{font-family:var(--body);font-style:italic;font-size:.95rem;color:var(--text-primary);line-height:1.6}
+.about-badge p em{color:var(--neon);font-weight:600;font-style:normal}
+.about-heading{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:1.5rem;text-transform:uppercase;letter-spacing:-.01em}
+.about-text p{font-size:1rem;color:var(--text-secondary);margin-bottom:1.25rem;line-height:1.8}
+.about-divider{width:48px;height:2px;background:var(--neon);margin:1.75rem 0;border-radius:2px}
+.about-creds{display:flex;flex-direction:column;gap:.6rem}
+.about-creds li{font-size:.92rem;color:var(--text-primary);font-weight:500;display:flex;align-items:center;gap:.7rem}
+.about-creds li::before{content:'';width:8px;height:8px;background:var(--neon);border-radius:50%;flex-shrink:0;box-shadow:0 0 8px var(--neon-glow)}
+
+/* PACKAGES */
+.packages{padding:clamp(4rem,8vw,7rem) 0;background:var(--bg-alt)}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:start}
+.pkg-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:2.5rem 2rem;backdrop-filter:blur(10px);transition:all var(--transition);position:relative;overflow:hidden}
+.pkg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--neon),transparent);opacity:0;transition:opacity .4s}
+.pkg-card:hover{transform:translateY(-6px);border-color:rgba(0,230,118,.25);box-shadow:var(--shadow-glow)}
+.pkg-card:hover::before{opacity:1}
+.pkg-card.featured{border-color:var(--neon);background:rgba(0,230,118,.04)}
+.pkg-card.featured::before{opacity:1}
+.pkg-badge{position:absolute;top:1.25rem;right:1.25rem;background:var(--neon);color:var(--bg);font-family:var(--display);font-weight:700;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .9rem;border-radius:20px;white-space:nowrap}
+.pkg-name{font-family:var(--display);font-size:1.35rem;font-weight:700;color:var(--white);margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.02em}
+.pkg-price{margin-bottom:1.5rem}
+.pkg-price strong{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.2rem);font-weight:800;color:var(--neon);display:block;margin-bottom:.15rem}
+.pkg-price span{font-size:.85rem;color:var(--text-muted)}
+.pkg-rule{width:100%;height:1px;background:var(--glass-border);margin-bottom:1.5rem}
+.pkg-features{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem}
+.pkg-features li{font-size:.9rem;color:var(--text-primary);display:flex;align-items:flex-start;gap:.65rem;line-height:1.5}
+.pkg-features li::before{content:'';width:16px;height:16px;flex-shrink:0;margin-top:3px;background:var(--neon);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat}
+.pkg-ideal{font-size:.84rem;color:var(--text-muted);font-style:italic;margin-bottom:1.75rem;line-height:1.6}
+.pkg-ideal strong{color:var(--text-primary);font-style:normal}
+.pkg-card .btn-neon,.pkg-card .btn-glass{width:100%;justify-content:center}
+.pkg-note{text-align:center;font-size:.88rem;color:var(--text-muted);margin-top:2.5rem;max-width:600px;margin-left:auto;margin-right:auto}
+.pkg-note a{color:var(--neon);font-weight:600;text-decoration:underline}
+
+/* TIMELINE */
+.process{padding:clamp(4rem,8vw,7rem) 0;background:var(--bg)}
+.process-top{text-align:center;margin-bottom:4rem}
+.timeline{position:relative;max-width:680px;margin:0 auto;padding-left:60px}
+.timeline-line{position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--neon),rgba(0,230,118,.1));border-radius:2px}
+.timeline-step{position:relative;padding-bottom:3rem}
+.timeline-step:last-child{padding-bottom:0}
+.timeline-dot{position:absolute;left:-60px;top:0;width:48px;height:48px;background:var(--glass);border:2px solid var(--neon);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:.85rem;color:var(--neon);box-shadow:0 0 20px rgba(0,230,118,.15);z-index:1}
+.timeline-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:1.75rem 2rem;backdrop-filter:blur(10px);transition:all var(--transition)}
+.timeline-card:hover{border-color:rgba(0,230,118,.25);box-shadow:var(--shadow-glow);transform:translateX(6px)}
+.timeline-title{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--white);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.03em}
+.timeline-text{font-size:.92rem;color:var(--text-secondary);line-height:1.7}
+
+/* WHY LOCAL */
+.why-local{padding:clamp(4rem,8vw,7rem) 0;background:var(--bg-alt)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.why-img-wrap{border-radius:var(--radius);overflow:hidden;position:relative}
+.why-img-wrap img{width:100%;height:480px;object-fit:cover}
+.why-img-wrap::after{content:'';position:absolute;inset:0;border:1px solid var(--glass-border);border-radius:var(--radius);pointer-events:none}
+.why-heading{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:2rem;text-transform:uppercase}
+.why-benefits{display:flex;flex-direction:column;gap:1.5rem}
+.why-benefit{display:flex;gap:1.15rem;align-items:flex-start;padding:1.25rem 1.5rem;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius-sm);backdrop-filter:blur(8px);transition:all var(--transition)}
+.why-benefit:hover{border-color:rgba(0,230,118,.25);box-shadow:var(--shadow-glow);transform:translateX(4px)}
+.why-benefit-icon{width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:.1rem}
+.why-benefit-icon svg{width:22px;height:22px;stroke:var(--neon);stroke-width:2;fill:none;filter:drop-shadow(0 0 6px rgba(0,230,118,.3))}
+.why-benefit-title{font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--white);margin-bottom:.2rem;text-transform:uppercase;letter-spacing:.03em}
+.why-benefit-text{font-size:.88rem;color:var(--text-secondary);line-height:1.65}
+
+/* GALLERY */
+.gallery{padding:clamp(4rem,8vw,7rem) 0;background:var(--bg)}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:260px;gap:1rem}
+.gallery-item{position:relative;border-radius:var(--radius-sm);overflow:hidden}
+.gallery-item:nth-child(1){grid-row:span 2}
+.gallery-item:nth-child(5){grid-column:span 2}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,filter .6s ease}
+.gallery-item:hover img{transform:scale(1.06);filter:brightness(.6)}
+.gallery-item::after{content:'';position:absolute;inset:0;border:1px solid var(--glass-border);border-radius:var(--radius-sm);pointer-events:none;z-index:2}
+.gallery-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,12,24,.85) 0%,transparent 50%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:1.25rem;z-index:1}
+.gallery-item:hover .gallery-item-overlay{opacity:1}
+.gallery-item-caption{font-family:var(--display);font-size:.82rem;font-weight:600;color:var(--white);text-transform:uppercase;letter-spacing:.06em}
+
+/* TESTIMONIALS */
+.testimonials{padding:clamp(4rem,8vw,7rem) 0;background:var(--bg-alt)}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.test-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:2.25rem;backdrop-filter:blur(10px);transition:all var(--transition);position:relative;overflow:hidden}
+.test-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--neon),transparent);opacity:.5}
+.test-card:hover{transform:translateY(-4px);border-color:rgba(0,230,118,.25);box-shadow:var(--shadow-glow)}
+.test-stars{display:flex;gap:.3rem;margin-bottom:1.25rem}
+.test-star{width:15px;height:15px;background:var(--neon);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.test-quote{font-family:var(--body);font-style:italic;font-size:1.02rem;color:var(--text-primary);line-height:1.7;margin-bottom:1.5rem}
+.test-rule{width:32px;height:2px;background:var(--neon);margin-bottom:1rem;border-radius:2px;box-shadow:0 0 8px var(--neon-glow)}
+.test-name{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--white);text-transform:uppercase;letter-spacing:.04em}
+.test-context{font-size:.8rem;color:var(--text-muted);margin-top:.2rem}
+
+/* CTA */
+.cta-band{padding:clamp(3.5rem,7vw,5.5rem) 0;background:linear-gradient(135deg,#003d20 0%,#00632f 40%,#00802d 100%);position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:50px 50px;pointer-events:none}
+.cta-inner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem;position:relative;z-index:1}
+.cta-heading{font-family:var(--display);font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:.5rem;text-transform:uppercase}
+.cta-sub{font-size:1rem;color:rgba(255,255,255,.7)}
+
+/* FOOTER */
+.footer{background:var(--bg);padding:4.5rem 0 2rem;border-top:1px solid rgba(255,255,255,.04)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:3rem;margin-bottom:3.5rem}
+.footer-brand-name{font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--white);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.06em}
+.footer-brand-name span{color:var(--neon)}
+.footer-brand-desc{font-size:.88rem;color:var(--text-secondary);line-height:1.7;margin-bottom:1.25rem;max-width:300px}
+.footer-trust{display:flex;gap:.65rem;flex-wrap:wrap}
+.footer-trust-badge{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--neon);padding:.35rem .7rem;border:1px solid var(--glass-border);border-radius:var(--radius-xs);white-space:nowrap;flex-shrink:0;font-family:var(--display)}
+.footer-heading{font-family:var(--display);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--white);margin-bottom:1.25rem}
+.footer-links{display:flex;flex-direction:column;gap:.6rem}
+.footer-links a{font-size:.88rem;color:var(--text-secondary);transition:color .3s;padding:.2rem 0;-webkit-tap-highlight-color:transparent}
+.footer-links a:hover{color:var(--neon)}
+.footer-contact-item{font-size:.88rem;color:var(--text-secondary);margin-bottom:.6rem;line-height:1.6}
+.footer-contact-item strong{color:var(--white);font-weight:500}
+.footer-contact-item a{color:var(--text-secondary);text-decoration:underline;text-decoration-color:rgba(255,255,255,.1)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:.8rem;color:var(--text-muted)}
+.footer-built{font-size:.7rem;color:var(--text-muted);padding:.3rem .65rem;border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-xs);font-family:var(--display);letter-spacing:.06em}
+
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+.rv-left{opacity:0;transform:translateX(-28px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+.rv-right{opacity:0;transform:translateX(28px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+.rv-scale{opacity:0;transform:scale(.96);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+.rv.on,.rv-left.on,.rv-right.on,.rv-scale.on{opacity:1;transform:none}
+
+/* ===== TABLET ===== */
+@media(max-width:1100px){
+  .nav-links{gap:1.25rem}
+  .nav-links a{font-size:.78rem}
+  .nav-cta{padding:.55rem 1rem;font-size:.72rem!important}
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:960px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .mobile-menu{display:block}
+
+  .hero{padding-top:calc(var(--nav-h) + 1.5rem);padding-bottom:4rem}
+  .hero-heading{font-size:clamp(2rem,8vw,3rem)}
+  .hero-club-wrap{display:none}
+  .scroll-ind{display:none}
+
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .about-img-wrap img{height:320px}
+  .about-badge{left:1rem;right:1rem;bottom:1rem;padding:1rem}
+  .pkg-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}
+  .pkg-card.featured{order:-1}
+  .timeline{padding-left:50px}
+  .timeline-dot{left:-50px;width:40px;height:40px;font-size:.75rem}
+  .timeline-card{padding:1.5rem}
+  .why-grid{grid-template-columns:1fr;gap:2.5rem}
+  .why-img-wrap img{height:300px}
+  .why-benefit{padding:1rem 1.25rem}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:200px}
+  .gallery-item:nth-child(1){grid-row:span 1}
+  .gallery-item:nth-child(5){grid-column:span 1}
+  .gallery-item-overlay{opacity:1}
+  .test-grid{grid-template-columns:1fr;max-width:520px;margin:0 auto}
+  .cta-inner{grid-template-columns:1fr;text-align:center}
+  .cta-inner .btn-dark{justify-self:center}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:600px){
+  .container{padding:0 1.25rem}
+  .hero{padding-top:calc(var(--nav-h) + 1rem);padding-bottom:3rem;min-height:auto}
+  .hero-eyebrow{font-size:.6rem;letter-spacing:.18em}
+  .hero-heading{font-size:clamp(1.8rem,9vw,2.6rem)}
+  .hero-sub{font-size:.95rem;margin-bottom:1.5rem}
+  .hero-btns{flex-direction:column;gap:.75rem}
+  .btn-neon,.btn-glass,.btn-dark{width:100%;justify-content:center;padding:.85rem 1.5rem}
+
+  .stats-grid{grid-template-columns:1fr;gap:.75rem}
+  .stat-card{padding:1.5rem 1rem}
+
+  .about-img-wrap img{height:260px}
+  .about-text p{font-size:.95rem}
+
+  .pkg-card{padding:2rem 1.5rem}
+  .pkg-price strong{font-size:1.8rem}
+
+  .timeline{padding-left:44px}
+  .timeline-dot{left:-44px;width:36px;height:36px;font-size:.7rem}
+  .timeline-card{padding:1.25rem 1.25rem}
+  .timeline-line{left:18px}
+
+  .why-img-wrap img{height:240px}
+  .why-benefit{flex-direction:column;gap:.75rem}
+  .why-benefit-icon{width:32px;height:32px}
+
+  .gallery-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto;grid-auto-rows:220px}
+
+  .test-card{padding:1.75rem}
+
+  .cta-heading{font-size:clamp(1.4rem,6vw,2rem)}
+  .cta-sub{font-size:.9rem}
+
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+}
+
+/* ===== VERY SMALL SCREENS ===== */
+@media(max-width:380px){
+  .container{padding:0 1rem}
+  .hero-heading{font-size:1.7rem}
+  .nav-logo{font-size:.85rem}
+  .pkg-card{padding:1.75rem 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-text">OMAHA CUSTOM <span>SIMS</span></div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">OMAHA CUSTOM <span>SIMS</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#packages">Packages</a>
+      <a href="#process">How It Works</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact" class="nav-cta">Get a Free Quote</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#packages" class="mobile-link">Packages</a>
+  <a href="#process" class="mobile-link">How It Works</a>
+  <a href="#gallery" class="mobile-link">Gallery</a>
+  <a href="#testimonials" class="mobile-link">Reviews</a>
+  <a href="#contact" class="mobile-cta mobile-link">Get a Free Quote</a>
+</div>
+
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?w=1920&auto=format&fit=crop&q=85" alt="Golf course — the experience Omaha Custom Sims brings indoors">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-fade"></div>
+
+  <div class="hero-club-wrap" id="heroClub">
+    <svg viewBox="0 0 140 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="shaft" x1="70" y1="45" x2="70" y2="340" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="rgba(255,255,255,.5)"/><stop offset="100%" stop-color="rgba(255,255,255,.8)"/></linearGradient></defs>
+      <rect x="63" y="0" width="14" height="55" rx="7" fill="rgba(255,255,255,.35)"/>
+      <line x1="70" y1="8" x2="70" y2="48" stroke="rgba(255,255,255,.15)" stroke-width="6" stroke-dasharray="3 4"/>
+      <rect x="67" y="55" width="6" height="280" rx="3" fill="url(#shaft)"/>
+      <path d="M48 330 L92 330 L97 355 Q97 380 75 388 L65 388 Q43 380 43 355 Z" fill="rgba(255,255,255,.7)"/>
+      <line x1="55" y1="342" x2="85" y2="342" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+      <line x1="53" y1="350" x2="87" y2="350" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+      <line x1="54" y1="358" x2="86" y2="358" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+      <line x1="56" y1="366" x2="84" y2="366" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <div class="container hero-content">
+    <div class="hero-eyebrow">Premium Golf Simulators — Omaha, NE</div>
+    <h1 class="hero-heading">Your Game.<br>Your Room.<br><span class="accent">Engineered.</span></h1>
+    <p class="hero-sub">Custom indoor golf simulators designed, built, and installed by Omaha's dedicated specialists. Tour-grade technology meets precision craftsmanship.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-neon">Get a Free Quote</a>
+      <a href="#gallery" class="btn-glass">View Our Builds</a>
+    </div>
+  </div>
+  <div class="scroll-ind"><span>Scroll</span><div class="scroll-ind-line"></div></div>
+</section>
+
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card rv" style="transition-delay:0ms">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="stat-number">100+ Simulators Installed</div>
+        <div class="stat-label">Across the Omaha metro</div>
+      </div>
+      <div class="stat-card rv" style="transition-delay:80ms">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="stat-number">Locally Owned</div>
+        <div class="stat-label">Omaha-based team, not a shipped kit</div>
+      </div>
+      <div class="stat-card rv" style="transition-delay:160ms">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="stat-number">Full Warranty</div>
+        <div class="stat-label">Parts & labor on every build</div>
+      </div>
+      <div class="stat-card rv" style="transition-delay:240ms">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="stat-number">5-Star Rated</div>
+        <div class="stat-label">Trusted by Omaha homeowners</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap rv-left">
+        <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=1200&auto=format&fit=crop&q=85" alt="Omaha Custom Sims installation">
+        <div class="about-badge"><p>"We don't ship boxes. We <em>build experiences</em>."</p></div>
+      </div>
+      <div class="rv-right">
+        <div class="eyebrow">About Us</div>
+        <h2 class="about-heading">Omaha's Dedicated<br>Simulator Specialists</h2>
+        <p class="about-text"><span style="color:var(--text-primary)">We're not a big-box retailer shipping you a kit.</span> Omaha Custom Sims is a locally owned design and installation company focused exclusively on premium indoor golf simulators. We serve Omaha, Elkhorn, Papillion, Bellevue, and the surrounding metro.</p>
+        <p class="about-text">Every project begins with an in-home consultation. We assess your space, discuss your goals, and design a system that fits your room, your game, and your budget — from basement builds to dedicated sim rooms and commercial setups.</p>
+        <div class="about-divider"></div>
+        <ul class="about-creds">
+          <li>Certified installer — Trackman, Foresight, Full Swing</li>
+          <li>Full design, build & installation service</li>
+          <li>Ongoing local support & warranty</li>
+          <li>Serving the greater Omaha metro area</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="packages" id="packages">
+  <div class="container">
+    <div class="section-header rv">
+      <div class="eyebrow">Packages</div>
+      <h2 class="section-heading">Choose Your Build</h2>
+      <p class="section-sub">Every project is custom, but these tiers give you a clear starting point based on your space, equipment, and goals.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card rv" style="transition-delay:0ms">
+        <div class="pkg-name">The Essentials</div>
+        <div class="pkg-price"><strong>From $15K</strong><span>A solid foundation for your home sim</span></div>
+        <div class="pkg-rule"></div>
+        <ul class="pkg-features">
+          <li>Quality launch monitor</li>
+          <li>HD projector & impact screen</li>
+          <li>Standard enclosure</li>
+          <li>Premium hitting mat & turf</li>
+          <li>Professional install & calibration</li>
+        </ul>
+        <div class="pkg-ideal"><strong>Ideal for:</strong> Homeowners who want a great sim without a full room build-out.</div>
+        <a href="#contact" class="btn-glass">Get a Quote</a>
+      </div>
+      <div class="pkg-card featured rv" style="transition-delay:100ms">
+        <div class="pkg-badge">Most Popular</div>
+        <div class="pkg-name">The Performance</div>
+        <div class="pkg-price"><strong>From $30K</strong><span>Tour-level accuracy, premium finish</span></div>
+        <div class="pkg-rule"></div>
+        <ul class="pkg-features">
+          <li>Premium launch monitor (Trackman, Foresight, etc.)</li>
+          <li>HD/4K projector & commercial-grade screen</li>
+          <li>Custom enclosure with premium turf</li>
+          <li>Lighting package</li>
+          <li>Full installation, wiring & calibration</li>
+          <li>System walkthrough & training</li>
+        </ul>
+        <div class="pkg-ideal"><strong>Ideal for:</strong> Golfers who want accuracy and a room that looks as good as it plays.</div>
+        <a href="#contact" class="btn-neon">Get a Quote</a>
+      </div>
+      <div class="pkg-card rv" style="transition-delay:200ms">
+        <div class="pkg-name">The Tour</div>
+        <div class="pkg-price"><strong>From $50K+</strong><span>The ultimate — no compromises</span></div>
+        <div class="pkg-rule"></div>
+        <ul class="pkg-features">
+          <li>Tour-grade launch monitor</li>
+          <li>4K short-throw projection system</li>
+          <li>Full room design & construction</li>
+          <li>Premium flooring, lighting & acoustics</li>
+          <li>Lounge seating & entertainment integration</li>
+          <li>Ongoing priority support</li>
+        </ul>
+        <div class="pkg-ideal"><strong>Ideal for:</strong> The dedicated sim room with every detail considered.</div>
+        <a href="#contact" class="btn-glass">Get a Quote</a>
+      </div>
+    </div>
+    <p class="pkg-note rv">Pricing varies by space, equipment, and scope. Every quote is custom — <a href="#contact">schedule your free consultation</a> to get started.</p>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="container">
+    <div class="process-top rv">
+      <div class="eyebrow">How It Works</div>
+      <h2 class="section-heading">From First Call to First Swing</h2>
+      <p class="section-sub">We handle everything — projector throw ratios, ceiling clearance, electrical loads. Here's how every project comes together.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-line"></div>
+      <div class="timeline-step rv" style="transition-delay:0ms">
+        <div class="timeline-dot">01</div>
+        <div class="timeline-card"><div class="timeline-title">Free Consultation</div><div class="timeline-text">Tell us about your space. We'll visit your home, take measurements, and discuss equipment options and budget — zero obligation.</div></div>
+      </div>
+      <div class="timeline-step rv" style="transition-delay:100ms">
+        <div class="timeline-dot">02</div>
+        <div class="timeline-card"><div class="timeline-title">Custom Design</div><div class="timeline-text">We create a detailed plan — equipment specs, room layout, electrical requirements, and a transparent quote. No surprises.</div></div>
+      </div>
+      <div class="timeline-step rv" style="transition-delay:200ms">
+        <div class="timeline-dot">03</div>
+        <div class="timeline-card"><div class="timeline-title">Professional Installation</div><div class="timeline-text">Our Omaha team handles framing, wiring, mounting, and calibration. Done to the highest standard, in your home, on schedule.</div></div>
+      </div>
+      <div class="timeline-step rv" style="transition-delay:300ms">
+        <div class="timeline-dot">04</div>
+        <div class="timeline-card"><div class="timeline-title">Play & Support</div><div class="timeline-text">We walk you through your new system and provide ongoing local support. If something needs attention, we're a call away — not a state away.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-local" id="why-local">
+  <div class="container">
+    <div class="why-grid">
+      <div class="rv-left">
+        <div class="eyebrow">Why Choose Local</div>
+        <h2 class="why-heading">Your Simulator<br>Deserves More Than<br>a Shipped Box</h2>
+        <div class="why-benefits">
+          <div class="why-benefit">
+            <div class="why-benefit-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="why-benefit-title">In-Home Assessment</div><div class="why-benefit-text">We measure your actual space, check ceiling heights, and plan around your room's unique layout — not guessing from photos.</div></div>
+          </div>
+          <div class="why-benefit">
+            <div class="why-benefit-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+            <div><div class="why-benefit-title">Professional Build Quality</div><div class="why-benefit-text">No DIY assembly. We handle framing, electrical, mounting, and calibration to ensure flawless performance from day one.</div></div>
+          </div>
+          <div class="why-benefit">
+            <div class="why-benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="why-benefit-title">Same-Week Service</div><div class="why-benefit-text">Something not right? We're in Omaha. We can be at your door fast — not routing you to an out-of-state call center.</div></div>
+          </div>
+          <div class="why-benefit">
+            <div class="why-benefit-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div><div class="why-benefit-title">We Know Omaha Homes</div><div class="why-benefit-text">Basements, bonus rooms, garages — we've built in them all. We know what works in this market.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="why-img-wrap rv-right">
+        <img src="https://images.unsplash.com/photo-1704863619342-9cf73eca5fe8?q=80&w=1200&auto=format&fit=crop" alt="Indoor golf simulator — professional installation">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-header rv">
+      <div class="eyebrow">Our Work</div>
+      <h2 class="section-heading">Recent Installations</h2>
+      <p class="section-sub">Every build is different. Here's a look at simulator rooms we've designed and installed across the Omaha metro.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item rv" style="transition-delay:0ms">
+        <img src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=800&h=1000&auto=format&fit=crop&q=85" alt="Full build — Elkhorn">
+        <div class="gallery-item-overlay"><div class="gallery-item-caption">Full Build — Elkhorn, NE</div></div>
+      </div>
+      <div class="gallery-item rv" style="transition-delay:80ms">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=85" alt="Basement conversion">
+        <div class="gallery-item-overlay"><div class="gallery-item-caption">Basement — West Omaha</div></div>
+      </div>
+      <div class="gallery-item rv" style="transition-delay:160ms">
+        <img src="https://images.unsplash.com/photo-1592919505780-303950717480?w=800&auto=format&fit=crop&q=85" alt="Performance package">
+        <div class="gallery-item-overlay"><div class="gallery-item-caption">Performance — Papillion</div></div>
+      </div>
+      <div class="gallery-item rv" style="transition-delay:240ms">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop&q=85" alt="Tour build">
+        <div class="gallery-item-overlay"><div class="gallery-item-caption">Tour Build — Omaha</div></div>
+      </div>
+      <div class="gallery-item rv" style="transition-delay:320ms">
+        <img src="https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?w=800&h=600&auto=format&fit=crop&q=85" alt="Essentials package">
+        <div class="gallery-item-overlay"><div class="gallery-item-caption">Essentials — La Vista</div></div>
+      </div>
+      <!-- ★ GARAGE BUILD — confirmed working image -->
+      <div class="gallery-item rv" style="transition-delay:400ms">
+        <img src="https://plus.unsplash.com/premium_photo-1679757670562-0e00c3863bd3?q=80&w=800&auto=format&fit=crop" alt="Garage conversion — Bellevue">
+        <div class="gallery-item-overlay"><div class="gallery-item-caption">Garage Build — Bellevue, NE</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header rv">
+      <div class="eyebrow">Reviews</div>
+      <h2 class="section-heading">What Our Clients Say</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card rv-scale" style="transition-delay:0ms">
+        <div class="test-stars"><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div></div>
+        <div class="test-quote">"From the first consultation to the final calibration, Omaha Custom Sims was professional, knowledgeable, and easy to work with. My basement simulator room turned out better than I ever imagined."</div>
+        <div class="test-rule"></div>
+        <div class="test-name">Mike R.</div>
+        <div class="test-context">Full Build — Elkhorn, NE</div>
+      </div>
+      <div class="test-card rv-scale" style="transition-delay:120ms">
+        <div class="test-stars"><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div></div>
+        <div class="test-quote">"I looked at buying a kit online and doing it myself. So glad I didn't. The quality of the build, the calibration, the attention to detail — it's night and day compared to DIY."</div>
+        <div class="test-rule"></div>
+        <div class="test-name">Jason T.</div>
+        <div class="test-context">Performance Package — West Omaha</div>
+      </div>
+      <div class="test-card rv-scale" style="transition-delay:240ms">
+        <div class="test-stars"><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div></div>
+        <div class="test-quote">"Best investment I've made for my home. The team was responsive, the install was clean, and my game has genuinely improved. Can't recommend them enough."</div>
+        <div class="test-rule"></div>
+        <div class="test-name">Dave P.</div>
+        <div class="test-context">Tour Package — Papillion, NE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="contact">
+  <div class="container">
+    <div class="cta-inner">
+      <div>
+        <div class="cta-heading">Ready to Build Your<br>Perfect Sim Room?</div>
+        <div class="cta-sub">Free consultations available for Omaha and surrounding areas.</div>
+      </div>
+      <a href="tel:4025550187" class="btn-dark">Get Your Free Quote</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">OMAHA CUSTOM <span>SIMS</span></div>
+        <div class="footer-brand-desc">Premium indoor golf simulator design and installation serving Omaha, Elkhorn, Papillion, Bellevue, and the greater metro area.</div>
+        <div class="footer-trust">
+          <span class="footer-trust-badge">Locally Owned</span>
+          <span class="footer-trust-badge">Fully Insured</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Services</div>
+        <div class="footer-links">
+          <a href="#packages">Custom Sim Design</a>
+          <a href="#packages">Residential Install</a>
+          <a href="#packages">Commercial Install</a>
+          <a href="#packages">Upgrades & Service</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#testimonials">Reviews</a>
+          <a href="#process">How It Works</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <div class="footer-contact-item"><strong>Phone:</strong><br><a href="tel:4025550187">(402) 555-0187</a></div>
+        <div class="footer-contact-item"><strong>Email:</strong><br><a href="mailto:info@omahacustomsims.com">info@omahacustomsims.com</a></div>
+        <div class="footer-contact-item"><strong>Service Area:</strong><br>Omaha, Elkhorn, Papillion, Bellevue, La Vista, Gretna & surrounding</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 Omaha Custom Sims. All rights reserved.</div>
+      <div class="footer-built">Website by DMWN</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Preloader
+window.addEventListener('load',()=>{document.getElementById('preloader').classList.add('loaded')});
+
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+
+// Mobile hamburger menu
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',function(){
+  const isOpen=mobileMenu.classList.toggle('open');
+  hamburger.classList.toggle('active');
+  hamburger.setAttribute('aria-expanded',isOpen);
+  document.body.style.overflow=isOpen?'hidden':'';
+});
+// Close menu on link click
+document.querySelectorAll('.mobile-link').forEach(link=>{
+  link.addEventListener('click',()=>{
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+  });
+});
+
+// Golf Club — mouse reactive (desktop only)
+(function(){
+  if(window.matchMedia('(pointer:coarse)').matches) return;
+  const hero=document.getElementById('hero');
+  const club=document.getElementById('heroClub');
+  if(!hero||!club) return;
+  const restAngle=-15;
+  let targetAngle=restAngle,currentAngle=restAngle,rafId=null,mouseInHero=false;
+  function lerp(a,b,t){return a+(b-a)*t}
+  function animate(){
+    currentAngle=lerp(currentAngle,targetAngle,.08);
+    if(Math.abs(currentAngle-targetAngle)<.05) currentAngle=targetAngle;
+    club.style.transform='rotate('+currentAngle+'deg)';
+    rafId=requestAnimationFrame(animate);
+  }
+  hero.addEventListener('mouseenter',function(){mouseInHero=true;if(!rafId) rafId=requestAnimationFrame(animate)});
+  hero.addEventListener('mousemove',function(e){
+    if(!mouseInHero) return;
+    const rect=hero.getBoundingClientRect();
+    targetAngle=-35+((e.clientX-rect.left)/rect.width*60);
+  });
+  hero.addEventListener('mouseleave',function(){mouseInHero=false;targetAngle=restAngle});
+  rafId=requestAnimationFrame(animate);
+})();
+
+// Scroll reveal
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');observer.unobserve(e.target)}});
+},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv,.rv-left,.rv-right,.rv-scale').forEach(el=>observer.observe(el));
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.rv,.rv-left,.rv-right,.rv-scale').forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight) el.classList.add('on');
+  });
+});
+</script>
+</body>
+</html>

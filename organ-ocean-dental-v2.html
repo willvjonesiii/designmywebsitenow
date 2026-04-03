@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organ Ocean Dental — Las Cruces, NM</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --white:    #ffffff;
+  --off:      #faf8f5;
+  --parch:    #f3ede4;
+  --stone:    #e4dbd0;
+  --ink:      #1e1a16;
+  --mid:      rgba(30,26,22,.52);
+  --terra:    #c4733a;
+  --terra-lt: #d88a50;
+  --terra-pale:rgba(196,115,58,.09);
+  --sage:     #5a7a5c;
+  --sage-pale: rgba(90,122,92,.1);
+  --dark:     #141210;
+  --border:   rgba(30,26,22,.08);
+}
+body{background:var(--white);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 56px;
+  transition:background .4s,padding .4s,box-shadow .4s;
+}
+nav.sc{
+  background:rgba(250,248,245,.97);backdrop-filter:blur(14px);
+  padding:15px 56px;box-shadow:0 1px 0 var(--border);
+}
+.nav-brand{ text-decoration:none; }
+.nav-name{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.05rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink);line-height:1;display:block;
+}
+.nav-sub{
+  font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--terra);font-weight:500;display:block;margin-top:4px;
+}
+nav ul{list-style:none;display:flex;gap:32px;align-items:center;}
+nav li{white-space:nowrap;}
+nav a.nl{
+  color:var(--ink);text-decoration:none;
+  font-size:.71rem;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:500;opacity:.5;transition:opacity .25s;
+}
+nav a.nl:hover{opacity:1;}
+.nav-cta{
+  display:inline-block;
+  background:var(--terra);color:var(--white);
+  padding:11px 26px;font-size:.71rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+  white-space:nowrap;flex-shrink:0;
+  transition:background .3s;
+}
+.nav-cta:hover{background:var(--terra-lt);}
+
+/* ── HERO ── */
+.hero{
+  position:relative;height:100vh;min-height:660px;
+  display:flex;align-items:flex-end;overflow:hidden;
+}
+.hero-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 25%;
+  transform:scale(1.06);
+  animation:hzoom 18s ease-out forwards;
+  filter:brightness(.78) saturate(.88);
+}
+@keyframes hzoom{to{transform:scale(1);}}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    105deg,
+    rgba(250,248,245,.88) 0%,
+    rgba(250,248,245,.55) 45%,
+    rgba(250,248,245,.1) 100%
+  );
+}
+.hero-fade{
+  position:absolute;bottom:0;left:0;right:0;height:35%;
+  background:linear-gradient(to top,var(--white),transparent);
+}
+.hero-content{
+  position:relative;z-index:10;
+  padding:0 56px 90px;max-width:680px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--terra);font-weight:500;margin-bottom:24px;
+  opacity:0;animation:fu .8s .2s forwards;
+}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--terra);}
+.hero h1{
+  font-family:'Libre Baskerville',serif;
+  font-size:clamp(2.6rem,5vw,4.6rem);
+  font-weight:400;line-height:1.08;color:var(--ink);
+  margin-bottom:22px;
+  opacity:0;animation:fu .9s .35s forwards;
+}
+.hero h1 em{font-style:italic;color:var(--terra);}
+.hero-sub{
+  font-size:.97rem;line-height:1.85;color:var(--mid);
+  max-width:480px;margin-bottom:36px;font-weight:300;
+  opacity:0;animation:fu .9s .52s forwards;
+}
+.hero-actions{
+  display:flex;gap:14px;flex-wrap:wrap;
+  opacity:0;animation:fu .9s .68s forwards;
+}
+@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+.btn-primary{
+  display:inline-block;background:var(--terra);color:var(--white);
+  padding:15px 36px;font-size:.72rem;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;text-decoration:none;
+  white-space:nowrap;flex-shrink:0;
+  transition:background .3s,transform .25s;
+}
+.btn-primary:hover{background:var(--terra-lt);transform:translateY(-2px);}
+.btn-ghost{
+  display:inline-flex;align-items:center;
+  color:var(--ink);padding:15px 36px;
+  font-size:.72rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;
+  text-decoration:none;border:1px solid rgba(30,26,22,.22);
+  white-space:nowrap;flex-shrink:0;
+  transition:border-color .3s,color .3s;
+}
+.btn-ghost:hover{border-color:var(--terra);color:var(--terra);}
+
+/* ── CRED BAND ── */
+.cred{
+  background:var(--dark);
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.cred-item{
+  padding:28px 32px;border-right:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;gap:14px;
+}
+.cred-item:last-child{border-right:none;}
+.cred-icon{
+  width:34px;height:34px;border:1px solid rgba(196,115,58,.3);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.cred-icon svg{width:14px;height:14px;stroke:var(--terra-lt);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.cred-text strong{display:block;font-size:.8rem;font-weight:500;color:#fff;margin-bottom:2px;}
+.cred-text span{font-size:.63rem;color:rgba(255,255,255,.35);letter-spacing:.05em;}
+
+/* ── SECTION COMMON ── */
+.eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--terra);font-weight:500;margin-bottom:16px;
+}
+.eyebrow::before{content:'';display:block;width:26px;height:1px;background:var(--terra);}
+.section-title{
+  font-family:'Libre Baskerville',serif;
+  font-size:clamp(1.9rem,3.4vw,2.9rem);
+  font-weight:400;line-height:1.15;color:var(--ink);
+}
+.section-title em{font-style:italic;color:var(--terra);}
+p.body-text{font-size:.97rem;line-height:1.85;color:var(--mid);font-weight:300;margin-bottom:16px;}
+.divider{width:32px;height:1px;background:var(--stone);margin:28px 0;}
+
+/* ── ABOUT ── */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:600px;}
+.about-img-side{position:relative;overflow:hidden;}
+.about-img-side img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  filter:saturate(.82);transition:transform 9s ease;
+}
+.about-img-side:hover img{transform:scale(1.04);}
+.about-badge{
+  position:absolute;bottom:36px;right:-1px;
+  background:var(--terra);color:var(--white);
+  padding:18px 24px;max-width:230px;
+}
+.about-badge p{
+  font-family:'Libre Baskerville',serif;
+  font-size:.92rem;font-style:italic;line-height:1.52;
+}
+.about-badge span{
+  display:block;margin-top:7px;font-size:.58rem;
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);
+}
+.about-text{
+  background:var(--off);padding:88px 68px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.about-text .section-title{margin-bottom:22px;}
+.cred-list{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+.cred-line{
+  display:flex;align-items:center;gap:12px;
+  font-size:.82rem;color:var(--mid);
+}
+.cred-line::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--terra);flex-shrink:0;
+}
+
+/* ── SERVICES ── */
+.services{padding:110px 56px;background:var(--white);}
+.services-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:56px;
+}
+.view-all{
+  font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--terra);text-decoration:none;font-weight:500;
+  border-bottom:1px solid var(--terra);padding-bottom:3px;
+  white-space:nowrap;align-self:flex-end;transition:opacity .25s;
+}
+.view-all:hover{opacity:.6;}
+.svc-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--stone);
+}
+.svc-card{
+  background:var(--white);
+  display:flex;flex-direction:column;overflow:hidden;
+  position:relative;
+}
+.svc-img{width:100%;aspect-ratio:16/10;overflow:hidden;}
+.svc-img img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(.78) brightness(.9);
+  transition:transform .7s cubic-bezier(.16,1,.3,1),filter .5s;
+}
+.svc-card:hover .svc-img img{transform:scale(1.07);filter:saturate(.95) brightness(.88);}
+.svc-body{padding:26px 24px 30px;flex:1;}
+.svc-num{
+  font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--terra);font-weight:500;margin-bottom:10px;
+}
+.svc-card h3{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.05rem;font-weight:700;margin-bottom:9px;
+  line-height:1.25;color:var(--ink);
+}
+.svc-card p{font-size:.82rem;line-height:1.72;color:var(--mid);font-weight:300;}
+.svc-bar{
+  height:2px;background:var(--terra);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .45s cubic-bezier(.16,1,.3,1);
+}
+.svc-card:hover .svc-bar{transform:scaleX(1);}
+
+/* ── TEAM ── */
+.team{padding:110px 56px;background:var(--off);}
+.team-header{text-align:center;margin-bottom:60px;}
+.team-header .eyebrow{justify-content:center;}
+.team-header .section-title{max-width:520px;margin:0 auto;}
+.team-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2px;background:var(--stone);
+}
+.tmember{
+  background:var(--white);overflow:hidden;
+  transition:transform .3s;
+}
+.tmember:hover{transform:translateY(-4px);}
+.tmember-img{width:100%;aspect-ratio:3/4;overflow:hidden;}
+.tmember-img img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  filter:saturate(.82);
+  transition:transform .7s cubic-bezier(.16,1,.3,1);
+}
+.tmember:hover .tmember-img img{transform:scale(1.05);}
+.tmember-body{padding:22px 20px 24px;}
+.tmember-name{
+  font-family:'Libre Baskerville',serif;
+  font-size:.98rem;font-weight:700;color:var(--ink);margin-bottom:4px;
+}
+.tmember-role{font-size:.72rem;color:var(--terra);font-weight:500;letter-spacing:.06em;margin-bottom:10px;}
+.tmember-bio{font-size:.78rem;line-height:1.68;color:var(--mid);font-weight:300;}
+
+/* ── APPROACH ── */
+.approach{
+  padding:110px 56px;background:var(--parch);
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+}
+.approach-left .section-title{margin-bottom:22px;}
+.approach-left p{font-size:.97rem;line-height:1.85;color:var(--mid);font-weight:300;margin-bottom:30px;}
+.approach-img{position:relative;overflow:hidden;flex-shrink:0;}
+.approach-img img{
+  width:100%;aspect-ratio:4/3;object-fit:cover;
+  filter:saturate(.8) brightness(.9);
+  transition:transform 9s ease;
+}
+.approach-img:hover img{transform:scale(1.04);}
+.approach-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(30,26,22,.08) 0%,rgba(196,115,58,.5) 100%);
+}
+.approach-img-content{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:32px 28px;
+}
+.approach-quote{border-top:1px solid rgba(255,255,255,.25);padding-top:18px;}
+.approach-quote p{
+  font-family:'Libre Baskerville',serif;
+  font-size:.96rem;font-style:italic;
+  line-height:1.6;color:rgba(255,255,255,.9);margin-bottom:8px;
+}
+.approach-quote span{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.steps{margin-top:28px;display:flex;flex-direction:column;gap:0;}
+.step{
+  display:grid;grid-template-columns:46px 1fr;
+  gap:16px;padding:24px 0;
+  border-bottom:1px solid var(--border);align-items:start;
+}
+.step:first-child{border-top:1px solid var(--border);}
+.step-num{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.5rem;font-weight:400;
+  color:rgba(30,26,22,.1);line-height:1;padding-top:2px;
+}
+.step h4{
+  font-family:'Libre Baskerville',serif;
+  font-size:.97rem;font-weight:700;
+  color:var(--ink);margin-bottom:5px;
+}
+.step p{font-size:.81rem;line-height:1.7;color:var(--mid);font-weight:300;}
+
+/* ── SPECIALTIES ── */
+.specs{padding:110px 56px;background:var(--white);}
+.specs-inner{max-width:1100px;margin:0 auto;}
+.specs .section-title{margin-bottom:56px;}
+.spec-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--stone);
+}
+.spec{
+  background:var(--white);padding:32px 28px;
+  border-left:2px solid transparent;
+  transition:background .3s,border-left-color .3s;
+}
+.spec:hover{background:var(--off);border-left-color:var(--terra);}
+.spec-label{
+  font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--terra);font-weight:500;margin-bottom:10px;
+}
+.spec h3{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.02rem;font-weight:700;margin-bottom:9px;color:var(--ink);
+}
+.spec p{font-size:.81rem;line-height:1.7;color:var(--mid);font-weight:300;}
+
+/* ── TESTIMONIALS ── */
+.testimonials{padding:110px 56px;background:var(--off);}
+.test-header{margin-bottom:56px;}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.tcard{
+  background:var(--white);padding:34px 28px;
+  border-top:2px solid var(--terra);
+  box-shadow:0 2px 20px rgba(30,26,22,.05);
+  transition:transform .3s,box-shadow .3s;
+}
+.tcard:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(30,26,22,.1);}
+.tcard-stars{display:flex;gap:3px;margin-bottom:18px;}
+.star{
+  width:11px;height:11px;
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  background:var(--terra-lt);
+}
+.tcard-quote{
+  font-family:'Libre Baskerville',serif;font-style:italic;
+  font-size:.96rem;line-height:1.7;
+  color:rgba(30,26,22,.72);margin-bottom:22px;
+}
+.tcard-rule{width:22px;height:1px;background:var(--stone);margin-bottom:13px;}
+.tcard-name{font-size:.83rem;font-weight:500;color:var(--ink);}
+.tcard-detail{font-size:.69rem;color:var(--mid);margin-top:3px;}
+
+/* ── CTA BAND ── */
+.cta-band{
+  background:var(--terra);padding:80px 56px;
+  display:grid;grid-template-columns:1fr auto;
+  gap:40px;align-items:center;
+}
+.cta-band h2{
+  font-family:'Libre Baskerville',serif;
+  font-size:clamp(1.6rem,3vw,2.4rem);
+  font-weight:400;color:var(--white);line-height:1.22;
+}
+.cta-band h2 em{font-style:italic;color:rgba(255,255,255,.68);}
+.cta-band p{font-size:.93rem;color:rgba(255,255,255,.62);margin-top:10px;font-weight:300;}
+.btn-white{
+  display:inline-block;background:var(--white);color:var(--terra);
+  padding:16px 38px;font-size:.72rem;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;text-decoration:none;
+  white-space:nowrap;flex-shrink:0;
+  transition:background .3s,transform .25s;
+}
+.btn-white:hover{background:var(--off);transform:translateY(-2px);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--dark);padding:72px 56px 0;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.footer-brand-name{
+  font-family:'Libre Baskerville',serif;
+  font-size:.96rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--white);margin-bottom:3px;
+}
+.footer-brand-sub{
+  font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--terra-lt);font-weight:500;margin-bottom:14px;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:52px;padding-bottom:52px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.f-brand p{font-size:.83rem;line-height:1.75;color:rgba(255,255,255,.28);max-width:270px;margin-bottom:16px;}
+.f-address{font-size:.78rem;color:rgba(255,255,255,.26);line-height:1.8;}
+.f-col h5{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:16px;}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.f-col a{font-size:.83rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .25s;}
+.f-col a:hover{color:var(--terra-lt);}
+.footer-bottom{
+  padding:20px 0;display:flex;align-items:center;justify-content:space-between;
+}
+.footer-bottom p{font-size:.67rem;color:rgba(255,255,255,.18);letter-spacing:.04em;}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rv-left{opacity:0;transform:translateX(-28px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rv-right{opacity:0;transform:translateX(28px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rv-scale{opacity:0;transform:scale(.96);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rv.on,.rv-left.on,.rv-right.on,.rv-scale.on{opacity:1;transform:none;}
+
+/* ── MOBILE ── */
+@media(max-width:960px){
+  nav{padding:16px 22px;}
+  nav ul{display:none;}
+  .hero-content{padding:0 22px 80px;max-width:100%;}
+  .cred{grid-template-columns:repeat(2,1fr);}
+  .cred-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);}
+  .about{grid-template-columns:1fr;}
+  .about-img-side{height:420px;}
+  .about-text{padding:56px 22px;}
+  .services{padding:80px 22px;}
+  .svc-grid{grid-template-columns:1fr;}
+  .team{padding:80px 22px;}
+  .team-grid{grid-template-columns:repeat(2,1fr);}
+  .approach{grid-template-columns:1fr;padding:80px 22px;gap:48px;}
+  .specs{padding:80px 22px;}
+  .spec-grid{grid-template-columns:1fr;}
+  .testimonials{padding:80px 22px;}
+  .test-grid{grid-template-columns:1fr;}
+  .cta-band{grid-template-columns:1fr;padding:60px 22px;}
+  footer{padding:56px 22px 0;}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:36px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <span class="nav-name">Organ Ocean Dental</span>
+    <span class="nav-sub">Las Cruces, New Mexico</span>
+  </a>
+  <ul>
+    <li><a href="#services" class="nl">Services</a></li>
+    <li><a href="#team" class="nl">Our Team</a></li>
+    <li><a href="#approach" class="nl">Our Approach</a></li>
+    <li><a href="#reviews" class="nl">Reviews</a></li>
+    <li><a href="#" class="nl">New Patients</a></li>
+    <li><a href="#" class="nav-cta">Book Appointment</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-img"
+    src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1920&auto=format&fit=crop&q=85"
+    alt="Organ Ocean Dental Las Cruces">
+  <div class="hero-overlay"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">General, Cosmetic &amp; Restorative Dentistry</div>
+    <h1>Exceptional Care.<br>A Smile Worth <em>Keeping.</em></h1>
+    <p class="hero-sub">Warm, comprehensive dental care for every member of your family — from routine cleanings to full-smile transformations, in the heart of Las Cruces.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Book an Appointment</a>
+      <a href="#services" class="btn-ghost">Explore Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- CRED BAND -->
+<div class="cred">
+  <div class="cred-item rv" style="transition-delay:0ms">
+    <div class="cred-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div class="cred-text">
+      <strong>Most Insurance Accepted</strong>
+      <span>We'll verify your benefits</span>
+    </div>
+  </div>
+  <div class="cred-item rv" style="transition-delay:80ms">
+    <div class="cred-icon">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+    </div>
+    <div class="cred-text">
+      <strong>Bilingual Staff</strong>
+      <span>English &amp; Spanish spoken</span>
+    </div>
+  </div>
+  <div class="cred-item rv" style="transition-delay:160ms">
+    <div class="cred-icon">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    </div>
+    <div class="cred-text">
+      <strong>Full-Spectrum Care</strong>
+      <span>General, cosmetic &amp; surgical</span>
+    </div>
+  </div>
+  <div class="cred-item rv" style="transition-delay:240ms">
+    <div class="cred-icon">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    </div>
+    <div class="cred-text">
+      <strong>Flexible Financing</strong>
+      <span>Payment plans available</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-img-side rv-left">
+    <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=900&auto=format&fit=crop&q=80"
+      alt="Our dental team in Las Cruces">
+    <div class="about-badge">
+      <p>"Serving Las Cruces families for over two decades."</p>
+      <span>Our Community Commitment</span>
+    </div>
+  </div>
+  <div class="about-text rv-right">
+    <div class="eyebrow">Who We Are</div>
+    <h2 class="section-title">Your family's dental home <em>in Las Cruces.</em></h2>
+    <div class="divider"></div>
+    <p class="body-text">At Organ Ocean Dental, we believe excellent dental care should feel personal — not transactional. Our experienced team has been caring for Las Cruces families for more than twenty years, with genuine warmth and clinical expertise.</p>
+    <p class="body-text">Whether it's your child's first visit, a smile transformation, or complex restorative work, every patient receives honest recommendations and unhurried attention. We treat people, not just teeth.</p>
+    <div class="divider"></div>
+    <div class="cred-list">
+      <div class="cred-line">General &amp; Preventive Dentistry</div>
+      <div class="cred-line">Cosmetic &amp; Restorative Care</div>
+      <div class="cred-line">Dental Implants &amp; Oral Surgery</div>
+      <div class="cred-line">Orthodontics — Invisalign &amp; Braces</div>
+      <div class="cred-line">Pediatric Dentistry</div>
+    </div>
+    <a href="#" class="btn-primary" style="margin-top:32px;display:inline-block;">Meet Our Team</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header rv">
+    <div>
+      <div class="eyebrow">Our Services</div>
+      <h2 class="section-title">Everything your smile <em>needs.</em></h2>
+    </div>
+    <a href="#" class="view-all">All Services &rarr;</a>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card rv" style="transition-delay:0ms">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=700&auto=format&fit=crop&q=80" alt="General dentistry">
+      </div>
+      <div class="svc-body">
+        <div class="svc-num">01</div>
+        <h3>General &amp; Preventive</h3>
+        <p>Cleanings, exams, X-rays, fillings, and the routine care that keeps small problems from becoming big ones.</p>
+      </div>
+      <div class="svc-bar"></div>
+    </div>
+    <div class="svc-card rv" style="transition-delay:80ms">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=700&auto=format&fit=crop&q=80" alt="Cosmetic dentistry">
+      </div>
+      <div class="svc-body">
+        <div class="svc-num">02</div>
+        <h3>Cosmetic Dentistry</h3>
+        <p>Porcelain veneers, Lumineers, zoom whitening, and smile makeovers designed around your face and your goals.</p>
+      </div>
+      <div class="svc-bar"></div>
+    </div>
+    <div class="svc-card rv" style="transition-delay:160ms">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=700&auto=format&fit=crop&q=80" alt="Dental implants">
+      </div>
+      <div class="svc-body">
+        <div class="svc-num">03</div>
+        <h3>Dental Implants</h3>
+        <p>Permanent tooth replacement that looks, feels, and functions like natural teeth — single tooth or full arch.</p>
+      </div>
+      <div class="svc-bar"></div>
+    </div>
+    <div class="svc-card rv" style="transition-delay:240ms">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=700&auto=format&fit=crop&q=80" alt="Orthodontics">
+      </div>
+      <div class="svc-body">
+        <div class="svc-num">04</div>
+        <h3>Orthodontics</h3>
+        <p>Invisalign and traditional braces for kids, teens, and adults — straighter teeth at every stage of life.</p>
+      </div>
+      <div class="svc-bar"></div>
+    </div>
+    <div class="svc-card rv" style="transition-delay:320ms">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=700&auto=format&fit=crop&q=80" alt="Oral surgery">
+      </div>
+      <div class="svc-body">
+        <div class="svc-num">05</div>
+        <h3>Oral Surgery</h3>
+        <p>Extractions, wisdom teeth removal, bone grafting, and pre-prosthetic procedures by experienced surgeons.</p>
+      </div>
+      <div class="svc-bar"></div>
+    </div>
+    <div class="svc-card rv" style="transition-delay:400ms">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1588776813677-77aaf5595b83?w=700&auto=format&fit=crop&q=80" alt="Pediatric dentistry">
+      </div>
+      <div class="svc-body">
+        <div class="svc-num">06</div>
+        <h3>Pediatric Dentistry</h3>
+        <p>Gentle, patient-centered care for children — building comfort and confidence from their very first visit.</p>
+      </div>
+      <div class="svc-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="team-header rv">
+    <div class="eyebrow">The People Behind Your Care</div>
+    <h2 class="section-title">Meet your <em>dental team.</em></h2>
+  </div>
+  <div class="team-grid">
+    <div class="tmember rv-scale" style="transition-delay:0ms">
+      <div class="tmember-img">
+        <img src="https://images.unsplash.com/photo-1612531385446-f7e6d131e1d0?w=600&auto=format&fit=crop&q=80" alt="Dr. Elena Vargas">
+      </div>
+      <div class="tmember-body">
+        <div class="tmember-name">Dr. Elena Vargas, DDS</div>
+        <div class="tmember-role">Lead Dentist &amp; Practice Director</div>
+        <p class="tmember-bio">Board-certified with 18 years of experience in restorative and cosmetic dentistry. Dr. Vargas founded the practice on one principle: every patient deserves honest, unhurried care.</p>
+      </div>
+    </div>
+    <div class="tmember rv-scale" style="transition-delay:100ms">
+      <div class="tmember-img">
+        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&auto=format&fit=crop&q=80" alt="Dr. Marcus Okafor">
+      </div>
+      <div class="tmember-body">
+        <div class="tmember-name">Dr. Marcus Okafor, DMD</div>
+        <div class="tmember-role">Oral Surgeon</div>
+        <p class="tmember-bio">Specializing in implant placement, extractions, and bone grafting. Dr. Okafor's gentle technique and clear communication make even complex procedures feel manageable.</p>
+      </div>
+    </div>
+    <div class="tmember rv-scale" style="transition-delay:200ms">
+      <div class="tmember-img">
+        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&auto=format&fit=crop&q=80" alt="Dr. Sofia Reyes">
+      </div>
+      <div class="tmember-body">
+        <div class="tmember-name">Dr. Sofia Reyes, DDS</div>
+        <div class="tmember-role">Pediatric &amp; Family Dentist</div>
+        <p class="tmember-bio">Bilingual and trained in pediatric behavior management, Dr. Reyes has a gift for making children feel at ease — and their parents feel confident in their care.</p>
+      </div>
+    </div>
+    <div class="tmember rv-scale" style="transition-delay:300ms">
+      <div class="tmember-img">
+        <img src="https://images.unsplash.com/photo-1667133295308-9ef24f71952e?w=600&auto=format&fit=crop&q=80" alt="Dr. James Tran">
+      </div>
+      <div class="tmember-body">
+        <div class="tmember-name">Dr. James Tran, DMD</div>
+        <div class="tmember-role">Orthodontist</div>
+        <p class="tmember-bio">Invisalign Platinum Provider and braces specialist for all ages. Dr. Tran believes a well-aligned smile is about confidence as much as function.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach" id="approach">
+  <div class="approach-left">
+    <div class="eyebrow">Our Philosophy</div>
+    <h2 class="section-title rv">Dentistry that starts <em>with listening.</em></h2>
+    <p class="body-text rv">We don't push unnecessary procedures. We don't rush appointments. Every patient gets a complete picture of their oral health — and honest options, not sales pressure.</p>
+    <a href="#" class="btn-primary rv">Learn More About Us</a>
+  </div>
+  <div class="rv-right">
+    <div class="approach-img">
+      <img src="https://images.unsplash.com/photo-1571772996211-2f02c9727629?w=900&auto=format&fit=crop&q=80" alt="Dental consultation Las Cruces">
+      <div class="approach-img-overlay"></div>
+      <div class="approach-img-content">
+        <div class="approach-quote">
+          <p>"We treat people, not just teeth — and that makes all the difference."</p>
+          <span>Practice Philosophy — Organ Ocean Dental</span>
+        </div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step rv" style="transition-delay:0ms">
+        <div class="step-num">01</div>
+        <div>
+          <h4>New Patient Exam</h4>
+          <p>Comprehensive oral health assessment, X-rays, and a no-pressure conversation about your smile goals.</p>
+        </div>
+      </div>
+      <div class="step rv" style="transition-delay:100ms">
+        <div class="step-num">02</div>
+        <div>
+          <h4>Personalized Treatment Plan</h4>
+          <p>A clear, honest plan with priorities and options — you decide what makes sense for you and your budget.</p>
+        </div>
+      </div>
+      <div class="step rv" style="transition-delay:200ms">
+        <div class="step-num">03</div>
+        <div>
+          <h4>Gentle, Expert Care</h4>
+          <p>Our team works at your pace, explains every step, and keeps you comfortable throughout every visit.</p>
+        </div>
+      </div>
+      <div class="step rv" style="transition-delay:300ms">
+        <div class="step-num">04</div>
+        <div>
+          <h4>Your Long-Term Dental Home</h4>
+          <p>We're here for the long haul — same trusted team, familiar faces, consistent care as your needs evolve.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALTIES -->
+<section class="specs" id="specialties">
+  <div class="specs-inner">
+    <div class="eyebrow rv">Advanced Services</div>
+    <h2 class="section-title rv">Specialized care for <em>every need.</em></h2>
+    <div class="spec-grid">
+      <div class="spec rv" style="transition-delay:0ms">
+        <div class="spec-label">Restorative</div>
+        <h3>Crowns &amp; Bridges</h3>
+        <p>Porcelain crowns and fixed bridges that restore full function and aesthetics — indistinguishable from natural teeth.</p>
+      </div>
+      <div class="spec rv" style="transition-delay:80ms">
+        <div class="spec-label">Cosmetic</div>
+        <h3>Veneers &amp; Lumineers</h3>
+        <p>Ultra-thin porcelain shells that transform the shape, color, and alignment of your smile in as few as two visits.</p>
+      </div>
+      <div class="spec rv" style="transition-delay:160ms">
+        <div class="spec-label">Implants</div>
+        <h3>All-on-4 Full Arch</h3>
+        <p>A complete permanent set of teeth on just four implants — a life-changing solution for extensive tooth loss.</p>
+      </div>
+      <div class="spec rv" style="transition-delay:240ms">
+        <div class="spec-label">Orthodontics</div>
+        <h3>Invisalign Clear Aligners</h3>
+        <p>Straighten your teeth discreetly with removable clear aligners — no brackets, no wires, no lifestyle disruption.</p>
+      </div>
+      <div class="spec rv" style="transition-delay:320ms">
+        <div class="spec-label">Sedation</div>
+        <h3>Sedation Dentistry</h3>
+        <p>Safe, effective options for patients with dental anxiety — making complex procedures stress-free and comfortable.</p>
+      </div>
+      <div class="spec rv" style="transition-delay:400ms">
+        <div class="spec-label">Laser</div>
+        <h3>Laser Dentistry</h3>
+        <p>Minimally invasive laser treatments for gum reshaping, cavity detection, and soft-tissue procedures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="reviews">
+  <div class="test-header rv">
+    <div class="eyebrow">Patient Stories</div>
+    <h2 class="section-title">What Las Cruces patients <em>say about us.</em></h2>
+  </div>
+  <div class="test-grid">
+    <div class="tcard rv-scale" style="transition-delay:0ms">
+      <div class="tcard-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="tcard-quote">"I took my daughter here and the staff was so welcoming and friendly. She actually left excited to come back — that's never happened at a dentist before."</p>
+      <div class="tcard-rule"></div>
+      <div class="tcard-name">Bilhan Y.</div>
+      <div class="tcard-detail">Patient — Las Cruces, NM</div>
+    </div>
+    <div class="tcard rv-scale" style="transition-delay:120ms">
+      <div class="tcard-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="tcard-quote">"The doctors and staff are kind and gentle, always explaining what's happening. Fast, thorough appointments — no long waits. Simply the best dental experience in the area."</p>
+      <div class="tcard-rule"></div>
+      <div class="tcard-name">Lea Z.</div>
+      <div class="tcard-detail">Ortho Patient — ongoing care</div>
+    </div>
+    <div class="tcard rv-scale" style="transition-delay:240ms">
+      <div class="tcard-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="tcard-quote">"My whole family comes here now. They accepted our insurance, worked around our schedules, and treated us like neighbors — not numbers. We wouldn't go anywhere else."</p>
+      <div class="tcard-rule"></div>
+      <div class="tcard-name">Marco R.</div>
+      <div class="tcard-detail">Family Patient — 4 years</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band rv">
+  <div>
+    <h2>Ready for a dental practice that <em>actually listens?</em></h2>
+    <p>New patients welcome. Most insurance accepted. Book online or call us today — Las Cruces, NM.</p>
+  </div>
+  <a href="#" class="btn-white">Book an Appointment</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="f-brand">
+      <div class="footer-brand-name">Organ Ocean Dental</div>
+      <div class="footer-brand-sub">Las Cruces, New Mexico</div>
+      <p>Comprehensive, compassionate dental care for families in Las Cruces, NM — from routine cleanings to full-smile transformations.</p>
+      <div class="f-address">
+        Las Cruces, New Mexico<br>
+        (575) 000-0000<br>
+        info@oceandental.com
+      </div>
+    </div>
+    <div class="f-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">General Dentistry</a></li>
+        <li><a href="#">Cosmetic Care</a></li>
+        <li><a href="#">Dental Implants</a></li>
+        <li><a href="#">Orthodontics</a></li>
+        <li><a href="#">Oral Surgery</a></li>
+        <li><a href="#">Pediatric Dentistry</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>The Practice</h5>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Locations</a></li>
+        <li><a href="#">Patient Reviews</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>New Patients</h5>
+      <ul>
+        <li><a href="#">Book Appointment</a></li>
+        <li><a href="#">Patient Forms</a></li>
+        <li><a href="#">Insurance</a></li>
+        <li><a href="#">Financing</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Organ Ocean Dental Group. All rights reserved. Las Cruces, NM.</p>
+    <p>Privacy Policy &nbsp;·&nbsp; Terms &amp; Conditions</p>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('sc', scrollY > 50);
+});
+const revealEls = document.querySelectorAll('.rv,.rv-left,.rv-right,.rv-scale');
+function revealVisible() {
+  revealEls.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight + 50) el.classList.add('on');
+  });
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); observer.unobserve(e.target); } });
+}, { threshold: 0.06 });
+revealEls.forEach(el => observer.observe(el));
+revealVisible();
+window.addEventListener('scroll', revealVisible, { passive: true });
+setTimeout(revealVisible, 300);
+setTimeout(revealVisible, 800);
+</script>
+</body>
+</html>

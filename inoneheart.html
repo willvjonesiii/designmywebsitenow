@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>In One Heart — Evelyn Viviana Guerra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  cursor: none;
+  font-family: 'Cormorant Garamond', serif;
+  background: #0a0806;
+  color: #e8dfc8;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ── CUSTOM CURSOR — MERKABA ── */
+#cursor {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform .12s ease, opacity .2s;
+  mix-blend-mode: screen;
+}
+#cursor svg {
+  width: 100%;
+  height: 100%;
+  animation: merkaba-spin 8s linear infinite;
+}
+@keyframes merkaba-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+#cursor-trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(200,170,100,.5);
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%,-50%);
+  transition: left .12s ease, top .12s ease;
+}
+
+/* ── CSS VARIABLES ── */
+:root {
+  --gold: #c8a96e;
+  --gold-lt: #e0c990;
+  --cream: #f0e8d2;
+  --dark: #0a0806;
+  --dark2: #110e08;
+  --mid: #1e1810;
+  --border: rgba(200,169,110,.18);
+  --text-muted: rgba(232,223,200,.55);
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 4rem;
+  background: transparent;
+  transition: background .4s, padding .3s;
+}
+nav.scrolled {
+  background: rgba(10,8,6,.92);
+  backdrop-filter: blur(12px);
+  padding: 1rem 4rem;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: .85rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+}
+.nav-logo img { height: 44px; filter: brightness(1.1); }
+.nav-links {
+  display: flex;
+  gap: 2.4rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Cinzel', serif;
+  font-size: .67rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(240,232,210,.72);
+  transition: color .25s;
+}
+.nav-links a:hover { color: var(--gold-lt); }
+.nav-cta {
+  font-family: 'Cinzel', serif;
+  font-size: .67rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  padding: .55rem 1.4rem;
+  color: var(--gold);
+  transition: background .25s, color .25s;
+}
+.nav-cta:hover { background: var(--gold); color: var(--dark); }
+
+/* ── HERO ── */
+#hero {
+  position: relative;
+  height: 100vh;
+  min-height: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://img1.wsimg.com/isteam/ip/581b432f-2f05-4d88-9a85-3fe3f130792d/c72b6f3d-9b25-4f79-b994-ba82739d1067.JPG/:/cr=t:20.18%25,l:0%25,w:100%25,h:37.48%25/rs=w:1200,h:600,cg:true');
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.06);
+  transition: transform 12s ease;
+}
+#hero:hover .hero-bg { transform: scale(1.0); }
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,8,6,.35) 0%,
+    rgba(10,8,6,.55) 50%,
+    rgba(10,8,6,.88) 100%
+  );
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 1.5rem;
+  animation: heroFadeUp 1.6s ease both;
+}
+@keyframes heroFadeUp {
+  from { opacity:0; transform: translateY(30px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.hero-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: .72rem;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.4rem;
+  animation: heroFadeUp 1.6s .2s ease both;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  line-height: 1.0;
+  color: var(--cream);
+  margin-bottom: .5rem;
+  animation: heroFadeUp 1.6s .35s ease both;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-lt);
+}
+.hero-tagline {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: rgba(240,232,210,.78);
+  margin-bottom: 2.8rem;
+  animation: heroFadeUp 1.6s .5s ease both;
+}
+.hero-actions {
+  display: flex;
+  gap: 1.4rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: heroFadeUp 1.6s .65s ease both;
+}
+.btn-primary {
+  font-family: 'Cinzel', serif;
+  font-size: .7rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: .85rem 2.4rem;
+  background: var(--gold);
+  color: var(--dark);
+  border: 1px solid var(--gold);
+  white-space: nowrap;
+  transition: background .25s, color .25s, transform .2s;
+}
+.btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); }
+.btn-outline {
+  font-family: 'Cinzel', serif;
+  font-size: .7rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: .85rem 2.4rem;
+  border: 1px solid rgba(200,169,110,.55);
+  color: var(--cream);
+  white-space: nowrap;
+  transition: border-color .25s, color .25s, transform .2s;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+.hero-scroll {
+  position: absolute;
+  bottom: 2.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  z-index: 2;
+  animation: heroFadeUp 1.6s .9s ease both;
+}
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity: .4; transform: scaleY(1); }
+  50%      { opacity: 1; transform: scaleY(1.1); }
+}
+.scroll-text {
+  font-family: 'Cinzel', serif;
+  font-size: .6rem;
+  letter-spacing: .25em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* ── TICKER BAND ── */
+.ticker-wrap {
+  background: var(--gold);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: .9rem 0;
+}
+.ticker-track {
+  display: inline-block;
+  animation: ticker 28s linear infinite;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: .68rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--dark);
+  padding: 0 2.5rem;
+}
+.ticker-sep {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--dark);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 0 .2rem;
+  opacity: .5;
+}
+
+/* ── SECTION SHARED ── */
+section { position: relative; }
+.section-pad { padding: 8rem 2rem; }
+.section-pad-sm { padding: 5rem 2rem; }
+.container { max-width: 1200px; margin: 0 auto; }
+.container-sm { max-width: 760px; margin: 0 auto; }
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: .65rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.1;
+  color: var(--cream);
+  margin-bottom: 1.6rem;
+}
+.section-title em { font-style: italic; color: var(--gold-lt); }
+.section-body {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.82;
+  color: rgba(232,223,200,.78);
+}
+
+/* ── ABOUT IN ONE HEART ── */
+#about {
+  background: var(--dark2);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.about-image-wrap {
+  position: relative;
+}
+.about-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  display: block;
+}
+.about-img-border {
+  position: absolute;
+  inset: 20px -20px -20px 20px;
+  border: 1px solid var(--border);
+  pointer-events: none;
+  z-index: 0;
+}
+.about-image-wrap .about-img { position: relative; z-index: 1; }
+
+/* ── ABOUT EVELYN ── */
+#evelyn {
+  background: var(--mid);
+  overflow: hidden;
+}
+.evelyn-grid {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: 6rem;
+  align-items: start;
+}
+.evelyn-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  position: sticky;
+  top: 100px;
+}
+.evelyn-text p + p { margin-top: 1.4rem; }
+blockquote.pull-quote {
+  border-left: 2px solid var(--gold);
+  padding: 1rem 0 1rem 1.8rem;
+  margin: 2.4rem 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  color: var(--gold-lt);
+}
+
+/* ── VIDEO ── */
+#video-section {
+  background: var(--dark);
+}
+.video-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.video-embed-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.video-embed-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ── OFFERINGS GRID ── */
+#offerings { background: var(--dark2); }
+.offerings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.offering-card {
+  padding: 3rem 2.4rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transition: background .3s;
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.offering-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .6s ease, opacity .4s ease;
+  opacity: .22;
+  z-index: 0;
+}
+.offering-card:hover .offering-card-bg {
+  transform: scale(1.06);
+  opacity: .38;
+}
+.offering-card-content {
+  position: relative;
+  z-index: 1;
+}
+.offering-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s ease;
+  z-index: 2;
+}
+.offering-card:hover::before { transform: scaleX(1); }
+.offering-num {
+  font-family: 'Cinzel', serif;
+  font-size: .68rem;
+  letter-spacing: .2em;
+  color: var(--gold);
+  margin-bottom: 1.4rem;
+  opacity: .7;
+}
+.offering-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 1.45rem;
+  color: var(--cream);
+  margin-bottom: .8rem;
+  line-height: 1.2;
+}
+.offering-desc {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+.offering-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: 1.4rem;
+  font-family: 'Cinzel', serif;
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: gap .2s;
+}
+.offering-link:hover { gap: .8rem; }
+.offering-link::after { content: '→'; }
+
+/* ── JOURNEYS ── */
+#journeys { background: var(--mid); }
+.journeys-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.journey-card {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.journey-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .6s ease;
+}
+.journey-card:hover .journey-card-bg { transform: scale(1.06); }
+.journey-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,8,6,.95) 0%, rgba(10,8,6,.2) 60%, transparent 100%);
+}
+.journey-card-content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 1.8rem;
+}
+.journey-dest {
+  font-family: 'Cinzel', serif;
+  font-size: .62rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .6rem;
+}
+.journey-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: .5rem;
+}
+.journey-price {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--gold-lt);
+}
+
+/* ── TESTIMONIALS ── */
+#testimonials {
+  background: var(--dark);
+  text-align: center;
+}
+.testimonials-intro {
+  max-width: 600px;
+  margin: 0 auto 5rem;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 900px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+}
+.testi-card {
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  padding: 3rem 2.4rem;
+  text-align: left;
+  position: relative;
+}
+.testi-card::before {
+  content: '\201C';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 6rem;
+  line-height: .6;
+  color: var(--gold);
+  opacity: .2;
+  position: absolute;
+  top: 1.5rem;
+  left: 1.8rem;
+}
+.testi-text {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: rgba(232,223,200,.82);
+  margin-bottom: 1.8rem;
+  position: relative;
+  z-index: 1;
+}
+.testi-name {
+  font-family: 'Cinzel', serif;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.testi-origin {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: .9rem;
+  color: var(--text-muted);
+  margin-top: .2rem;
+}
+
+/* ── MERKABA DIVIDER ── */
+.merkaba-divider {
+  text-align: center;
+  padding: 2.5rem;
+}
+.merkaba-divider svg {
+  width: 44px;
+  height: 44px;
+  opacity: .4;
+  animation: merkaba-spin 12s linear infinite;
+}
+
+/* ── YOUTUBE FACADE ── */
+.yt-facade {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  cursor: pointer;
+  background: #000;
+}
+.yt-facade .yt-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease, filter .4s ease;
+  filter: brightness(.88);
+}
+.yt-facade:hover .yt-thumb {
+  transform: scale(1.04);
+  filter: brightness(.7);
+}
+.yt-facade .yt-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 68px;
+  height: 48px;
+  transition: transform .2s, opacity .2s;
+  opacity: .92;
+}
+.yt-facade:hover .yt-play { transform: translate(-50%,-50%) scale(1.12); opacity: 1; }
+.yt-facade .yt-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2.5rem 1.4rem 1rem;
+  background: linear-gradient(to top, rgba(0,0,0,.75), transparent);
+  font-family: 'Cinzel', serif;
+  font-size: .66rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+}
+.yt-facade iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+#video-gallery { background: var(--dark2); }
+.vgallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.vgallery-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.vgallery-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ── CTA BAND ── */
+#cta-band {
+  background: var(--gold);
+  padding: 6rem 2rem;
+  text-align: center;
+}
+#cta-band .section-title {
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+#cta-band .section-body {
+  color: rgba(10,8,6,.65);
+  max-width: 560px;
+  margin: 0 auto 2.4rem;
+}
+.btn-dark {
+  font-family: 'Cinzel', serif;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: .95rem 2.8rem;
+  background: var(--dark);
+  color: var(--gold);
+  border: 1px solid var(--dark);
+  white-space: nowrap;
+  transition: background .25s, color .25s;
+}
+.btn-dark:hover { background: var(--dark2); }
+
+/* ── CONTACT ── */
+#contact { background: var(--mid); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--cream);
+  outline: none;
+  transition: border-color .25s;
+  margin-bottom: 2rem;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: var(--text-muted); }
+.contact-form input:focus,
+.contact-form textarea:focus { border-color: var(--gold); }
+.contact-form textarea { height: 120px; resize: none; }
+.contact-info-block {
+  margin-bottom: 2.4rem;
+}
+.contact-info-label {
+  font-family: 'Cinzel', serif;
+  font-size: .62rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .4rem;
+}
+.contact-info-value {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  color: rgba(232,223,200,.78);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark);
+  border-top: 1px solid var(--border);
+  padding: 4rem 2rem 2.5rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem;
+}
+.footer-brand-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  letter-spacing: .2em;
+  color: var(--gold-lt);
+  margin-bottom: 1rem;
+}
+.footer-brand-desc {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.footer-col-title {
+  font-family: 'Cinzel', serif;
+  font-size: .62rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.4rem;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+}
+.footer-links a {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  color: var(--text-muted);
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--cream); }
+.footer-bottom {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-copy {
+  font-family: 'EB Garamond', serif;
+  font-size: .9rem;
+  color: var(--text-muted);
+}
+
+/* ── REVEAL ANIMATIONS ── */
+.rv {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+.rv.visible { opacity: 1; transform: none; }
+.rv-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+.rv-left.visible { opacity: 1; transform: none; }
+.rv-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+.rv-right.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  nav { padding: 1.2rem 2rem; }
+  nav.scrolled { padding: .9rem 2rem; }
+  .nav-links { display: none; }
+  .about-grid,
+  .evelyn-grid,
+  .video-inner,
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .evelyn-img { position: static; aspect-ratio: 3/4; }
+  .offerings-grid { grid-template-columns: 1fr 1fr; }
+  .journeys-grid { grid-template-columns: 1fr 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .vgallery-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .section-pad { padding: 5rem 1.2rem; }
+  .offerings-grid { grid-template-columns: 1fr; }
+  .journeys-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+}
+
+/* ── ORNAMENT LINE ── */
+.ornament-line {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.6rem;
+}
+.ornament-line::before,
+.ornament-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.ornament-line span {
+  font-family: 'Cinzel', serif;
+  font-size: .62rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<!-- ── CURSOR ── -->
+<div id="cursor">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <!--
+      Merkaba / Star Tetrahedron — 2D projection of two interlocked tetrahedra.
+      Upper tetrahedron apex=top, base=horizontal band through center.
+      Lower tetrahedron apex=bottom, base=horizontal band through center.
+      Internal lines show the 3 visible faces of each tet.
+
+      Key points:
+        Top apex:        (50, 4)
+        Bottom apex:     (50, 96)
+        Left point:      (8, 50)
+        Right point:     (92, 50)
+
+      Upper-tet base corners (inner triangle, top-pointing):
+        BL = (23, 64),  BR = (77, 64),  Top-inner = (50, 22)
+
+      Lower-tet base corners (inner triangle, bottom-pointing):
+        TL = (23, 36),  TR = (77, 36),  Bot-inner = (50, 78)
+
+      Intersection / center triangle:
+        (50, 36), (23, 64)... let me use the natural intersections.
+
+      Simpler exact construction matching image 1:
+        Outer up-triangle:   (50,4)  (8,72)  (92,72)
+        Outer down-triangle: (50,96) (8,28)  (92,28)
+
+      Internal lines for up-tet (faces):
+        (50,4)->(50,72)   vertical center line
+        (50,4)->(8,72)    already outer edge
+        left-inner: intersection of (50,4)-(92,72) with (8,28)-(92,28) = (74,28)
+        right-inner: intersection of (50,4)-(8,72) with (8,28)-(92,28) = (26,28)
+        So inner triangle of up-tet: (50,4) projects to base at (26,28),(74,28),(50,72)
+
+      Internal lines for down-tet:
+        mirror: (50,96)->(50,28), (26,72),(74,72)
+    -->
+
+    <!-- Outer up-triangle -->
+    <polygon points="50,4 8,72 92,72"
+             fill="rgba(200,169,110,0.07)" stroke="#c8a96e" stroke-width="1.8"
+             stroke-linejoin="round"/>
+
+    <!-- Outer down-triangle -->
+    <polygon points="50,96 8,28 92,28"
+             fill="rgba(224,201,144,0.05)" stroke="#e0c990" stroke-width="1.5"
+             stroke-linejoin="round"/>
+
+    <!-- Internal face lines — upper tetrahedron -->
+    <!-- center vertical from apex to base midpoint -->
+    <line x1="50" y1="4"  x2="50" y2="72" stroke="#c8a96e" stroke-width="1.2" opacity="0.7"/>
+    <!-- left face edge: apex to lower-left intersection -->
+    <line x1="50" y1="4"  x2="26" y2="28" stroke="#c8a96e" stroke-width="1.2" opacity="0.7"/>
+    <!-- right face edge: apex to lower-right intersection -->
+    <line x1="50" y1="4"  x2="74" y2="28" stroke="#c8a96e" stroke-width="1.2" opacity="0.7"/>
+    <!-- base of inner triangle (horizontal) -->
+    <line x1="26" y1="28" x2="74" y2="28" stroke="#c8a96e" stroke-width="1.0" opacity="0.55"/>
+
+    <!-- Internal face lines — lower tetrahedron -->
+    <line x1="50" y1="96" x2="50" y2="28" stroke="#e0c990" stroke-width="1.0" opacity="0.6"/>
+    <line x1="50" y1="96" x2="26" y2="72" stroke="#e0c990" stroke-width="1.0" opacity="0.6"/>
+    <line x1="50" y1="96" x2="74" y2="72" stroke="#e0c990" stroke-width="1.0" opacity="0.6"/>
+    <line x1="26" y1="72" x2="74" y2="72" stroke="#e0c990" stroke-width="0.9" opacity="0.5"/>
+
+    <!-- Center orb -->
+    <circle cx="50" cy="50" r="3" fill="#c8a96e" opacity="0.95"/>
+    <circle cx="50" cy="50" r="1.3" fill="#fff8e8" opacity="0.8"/>
+  </svg>
+</div>
+<div id="cursor-trail"></div>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <div class="nav-logo">
+    <img src="https://img1.wsimg.com/isteam/ip/581b432f-2f05-4d88-9a85-3fe3f130792d/logo/70ea5a7a-8a83-4558-8d19-954d64aee81b.png/:/rs=h:80,cg:true,m/qt=q:95" alt="In One Heart">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#offerings">Offerings</a></li>
+    <li><a href="#journeys">Journeys</a></li>
+    <li><a href="#testimonials">Tribe</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Work With Us</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Your Vibe Attracts Your Tribe</p>
+    <h1 class="hero-title">In One<br><em>Heart</em></h1>
+    <p class="hero-tagline">Unite · Remember · Awaken</p>
+    <div class="hero-actions">
+      <a href="#offerings" class="btn-primary">Explore Offerings</a>
+      <a href="#journeys" class="btn-outline">Mystical Journeys</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ── TICKER ── -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">Mystical Journeys <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Shamanic Breathwork <span class="ticker-sep"></span></span>
+    <span class="ticker-item">ATIH Workshops <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Divine Feminine Retreats <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Private Sessions <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Sacred Geometry <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Vision Quests <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Plant Medicine <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Sound Healing <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Yoni Eggs <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Mystical Journeys <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Shamanic Breathwork <span class="ticker-sep"></span></span>
+    <span class="ticker-item">ATIH Workshops <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Divine Feminine Retreats <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Private Sessions <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Sacred Geometry <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Vision Quests <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Plant Medicine <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Sound Healing <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Yoni Eggs <span class="ticker-sep"></span></span>
+  </div>
+</div>
+
+<!-- ── ABOUT IN ONE HEART ── -->
+<section id="about" class="section-pad">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap rv-left">
+        <img
+          src="https://img1.wsimg.com/isteam/ip/581b432f-2f05-4d88-9a85-3fe3f130792d/5158d409-7e30-449a-850e-26a90ecf0cbd.JPG/:/rs=w:2320,h:1740"
+          alt="In One Heart gathering"
+          class="about-img"
+        >
+        <div class="about-img-border"></div>
+      </div>
+      <div class="rv-right">
+        <p class="section-label">About In One Heart</p>
+        <h2 class="section-title">Uniting souls on the<br><em>path of remembrance</em></h2>
+        <div class="section-body">
+          <p>In One Heart was founded by Evelyn Viviana Guerra with the vision to unite people of all walks of life and assist them on their spiritual journeys and to embark on their path of remembering their missions in life with love and authenticity.</p>
+          <p style="margin-top:1.4rem">The In One Heart Tribe offers a wide range of workshops, one on one guidance and Mystical Journeys so that each individual can embody and experience their own potential and unique spiritual healing, letting go of what no longer serves them and embodying their authentic selves.</p>
+        </div>
+        <div style="margin-top:2.8rem">
+          <a href="#offerings" class="btn-outline">Discover All Offerings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VIDEO ── -->
+<section id="video-section" class="section-pad">
+  <div class="container">
+    <div class="video-inner">
+      <div class="rv-left">
+        <p class="section-label">Watch & Feel</p>
+        <h2 class="section-title">Experience the<br><em>In One Heart</em> energy</h2>
+        <div class="section-body">
+          <p>A Sneak Peak of some of the teachings we will cover in The Awakening The Illuminated Workshop.</p>
+        </div>
+        <div style="margin-top:2.8rem">
+          <a href="#journeys" class="btn-outline">Join a Journey</a>
+        </div>
+      </div>
+      <div class="yt-facade rv-right" data-vid="3lNnNXACGBc">
+        <img class="yt-thumb" src="https://i.ytimg.com/vi/3lNnNXACGBc/hqdefault.jpg" alt="In One Heart — Mystical Journey">
+        <button class="yt-play" aria-label="Play video">
+          <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg"><path d="M66.52 7.74C65.7 4.6 63.2 2.1 60.08 1.28 54.84 0 34 0 34 0S13.16 0 7.92 1.28C4.8 2.1 2.3 4.6 1.48 7.74 0 13.06 0 24 0 24s0 10.94 1.48 16.26C2.3 43.4 4.8 45.9 7.92 46.72 13.16 48 34 48 34 48s20.84 0 26.08-1.28c3.12-.82 5.62-3.32 6.44-6.46C68 34.94 68 24 68 24s0-10.94-1.48-16.26z" fill="#ff0000"/><path d="M27 34l18-10-18-10v20z" fill="#fff"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MERKABA DIVIDER ── -->
+<div class="merkaba-divider">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="50,4 8,72 92,72" fill="rgba(200,169,110,0.07)" stroke="#c8a96e" stroke-width="1.8" stroke-linejoin="round"/>
+    <polygon points="50,96 8,28 92,28" fill="rgba(224,201,144,0.05)" stroke="#e0c990" stroke-width="1.5" stroke-linejoin="round"/>
+    <line x1="50" y1="4"  x2="50" y2="72" stroke="#c8a96e" stroke-width="1.2" opacity="0.7"/>
+    <line x1="50" y1="4"  x2="26" y2="28" stroke="#c8a96e" stroke-width="1.2" opacity="0.7"/>
+    <line x1="50" y1="4"  x2="74" y2="28" stroke="#c8a96e" stroke-width="1.2" opacity="0.7"/>
+    <line x1="26" y1="28" x2="74" y2="28" stroke="#c8a96e" stroke-width="1.0" opacity="0.55"/>
+    <line x1="50" y1="96" x2="50" y2="28" stroke="#e0c990" stroke-width="1.0" opacity="0.6"/>
+    <line x1="50" y1="96" x2="26" y2="72" stroke="#e0c990" stroke-width="1.0" opacity="0.6"/>
+    <line x1="50" y1="96" x2="74" y2="72" stroke="#e0c990" stroke-width="1.0" opacity="0.6"/>
+    <line x1="26" y1="72" x2="74" y2="72" stroke="#e0c990" stroke-width="0.9" opacity="0.5"/>
+    <circle cx="50" cy="50" r="3" fill="#c8a96e" opacity="0.95"/>
+    <circle cx="50" cy="50" r="1.3" fill="#fff8e8" opacity="0.8"/>
+  </svg>
+</div>
+
+<!-- ── ABOUT EVELYN ── -->
+<section id="evelyn" class="section-pad">
+  <div class="container">
+    <div class="evelyn-grid">
+      <div class="evelyn-text">
+        <p class="section-label rv">About Evelyn Viviana</p>
+        <h2 class="section-title rv">A rare teacher of<br><em>shamanic wisdom</em></h2>
+        <div class="section-body">
+          <p class="rv" style="transition-delay:.1s">Evelyn is a renowned life coach, healer, and spiritual light energy worker born in Peru and driven by the calling of inner light in her spirit. She is committed to her own awakening as well as to the calling of Spirit to help humanity awaken to their own powers and inner wisdom, one person at a time.</p>
+
+          <p class="rv" style="transition-delay:.2s;margin-top:1.4rem">Evelyn is a certified teacher of The Awakening the Illuminated Heart (ATIH) and has completed dozens of Vision Quests with guardians of Indigenous knowledge as a seeker and student of spiritual truths for healing, and psychic transformation. She is a leader in imparting shamanic wisdom and esoteric knowledges, much of which are found in Indigenous traditions, through her decades of teaching and leading retreats, meditations, shamanic breath-work, workshops, spiritual and mystic journeys to sacred sites throughout the world. She now works with a dynamic team of shamanic light workers, spiritual teachers, healers, and humble servants of the Divine Spirit to expand on the journeys of many spiritual seekers.</p>
+
+          <p class="rv" style="transition-delay:.3s;margin-top:1.4rem">She is a direct student of the world-renowned author and esoteric teacher Drunvalo Melchizedek, and is a certified student of his "School of Remembering." She credits the honor of learning directly from him to gaining a deeper understanding of her synergistic gifts and abilities of imparting the teachings learned in her own life's spiritual journey onto her students.</p>
+
+          <p class="rv" style="transition-delay:.4s;margin-top:1.4rem">Evelyn is a highly intuitive and sensitive eternal student of the light, who has become finely attuned to the voice of inner wisdom and of Spirit. She is a rare teacher of shamanic wisdom and the art of esoteric knowledge. Her greatest delight is in being a witness to the growth of her students as they remember who they really are and embrace their path of ultimate fulfillment in experiencing the divine rapture found in Spirit, life, and love.</p>
+
+          <p class="rv" style="transition-delay:.5s;margin-top:1.4rem">Evelyn has been blessed to embrace, learn and hold sacred space with various indigenous tribes from the Shipibo's and Q'eros in Peru to The Mayans of Guatemala &amp; Mexico to the Maori's of New Zealand and Kogis of Colombia as well as bring the science aspect of this reality by teaching Sacred Geometry speak on Quantum Physics &amp; Quantum Entanglement and marrying all she's learned and experienced with religious sects like Buddhism, Hinduism, and Sufism. She embraces these subjects into her practice everyday ultimately innerstanding the beauty of this reality and embracing it all with love, authenticity and humility.</p>
+
+          <blockquote class="pull-quote rv" style="transition-delay:.6s">
+            "Let's walk each other home and join the In One Heart family."
+          </blockquote>
+        </div>
+      </div>
+      <div class="rv-right">
+        <img
+          src="https://img1.wsimg.com/isteam/ip/581b432f-2f05-4d88-9a85-3fe3f130792d/IMG_E2096.JPG/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1170,cg:true"
+          alt="Evelyn Viviana Guerra"
+          class="evelyn-img"
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OFFERINGS ── -->
+<section id="offerings" class="section-pad">
+  <div class="container">
+    <div class="rv" style="text-align:center;max-width:600px;margin:0 auto 4rem">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title">Paths of healing,<br><em>awakening & embodiment</em></h2>
+    </div>
+    <div class="offerings-grid rv">
+      <div class="offering-card">
+        <div class="offering-card-bg" style="background-image:url('https://img1.wsimg.com/isteam/ip/581b432f-2f05-4d88-9a85-3fe3f130792d/Abu%20Simbel.jpg/:/cr=t:8.47%25,l:0%25,w:100%25,h:83.07%25/rs=w:1240,h:620,cg:true')"></div>
+        <div class="offering-card-content">
+          <div class="offering-num">01</div>
+          <h3 class="offering-title">Mystical Journeys</h3>
+          <p class="offering-desc">Sacred pilgrimages to ancient sites worldwide — Egypt, Peru, Turkey, Morocco, and beyond. Each journey is designed to awaken your soul and activate your heart.</p>
+          <a href="https://inoneheart.com/mystical-journeys" class="offering-link">Explore Journeys</a>
+        </div>
+      </div>
+      <div class="offering-card">
+        <div class="offering-card-bg" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=80')"></div>
+        <div class="offering-card-content">
+          <div class="offering-num">02</div>
+          <h3 class="offering-title">ATIH Workshops</h3>
+          <p class="offering-desc">Certified teachings of the Awakening the Illuminated Heart — the wisdom directly transmitted from the School of Remembering founded by Drunvalo Melchizedek.</p>
+          <a href="https://inoneheart.com/atih-workshops" class="offering-link">Learn More</a>
+        </div>
+      </div>
+      <div class="offering-card">
+        <div class="offering-card-bg" style="background-image:url('https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=800&auto=format&fit=crop&q=80')"></div>
+        <div class="offering-card-content">
+          <div class="offering-num">03</div>
+          <h3 class="offering-title">Shamanic Breathwork</h3>
+          <p class="offering-desc">A profound journey of breath, sound, and sacred space that awakens the mental, emotional, physical, and spiritual bodies — releasing what no longer serves you.</p>
+          <a href="https://inoneheart.com/shamanic-healing" class="offering-link">Explore Healing</a>
+        </div>
+      </div>
+      <div class="offering-card" style="border-bottom:0">
+        <div class="offering-card-bg" style="background-image:url('https://plus.unsplash.com/premium_photo-1668125655565-6118c36b267f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+        <div class="offering-card-content">
+          <div class="offering-num">04</div>
+          <h3 class="offering-title">Divine Feminine Retreats</h3>
+          <p class="offering-desc">Immersive retreats honoring the sacred feminine — womb healing, yoni steaming, breathwork, women's empowerment, and conscious sisterhood.</p>
+          <a href="https://inoneheart.com/divine-feminine-retreats" class="offering-link">View Retreats</a>
+        </div>
+      </div>
+      <div class="offering-card" style="border-bottom:0">
+        <div class="offering-card-bg" style="background-image:url('https://images.unsplash.com/photo-1526916027372-0c0852cef5d3?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+        <div class="offering-card-content">
+          <div class="offering-num">05</div>
+          <h3 class="offering-title">Private Sessions</h3>
+          <p class="offering-desc">One-on-one guidance tailored to your unique spiritual path. Connect directly with Evelyn for deeply personal healing and awakening support.</p>
+          <a href="https://inoneheart.com/private-sessions" class="offering-link">Book a Session</a>
+        </div>
+      </div>
+      <div class="offering-card" style="border-right:0;border-bottom:0">
+        <div class="offering-card-bg" style="background-image:url('https://images.unsplash.com/photo-1567113463224-37cf03ba4577?q=80&w=1151&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+        <div class="offering-card-content">
+          <div class="offering-num">06</div>
+          <h3 class="offering-title">Yoni Eggs & Shop</h3>
+          <p class="offering-desc">Sacred tools for feminine healing and empowerment. Curated offerings to support your practice between journeys and workshops.</p>
+          <a href="https://inoneheart.com/yoni-eggs" class="offering-link">Visit the Shop</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── JOURNEYS ── -->
+<section id="journeys" class="section-pad">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem" class="rv">
+      <div>
+        <p class="section-label">Upcoming Pilgrimages</p>
+        <h2 class="section-title">Mystical<br><em>Journeys</em></h2>
+      </div>
+      <a href="https://inoneheart.com/mystical-journeys" class="btn-outline">All Journeys</a>
+    </div>
+    <div class="journeys-grid">
+      <div class="journey-card rv" style="transition-delay:.1s">
+        <div class="journey-card-bg" style="background-image:url('https://img1.wsimg.com/isteam/ip/581b432f-2f05-4d88-9a85-3fe3f130792d/Abu%20Simbel.jpg/:/cr=t:8.47%25,l:0%25,w:100%25,h:83.07%25/rs=w:1240,h:620,cg:true')"></div>
+        <div class="journey-card-overlay"></div>
+        <div class="journey-card-content">
+          <p class="journey-dest">Egypt · April 1–12, 2026</p>
+          <h3 class="journey-name">A Soul's Remembrance<br>to Egypt</h3>
+          <p class="journey-price">from $5,300</p>
+        </div>
+      </div>
+      <div class="journey-card rv" style="transition-delay:.2s">
+        <div class="journey-card-bg" style="background-image:url('https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&auto=format&fit=crop&q=80')"></div>
+        <div class="journey-card-overlay"></div>
+        <div class="journey-card-content">
+          <p class="journey-dest">Peru · Sept 4–12, 2026</p>
+          <h3 class="journey-name">Sacred Valley<br>Ayahuasca Retreat</h3>
+          <p class="journey-price">from $3,500</p>
+        </div>
+      </div>
+      <div class="journey-card rv" style="transition-delay:.3s">
+        <div class="journey-card-bg" style="background-image:url('https://images.unsplash.com/photo-1589561454226-796a8aa89b05?w=800&auto=format&fit=crop&q=80')"></div>
+        <div class="journey-card-overlay"></div>
+        <div class="journey-card-content">
+          <p class="journey-dest">Turkey · TBD</p>
+          <h3 class="journey-name">A Turkish Journey:<br>Mystic Heart</h3>
+          <p class="journey-price">from $4,400</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section id="testimonials" class="section-pad">
+  <div class="container">
+    <div class="testimonials-intro rv">
+      <p class="section-label">The In One Heart Tribe</p>
+      <h2 class="section-title">From souls who<br><em>remembered</em></h2>
+    </div>
+    <div class="testimonials-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="testi-card rv" style="transition-delay:.1s">
+        <p class="testi-text">Evelyn's shamanic breathwork opened a door inside me I didn't know existed. In a single session I released grief I had been carrying for a decade. I wept, I laughed, I felt completely reborn.</p>
+        <div>
+          <p class="testi-name">Maria C.</p>
+          <p class="testi-origin">Shamanic Breathwork, New York</p>
+        </div>
+      </div>
+      <div class="testi-card rv" style="transition-delay:.2s">
+        <p class="testi-text">The Egypt pilgrimage was not a vacation — it was a transmission. Standing inside the King's Chamber at 3am, I felt something ancient awaken in my chest. I am not the same person who boarded that flight.</p>
+        <div>
+          <p class="testi-name">Jasmine R.</p>
+          <p class="testi-origin">Mystical Journey — Egypt</p>
+        </div>
+      </div>
+      <div class="testi-card rv" style="transition-delay:.3s">
+        <p class="testi-text">The ATIH workshop with Evelyn was the most profound workshop I have ever attended. The Mer-Ka-Ba meditation practice has completely shifted how I move through the world. I feel my heart open every single morning.</p>
+        <div>
+          <p class="testi-name">Daniel V.</p>
+          <p class="testi-origin">ATIH Workshop, New Jersey</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VIDEO GALLERY ── -->
+<section id="video-gallery" class="section-pad">
+  <div class="container">
+    <div class="rv" style="text-align:center;max-width:600px;margin:0 auto 1rem">
+      <p class="section-label">Sacred Footage</p>
+      <h2 class="section-title">Glimpses of the<br><em>journey</em></h2>
+      <p class="section-body" style="margin-top:1rem">Sneak peaks of the sacred sites we visit on our Mystical Journeys.</p>
+    </div>
+    <div class="vgallery-grid rv" style="transition-delay:.15s">
+      <div class="yt-facade" data-vid="-4O59V-wbkQ">
+        <img class="yt-thumb" src="https://i.ytimg.com/vi/-4O59V-wbkQ/hqdefault.jpg" alt="Mystical Journey Part 1 — Sacred Sites">
+        <div class="yt-label">Mystical Journey Part 1</div>
+        <button class="yt-play" aria-label="Play video">
+          <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg"><path d="M66.52 7.74C65.7 4.6 63.2 2.1 60.08 1.28 54.84 0 34 0 34 0S13.16 0 7.92 1.28C4.8 2.1 2.3 4.6 1.48 7.74 0 13.06 0 24 0 24s0 10.94 1.48 16.26C2.3 43.4 4.8 45.9 7.92 46.72 13.16 48 34 48 34 48s20.84 0 26.08-1.28c3.12-.82 5.62-3.32 6.44-6.46C68 34.94 68 24 68 24s0-10.94-1.48-16.26z" fill="#ff0000"/><path d="M27 34l18-10-18-10v20z" fill="#fff"/></svg>
+        </button>
+      </div>
+      <div class="yt-facade" data-vid="QWvaHSQwrxU">
+        <img class="yt-thumb" src="https://i.ytimg.com/vi/QWvaHSQwrxU/hqdefault.jpg" alt="Mystical Journey Part 2 — Sacred Sites">
+        <div class="yt-label">Mystical Journey Part 2</div>
+        <button class="yt-play" aria-label="Play video">
+          <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg"><path d="M66.52 7.74C65.7 4.6 63.2 2.1 60.08 1.28 54.84 0 34 0 34 0S13.16 0 7.92 1.28C4.8 2.1 2.3 4.6 1.48 7.74 0 13.06 0 24 0 24s0 10.94 1.48 16.26C2.3 43.4 4.8 45.9 7.92 46.72 13.16 48 34 48 34 48s20.84 0 26.08-1.28c3.12-.82 5.62-3.32 6.44-6.46C68 34.94 68 24 68 24s0-10.94-1.48-16.26z" fill="#ff0000"/><path d="M27 34l18-10-18-10v20z" fill="#fff"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BAND ── -->
+<section id="cta-band">
+  <div class="rv">
+    <h2 class="section-title" style="color:var(--dark)">Ready to walk each other<br><em style="color:rgba(10,8,6,.65)">home?</em></h2>
+    <p class="section-body" style="color:rgba(10,8,6,.65);max-width:500px;margin:1rem auto 2.4rem">Join the In One Heart family and embark on your path of remembering — with love and authenticity.</p>
+    <a href="#contact" class="btn-dark">Connect With Us</a>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="section-pad">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="rv-left">
+        <p class="section-label">Contact Us</p>
+        <h2 class="section-title">Let's connect<br><em>directly</em></h2>
+        <div style="margin-top:3rem">
+          <div class="contact-info-block">
+            <p class="contact-info-label">Phone</p>
+            <p class="contact-info-value"><a href="tel:9173062323">(917) 306-2323</a></p>
+          </div>
+          <div class="contact-info-block">
+            <p class="contact-info-label">Email</p>
+            <p class="contact-info-value"><a href="/cdn-cgi/l/email-protection#0c656d61656263626964696d7e784c6b616d6560226f6361"><span class="__cf_email__" data-cfemail="d1b8b0bcb8bfbebfb4b9b4b0a3a591b6bcb0b8bdffb2bebc">[email&#160;protected]</span></a></p>
+          </div>
+          <div class="contact-info-block">
+            <p class="contact-info-label">Hours</p>
+            <p class="contact-info-value">By Appointment — Monday through Sunday</p>
+          </div>
+        </div>
+      </div>
+      <div class="rv-right">
+        <div class="contact-form">
+          <input type="text" placeholder="Your Name">
+          <input type="email" placeholder="Your Email">
+          <textarea placeholder="Your Message"></textarea>
+          <a href="/cdn-cgi/l/email-protection#c8a1a9a5a1a6a7a6ada0ada9babc88afa5a9a1a4e6aba7a5" class="btn-primary" style="display:inline-block;margin-top:.5rem">Send Message</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-brand-name">In One Heart</p>
+      <p class="footer-brand-desc">Founded by Evelyn Viviana Guerra with the vision to unite people of all walks of life and assist them on their spiritual journeys — with love and authenticity.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Offerings</p>
+      <ul class="footer-links">
+        <li><a href="https://inoneheart.com/mystical-journeys">Mystical Journeys</a></li>
+        <li><a href="https://inoneheart.com/atih-workshops">ATIH Workshops</a></li>
+        <li><a href="https://inoneheart.com/shamanic-healing">Shamanic Healing</a></li>
+        <li><a href="https://inoneheart.com/divine-feminine-retreats">Divine Feminine Retreats</a></li>
+        <li><a href="https://inoneheart.com/private-sessions">Private Sessions</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Explore</p>
+      <ul class="footer-links">
+        <li><a href="https://inoneheart.com/yoni-eggs">Yoni Eggs</a></li>
+        <li><a href="https://inoneheart.com/shop">Shop</a></li>
+        <li><a href="https://inoneheart.com/mystical-yoga-retreat">Yoga Retreat</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Connect</p>
+      <ul class="footer-links">
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="tel:9173062323">(917) 306-2323</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#fc959d91959293929994999d8e88bc9b919d9590d29f9391"><span class="__cf_email__" data-cfemail="553c34383c3b3a3b303d30342721153238343c397b363a38">[email&#160;protected]</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 In One Heart · All Rights Reserved</p>
+    <div style="display:flex;align-items:center;gap:.8rem">
+      <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="opacity:.4;animation:merkaba-spin 10s linear infinite">
+        <polygon points="50,4 8,72 92,72" fill="none" stroke="#c8a96e" stroke-width="2.5" stroke-linejoin="round"/>
+        <polygon points="50,96 8,28 92,28" fill="none" stroke="#e0c990" stroke-width="2" stroke-linejoin="round"/>
+        <line x1="50" y1="4"  x2="50" y2="72" stroke="#c8a96e" stroke-width="1.5" opacity="0.7"/>
+        <line x1="50" y1="4"  x2="26" y2="28" stroke="#c8a96e" stroke-width="1.5" opacity="0.7"/>
+        <line x1="50" y1="4"  x2="74" y2="28" stroke="#c8a96e" stroke-width="1.5" opacity="0.7"/>
+        <line x1="50" y1="96" x2="26" y2="72" stroke="#e0c990" stroke-width="1.2" opacity="0.6"/>
+        <line x1="50" y1="96" x2="74" y2="72" stroke="#e0c990" stroke-width="1.2" opacity="0.6"/>
+        <circle cx="50" cy="50" r="4" fill="#c8a96e"/>
+      </svg>
+      <span class="footer-copy">In One Heart</span>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const trail  = document.getElementById('cursor-trail');
+let mx = -100, my = -100;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+  setTimeout(() => {
+    trail.style.left = mx + 'px';
+    trail.style.top  = my + 'px';
+  }, 90);
+});
+
+// ── NAV SCROLL ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── YOUTUBE FACADE CLICK-TO-PLAY ──
+document.querySelectorAll('.yt-facade').forEach(facade => {
+  facade.addEventListener('click', () => {
+    const vid = facade.dataset.vid;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${vid}?autoplay=1&rel=0&modestbranding=1`;
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
+    facade.querySelectorAll('.yt-thumb,.yt-play,.yt-label').forEach(el => el.style.display='none');
+    facade.appendChild(iframe);
+  });
+});
+
+// ── SCROLL REVEAL ──
+const revealEls = document.querySelectorAll('.rv, .rv-left, .rv-right');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
