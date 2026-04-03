@@ -975,19 +975,15 @@
       padding: clamp(5rem,11vw,9rem) clamp(1.5rem,5vw,4rem);
       text-align: center;
     }
-    .cta-band-bg {
-      position: absolute; inset: -30% 0;
-      background: var(--ink2);
-      will-change: transform;
-      z-index: 0;
-    }
     .cta-band-content {
       position: relative; z-index: 1;
+      will-change: transform;
     }
     .cta-band-mark {
       position: absolute; left: 50%; top: 50%;
       transform: translate(-50%,-50%);
-      width: min(70vw,580px); opacity: 0.025; pointer-events: none;
+      width: min(72vw,600px); opacity: 0.07; pointer-events: none;
+      mix-blend-mode: screen;
     }
     .cta-title {
       font-family: 'Cormorant Garamond', serif;
@@ -1594,8 +1590,7 @@
 
 <!-- ═══════════ CTA BAND ═══════════ -->
 <section class="cta-band" id="ctaBand">
-  <div class="cta-band-bg" id="ctaBandBg"></div>
-  <div class="cta-band-content">
+  <div class="cta-band-content" id="ctaBandContent">
     <img class="cta-band-mark" src="images/merkaba.png" alt="">
     <h2 class="cta-title rv">Your clients <em>feel</em> your site before they read it.</h2>
     <p class="cta-sub rv">Make sure what they feel is aligned with the medicine you carry.</p>
@@ -1890,15 +1885,14 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 
 /* ── CTA BAND PARALLAX ── */
 (function () {
-  const band = document.getElementById('ctaBand');
-  const bg   = document.getElementById('ctaBandBg');
-  if (!band || !bg) return;
+  const band    = document.getElementById('ctaBand');
+  const content = document.getElementById('ctaBandContent');
+  if (!band || !content) return;
   function onScroll() {
-    const rect = band.getBoundingClientRect();
-    const vh   = window.innerHeight;
-    // progress: -1 (above viewport) → 0 (centered) → 1 (below viewport)
-    const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
-    bg.style.transform = `translateY(${progress * 55}px)`;
+    const rect     = band.getBoundingClientRect();
+    const vh       = window.innerHeight;
+    const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
+    content.style.transform = `translateY(${progress * -48}px)`;
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
