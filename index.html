@@ -389,13 +389,23 @@
     }
     .port-name em { font-style: italic; color: var(--gold); }
     .port-cta {
-      font-family: 'Cinzel', serif; font-size: 0.55rem;
-      letter-spacing: 0.22em; color: var(--gold);
-      text-decoration: none; margin-top: 0.8rem; display: inline-block;
-      opacity: 0; transform: translateY(7px);
-      transition: opacity 0.35s 0.15s ease, transform 0.35s 0.15s ease;
+      font-family: 'Cinzel', serif; font-size: 0.6rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink); background: var(--gold);
+      text-decoration: none; margin-top: 1rem; display: inline-block;
+      padding: 0.65rem 1.4rem; white-space: nowrap; flex-shrink: 0;
+      position: relative;
+      animation: ctaPulse 2.4s ease-in-out infinite;
     }
-    .port-card[data-pos="active"]:hover .port-cta { opacity: 1; transform: none; }
+    @keyframes ctaPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,110,0.55); }
+      50%       { box-shadow: 0 0 0 8px rgba(201,168,110,0); }
+    }
+    .port-cta:hover {
+      background: var(--gold-lt);
+      animation: none;
+      box-shadow: 0 0 0 2px rgba(201,168,110,0.6);
+    }
     /* Dot indicators */
     .carousel-dots {
       display: flex; justify-content: center; align-items: center;
@@ -868,7 +878,7 @@
   <div class="meet-grid">
 
     <div class="meet-photo-wrap rv">
-      <img class="meet-photo" src="images/will.jpg" alt="Will Jones — Founder, DMWN">
+      <img class="meet-photo" src="images/will-2.jpg" alt="Will Jones — Founder, DMWN">
       <div class="meet-badge">Conscious Web Design</div>
     </div>
 
