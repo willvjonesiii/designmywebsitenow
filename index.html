@@ -273,39 +273,159 @@
     }
 
     /* ═══════════════════════════════════
-       PHILOSOPHY
+       ORACLE CARD DECK
     ═══════════════════════════════════ */
-    .phil-grid {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 1px; margin-top: 4rem; background: var(--hairline);
+    .oracle-scene { margin-top: 4rem; }
+
+    /* Deck pile — visible before deal, fades after */
+    .deck-pile {
+      display: flex; justify-content: center; align-items: center;
+      height: 3rem; margin-bottom: 2rem;
+      gap: 0;
     }
-    .phil-card {
-      background: var(--ink2); padding: clamp(2rem,4vw,3rem);
-      position: relative; overflow: hidden; transition: background 0.3s;
+    .deck-pip {
+      width: 2.5rem; height: 3.5rem;
+      background: var(--ink3);
+      border: 1px solid rgba(201,168,110,0.45);
+      position: absolute;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .phil-card:hover { background: var(--ink3); }
-    /* .phil-wm defined above with brand marks */
-    .phil-num {
-      font-family: 'Cinzel', serif; font-size: 0.58rem;
-      letter-spacing: 0.3em; color: var(--gold);
-      display: block; margin-bottom: 1.25rem;
+    .deck-pip:nth-child(1) { transform: rotate(-6deg) translate(-4px, 4px); }
+    .deck-pip:nth-child(2) { transform: rotate(-2deg) translate(-1px, 2px); }
+    .deck-pip:nth-child(3) { transform: rotate(2deg); }
+    .deck-pile.dealt-out .deck-pip { opacity: 0; transform: scale(0.8); }
+
+    /* Row of 6 oracle cards */
+    .oracle-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: clamp(0.5rem, 1vw, 0.85rem);
+      perspective: 1400px;
     }
-    .phil-title {
+
+    /* Each card outer shell */
+    .oracle-card {
+      aspect-ratio: 2/3;
+      position: relative;
+      opacity: 0;
+      transform: translateX(-50px) rotate(-6deg);
+      cursor: none;
+      z-index: 1;
+    }
+    .oracle-card.dealing {
+      transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.34, 1.25, 0.64, 1);
+    }
+    .oracle-card.dealt {
+      opacity: 1;
+      transform: translateX(0) rotate(0deg);
+    }
+    .oracle-card.dealt.revealed:hover {
+      transform: translateY(-12px);
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+
+    /* 3-D flip inner */
+    .oracle-inner {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    .oracle-card.revealing .oracle-inner {
+      transition: transform 0.75s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    }
+    .oracle-card.revealed .oracle-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Shared face rules */
+    .oracle-face {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* ── BACK FACE ── */
+    .oracle-face-back {
+      background: var(--ink3);
+      border: 1px solid rgba(201,168,110,0.5);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem; overflow: hidden;
+    }
+    /* Double inner border */
+    .oracle-face-back::before {
+      content: '';
+      position: absolute; inset: 0.45rem;
+      border: 1px solid rgba(201,168,110,0.25);
+      pointer-events: none; z-index: 0;
+    }
+    /* Corner ornaments */
+    .oracle-face-back::after {
+      content: '✦';
+      position: absolute; bottom: 0.6rem; right: 0.7rem;
+      font-size: 0.45rem; color: rgba(201,168,110,0.4);
+      z-index: 0;
+    }
+    .oracle-back-mark {
+      width: 62%; mix-blend-mode: screen; opacity: 0.85;
+      position: relative; z-index: 1;
+    }
+    .oracle-back-label {
+      font-family: 'Cinzel', serif; font-size: 0.42rem;
+      letter-spacing: 0.35em; color: rgba(201,168,110,0.55);
+      position: absolute; bottom: 0.65rem; left: 50%;
+      transform: translateX(-50%); z-index: 1; white-space: nowrap;
+    }
+
+    /* ── FRONT FACE ── */
+    .oracle-face-front {
+      background: var(--ink2);
+      border: 1px solid rgba(201,168,110,0.35);
+      transform: rotateY(180deg);
+      display: flex; flex-direction: column;
+      padding: clamp(0.6rem, 1.2vw, 1rem);
+      overflow: hidden;
+    }
+    /* Top gold accent line */
+    .oracle-face-front::before {
+      content: '';
+      display: block; width: 100%; height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin-bottom: clamp(0.5rem, 1vw, 0.85rem); flex-shrink: 0;
+    }
+    .o-num {
+      font-family: 'Cinzel', serif; font-size: 0.48rem;
+      letter-spacing: 0.28em; color: var(--gold);
+      display: block; margin-bottom: 0.5rem;
+    }
+    .o-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
-      font-weight: 300; line-height: 1.2; color: var(--cream);
-      margin-bottom: 0.9rem;
+      font-size: clamp(0.78rem, 1.1vw, 1rem);
+      font-weight: 300; line-height: 1.25; color: var(--cream);
+      margin-bottom: 0.5rem; flex-shrink: 0;
     }
-    .phil-title em { font-style: italic; color: var(--gold); }
-    .phil-body {
-      font-size: 0.86rem; color: var(--cream-dim); line-height: 1.78;
+    .o-title em { font-style: italic; color: var(--gold); }
+    .o-body {
+      font-size: clamp(0.58rem, 0.75vw, 0.7rem);
+      color: var(--cream-dim); line-height: 1.65;
+      flex: 1; overflow: hidden;
     }
-    .phil-body strong { color: var(--gold); font-weight: 400; }
-    .phil-label {
-      display: inline-block; margin-top: 1.5rem;
-      font-family: 'Cinzel', serif; font-size: 0.52rem;
-      letter-spacing: 0.3em; color: var(--gold);
-      border: 1px solid rgba(201,168,110,0.38); padding: 0.28rem 0.72rem;
+    .o-body strong { color: var(--gold); font-weight: 400; }
+    .o-badge {
+      display: inline-block; margin-top: 0.6rem;
+      font-family: 'Cinzel', serif; font-size: 0.42rem;
+      letter-spacing: 0.28em; color: var(--gold);
+      border: 1px solid rgba(201,168,110,0.35);
+      padding: 0.2rem 0.55rem; flex-shrink: 0; align-self: flex-start;
+    }
+
+    /* Mobile: 3 cols */
+    @media (max-width: 800px) {
+      .oracle-row { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .oracle-row { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* ═══════════════════════════════════
@@ -856,65 +976,118 @@
   </div>
 </div>
 
-<!-- ═══════════ PHILOSOPHY ═══════════ -->
+<!-- ═══════════ ORACLE DECK ═══════════ -->
 <section class="section section-alt" id="philosophy">
   <div class="rv">
-    <span class="eyebrow">The Digital Energy Series</span>
-    <h2 class="section-title">Every pixel carries <em>frequency</em></h2>
-    <p class="section-body">Your website doesn't just display information — it transmits energy. We build sites that feel like an extension of your healing field from the first scroll.</p>
+    <span class="eyebrow">Six Principles of Conscious Design</span>
+    <h2 class="section-title">The Digital <em>Design Deck</em></h2>
+    <p class="section-body">Six truths about what your website is actually doing — drawn from the same energetic principles that guide the practices of the clients we serve.</p>
   </div>
 
-  <div class="phil-grid">
+  <div class="oracle-scene" id="oracleScene">
 
-    <div class="phil-card rv">
-      <img class="phil-wm" src="images/merkaba.png" alt="">
-      <span class="phil-num">01 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
-      <h3 class="phil-title">Your website is an <em>energetic portal</em></h3>
-      <p class="phil-body">Every person who lands on your site enters your field before they ever meet you. Slow load times, cluttered layouts, and broken links are energetic leaks. <strong>Your digital space deserves the same intentional curation as your healing room.</strong></p>
-      <span class="phil-label">Portal</span>
+    <!-- Deck pile visual -->
+    <div class="deck-pile" id="deckPile">
+      <div class="deck-pip"></div>
+      <div class="deck-pip"></div>
+      <div class="deck-pip"></div>
     </div>
 
-    <div class="phil-card rv rv-d1">
-      <img class="phil-wm" src="images/merkaba.png" alt="">
-      <span class="phil-num">02 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
-      <h3 class="phil-title">First impressions are <em>felt, not read</em></h3>
-      <p class="phil-body">Your visitors decide within 3 seconds whether they feel safe enough to stay. That feeling comes from color, space, and imagery — not your words. <strong>Design your homepage the way you would set a sacred space.</strong> What does someone feel the moment they walk in?</p>
-      <span class="phil-label">Presence</span>
-    </div>
+    <!-- The six cards -->
+    <div class="oracle-row" id="oracleRow">
 
-    <div class="phil-card rv rv-d2">
-      <img class="phil-wm" src="images/merkaba.png" alt="">
-      <span class="phil-num">03 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
-      <h3 class="phil-title">Fonts carry <em>frequency</em></h3>
-      <p class="phil-body">A harsh corporate font on a sound healing page creates dissonance before a word is read. Typography has its own energy. <strong>The fonts on your site should feel like an extension of your practice</strong> — soft, intentional, and aligned with who you are.</p>
-      <span class="phil-label">Vibration</span>
-    </div>
+      <div class="oracle-card" data-i="0">
+        <div class="oracle-inner">
+          <div class="oracle-face oracle-face-back">
+            <img class="oracle-back-mark" src="images/merkaba.png" alt="">
+            <span class="oracle-back-label">DMWN</span>
+          </div>
+          <div class="oracle-face oracle-face-front">
+            <span class="o-num">01</span>
+            <h3 class="o-title">Your website is an <em>energetic portal</em></h3>
+            <p class="o-body">Every person who lands on your site enters your field before they ever meet you. Slow load times, cluttered layouts, and broken links are energetic leaks. <strong>Your digital space deserves the same intentional curation as your healing room.</strong></p>
+            <span class="o-badge">Portal</span>
+          </div>
+        </div>
+      </div>
 
-    <div class="phil-card rv">
-      <img class="phil-wm" src="images/merkaba.png" alt="">
-      <span class="phil-num">04 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
-      <h3 class="phil-title">White space is <em>not empty space</em></h3>
-      <p class="phil-body">In healing work you know that silence holds as much power as sound. The same is true in design. <strong>Crowding your site out of fear of emptiness blocks the energy of what you're offering.</strong> Let your site breathe.</p>
-      <span class="phil-label">Spaciousness</span>
-    </div>
+      <div class="oracle-card" data-i="1">
+        <div class="oracle-inner">
+          <div class="oracle-face oracle-face-back">
+            <img class="oracle-back-mark" src="images/merkaba.png" alt="">
+            <span class="oracle-back-label">DMWN</span>
+          </div>
+          <div class="oracle-face oracle-face-front">
+            <span class="o-num">02</span>
+            <h3 class="o-title">First impressions are <em>felt, not read</em></h3>
+            <p class="o-body">Your visitors decide within 3 seconds whether they feel safe enough to stay. That feeling comes from color, space, and imagery — not your words. <strong>Design your homepage the way you would set a sacred space.</strong></p>
+            <span class="o-badge">Presence</span>
+          </div>
+        </div>
+      </div>
 
-    <div class="phil-card rv rv-d1">
-      <img class="phil-wm" src="images/merkaba.png" alt="">
-      <span class="phil-num">05 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
-      <h3 class="phil-title">Your colors are speaking when <em>you aren't</em></h3>
-      <p class="phil-body">Color is vibration. <strong>Every color on your site is communicating something to your visitor's nervous system</strong> before their conscious mind catches up. Choose your palette the way you choose what to wear to a ceremony.</p>
-      <span class="phil-label">Transmission</span>
-    </div>
+      <div class="oracle-card" data-i="2">
+        <div class="oracle-inner">
+          <div class="oracle-face oracle-face-back">
+            <img class="oracle-back-mark" src="images/merkaba.png" alt="">
+            <span class="oracle-back-label">DMWN</span>
+          </div>
+          <div class="oracle-face oracle-face-front">
+            <span class="o-num">03</span>
+            <h3 class="o-title">Fonts carry <em>frequency</em></h3>
+            <p class="o-body">A harsh corporate font on a sound healing page creates dissonance before a word is read. Typography has its own energy. <strong>The fonts on your site should feel like an extension of your practice</strong> — soft, intentional, and aligned.</p>
+            <span class="o-badge">Vibration</span>
+          </div>
+        </div>
+      </div>
 
-    <div class="phil-card rv rv-d2">
-      <img class="phil-wm" src="images/merkaba.png" alt="">
-      <span class="phil-num">06 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
-      <h3 class="phil-title">Stock photos <em>break the spell</em></h3>
-      <p class="phil-body">Generic smiling stock images are the digital equivalent of synthetic crystals. Your visitors can feel the inauthenticity. <strong>Real photos of you, your space, and your actual work create resonance.</strong></p>
-      <span class="phil-label">Authenticity</span>
-    </div>
+      <div class="oracle-card" data-i="3">
+        <div class="oracle-inner">
+          <div class="oracle-face oracle-face-back">
+            <img class="oracle-back-mark" src="images/merkaba.png" alt="">
+            <span class="oracle-back-label">DMWN</span>
+          </div>
+          <div class="oracle-face oracle-face-front">
+            <span class="o-num">04</span>
+            <h3 class="o-title">White space is <em>not empty space</em></h3>
+            <p class="o-body">In healing work you know that silence holds as much power as sound. <strong>Crowding your site out of fear of emptiness blocks the energy of what you're offering.</strong> Let your site breathe.</p>
+            <span class="o-badge">Spaciousness</span>
+          </div>
+        </div>
+      </div>
 
-  </div>
+      <div class="oracle-card" data-i="4">
+        <div class="oracle-inner">
+          <div class="oracle-face oracle-face-back">
+            <img class="oracle-back-mark" src="images/merkaba.png" alt="">
+            <span class="oracle-back-label">DMWN</span>
+          </div>
+          <div class="oracle-face oracle-face-front">
+            <span class="o-num">05</span>
+            <h3 class="o-title">Your colors speak when <em>you aren't</em></h3>
+            <p class="o-body">Color is vibration. <strong>Every color on your site is communicating something to your visitor's nervous system</strong> before their conscious mind catches up. Choose your palette like you choose what to wear to ceremony.</p>
+            <span class="o-badge">Transmission</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="oracle-card" data-i="5">
+        <div class="oracle-inner">
+          <div class="oracle-face oracle-face-back">
+            <img class="oracle-back-mark" src="images/merkaba.png" alt="">
+            <span class="oracle-back-label">DMWN</span>
+          </div>
+          <div class="oracle-face oracle-face-front">
+            <span class="o-num">06</span>
+            <h3 class="o-title">Stock photos <em>break the spell</em></h3>
+            <p class="o-body">Generic smiling stock images are the digital equivalent of synthetic crystals. Your visitors can feel the inauthenticity. <strong>Real photos of you, your space, and your actual work create resonance.</strong></p>
+            <span class="o-badge">Authenticity</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /oracle-row -->
+  </div><!-- /oracle-scene -->
 </section>
 
 <!-- ═══════════ PORTFOLIO ═══════════ -->
@@ -1027,7 +1200,7 @@
         When he works with energy workers, healers, shamanic coaches, and sacred feminine practitioners, he brings something most web designers can't — the experience of having sat at the same table, studied the same symbols, and felt the same current.
       </p>
       <p class="meet-body rv">
-        His library of oracle decks, energy medicine texts, and sacred geometry studies isn't decoration. <strong>It's research.</strong>
+        Every deck, every text, every practice has shaped the way he works.
       </p>
       <a href="#contact" class="btn-primary rv" style="margin-top:2rem; display:inline-block;">Work With Will &nbsp;→</a>
     </div>
@@ -1260,6 +1433,55 @@ hamburger.addEventListener('click', () => {
 navLinks.querySelectorAll('a').forEach(a =>
   a.addEventListener('click', () => navLinks.classList.remove('open'))
 );
+
+/* ── ORACLE CARD DEAL ── */
+(function () {
+  const scene   = document.getElementById('oracleScene');
+  const pile    = document.getElementById('deckPile');
+  const cards   = Array.from(document.querySelectorAll('.oracle-card'));
+  const DEAL_MS = 380;   // gap between each card being placed
+  const FLIP_MS = 280;   // gap between each card flipping
+  const FLIP_AFTER = 500; // pause after last card before flipping starts
+  let fired = false;
+
+  function runDeal() {
+    if (fired) return;
+    fired = true;
+
+    // Shrink the deck pile as we deal
+    cards.forEach((card, i) => {
+      // 1. Enable transition
+      setTimeout(() => card.classList.add('dealing'), i * DEAL_MS);
+      // 2. Deal into position
+      setTimeout(() => card.classList.add('dealt'),   i * DEAL_MS + 20);
+      // 3. Collapse deck pile indicator progressively
+      if (i < 3) {
+        setTimeout(() => {
+          const pip = pile.querySelectorAll('.deck-pip')[2 - i];
+          if (pip) pip.style.opacity = '0';
+        }, i * DEAL_MS + 200);
+      }
+    });
+
+    // After last card lands, flip them sequentially
+    const allDealtAt = (cards.length - 1) * DEAL_MS + 600 + FLIP_AFTER;
+    cards.forEach((card, i) => {
+      setTimeout(() => {
+        card.classList.add('revealing');
+        setTimeout(() => card.classList.add('revealed'), 20);
+      }, allDealtAt + i * FLIP_MS);
+    });
+
+    // Hide pile entirely after deal
+    setTimeout(() => pile.classList.add('dealt-out'), (cards.length - 1) * DEAL_MS + 800);
+  }
+
+  // Trigger when section scrolls into view
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) runDeal(); });
+  }, { threshold: 0.25 });
+  io.observe(scene);
+})();
 
 /* ── COVERFLOW CAROUSEL ── */
 (function () {
