@@ -979,6 +979,10 @@
       position: absolute; inset: -30% 0;
       background: var(--ink2);
       will-change: transform;
+      z-index: 0;
+    }
+    .cta-band-content {
+      position: relative; z-index: 1;
     }
     .cta-band-mark {
       position: absolute; left: 50%; top: 50%;
@@ -1584,11 +1588,13 @@
 <!-- ═══════════ CTA BAND ═══════════ -->
 <section class="cta-band" id="ctaBand">
   <div class="cta-band-bg" id="ctaBandBg"></div>
-  <img class="cta-band-mark" src="images/merkaba.png" alt="">
-  <h2 class="cta-title rv">Your clients <em>feel</em> your site before they read it.</h2>
-  <p class="cta-sub rv">Make sure what they feel is aligned with the medicine you carry.</p>
-  <div class="rv rv-d1">
-    <a href="#contact" class="btn-primary">Begin Your Project &nbsp;→</a>
+  <div class="cta-band-content">
+    <img class="cta-band-mark" src="images/merkaba.png" alt="">
+    <h2 class="cta-title rv">Your clients <em>feel</em> your site before they read it.</h2>
+    <p class="cta-sub rv">Make sure what they feel is aligned with the medicine you carry.</p>
+    <div class="rv rv-d1">
+      <a href="#contact" class="btn-primary">Begin Your Project &nbsp;→</a>
+    </div>
   </div>
 </section>
 
