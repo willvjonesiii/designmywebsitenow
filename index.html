@@ -1115,6 +1115,13 @@
       .port-grid { grid-template-columns: 1fr; }
       .process-steps { grid-template-columns: 1fr; }
       .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .hero-img { object-position: center 0%; }
+      .scroll-hint { display: none; }
+      .inscription-line {
+        top: -2px; left: 0;
+        width: 100%; height: 2px;
+        background: linear-gradient(to right, transparent, var(--gold), transparent);
+      }
     }
     @media (max-width: 375px) {
       .hero-h1 { font-size: 2.4rem; }
@@ -1910,42 +1917,42 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     if (fired) return;
     fired = true;
 
-    const totalW = stepsContainer.offsetWidth;
-    const DURATION = 5800; // ms total sweep
+    const isMobile = window.innerWidth <= 600;
+    const DURATION = 5800;
     const startTime = performance.now();
+    const cr = stepsContainer.getBoundingClientRect();
 
-    // Build trigger X positions — midpoint of each step column
+    // Horizontal (desktop): trigger on X midpoint of each column
+    // Vertical (mobile): trigger on Y midpoint of each stacked row
+    const total = isMobile ? stepsContainer.offsetHeight : stepsContainer.offsetWidth;
     const triggers = steps.map(step => {
       const r = step.getBoundingClientRect();
-      const cr = stepsContainer.getBoundingClientRect();
-      return r.left - cr.left + r.width * 0.45; // slightly before center
+      return isMobile
+        ? r.top - cr.top + r.height * 0.45
+        : r.left - cr.left + r.width * 0.45;
     });
 
     let nextTrigger = 0;
-
-    // Show the line
     line.style.opacity = '1';
-    line.style.left = '0px';
 
     function tick(now) {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / DURATION, 1);
-      const x = progress * totalW;
+      const pos = progress * total;
 
-      line.style.transform = `translateX(${x}px)`;
+      line.style.transform = isMobile
+        ? `translateY(${pos}px)`
+        : `translateX(${pos}px)`;
 
-      // Inscribe steps as line passes their trigger point
-      while (nextTrigger < triggers.length && x >= triggers[nextTrigger]) {
+      while (nextTrigger < triggers.length && pos >= triggers[nextTrigger]) {
         const step = steps[nextTrigger];
         const num  = step.querySelector('.step-num');
         const name = step.querySelector('.step-name');
         const desc = step.querySelector('.step-desc');
 
-        // Flash glow
         step.classList.add('flash');
         setTimeout(() => step.classList.remove('flash'), 500);
 
-        // Staggered text reveal
         if (num)  setTimeout(() => num.classList.add('inscribed'),  0);
         if (name) setTimeout(() => name.classList.add('inscribed'), 120);
         if (desc) setTimeout(() => desc.classList.add('inscribed'), 260);
@@ -1956,7 +1963,6 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       if (progress < 1) {
         requestAnimationFrame(tick);
       } else {
-        // Fade line out
         line.style.transition = 'opacity 0.8s ease';
         line.style.opacity = '0';
       }
