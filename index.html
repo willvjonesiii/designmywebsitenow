@@ -303,9 +303,8 @@
       perspective: 1400px;
     }
 
-    /* Each card outer shell */
+    /* Each card outer shell — no fixed aspect ratio, height driven by content */
     .oracle-card {
-      aspect-ratio: 3/4;
       position: relative;
       opacity: 0;
       transform: translateX(-50px) rotate(-6deg);
@@ -325,9 +324,9 @@
       transition: transform 0.3s ease;
     }
 
-    /* 3-D flip inner */
+    /* 3-D flip inner — sizes to front face content */
     .oracle-inner {
-      width: 100%; height: 100%;
+      width: 100%;
       position: relative;
       transform-style: preserve-3d;
     }
@@ -338,11 +337,13 @@
       transform: rotateY(180deg);
     }
 
-    /* Shared face rules */
+    /* Back face — absolute, overlays front, collapses when flipped */
     .oracle-face {
-      position: absolute; inset: 0;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
+    }
+    .oracle-face-back {
+      position: absolute; inset: 0;
     }
 
     /* ── BACK FACE ── */
@@ -379,46 +380,51 @@
       text-indent: 0.45em; /* optical centering with letter-spacing */
     }
 
-    /* ── FRONT FACE ── */
+    /* ── FRONT FACE — identical to original phil-card ── */
     .oracle-face-front {
+      position: relative; /* drives card height */
+      width: 100%;
       background: var(--ink2);
       border: 1px solid rgba(201,168,110,0.35);
       transform: rotateY(180deg);
       display: flex; flex-direction: column;
-      padding: clamp(1.5rem, 3vw, 2.5rem);
+      padding: clamp(2rem, 4vw, 3rem);
       overflow: hidden;
+      transition: background 0.3s;
     }
-    /* Top gold accent line */
-    .oracle-face-front::before {
+    /* Merkaba watermark bottom-right — matches original phil-wm */
+    .oracle-face-front::after {
       content: '';
-      display: block; width: 100%; height: 2px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-      margin-bottom: clamp(0.5rem, 1vw, 0.85rem); flex-shrink: 0;
+      position: absolute; right: -1.5rem; bottom: -1.5rem;
+      width: 150px; height: 150px;
+      background: url('images/merkaba.png') center / contain no-repeat;
+      mix-blend-mode: screen;
+      opacity: 0.12;
+      pointer-events: none;
     }
     .o-num {
       font-family: 'Cinzel', serif; font-size: 0.58rem;
       letter-spacing: 0.3em; color: var(--gold);
-      display: block; margin-bottom: 1rem;
+      display: block; margin-bottom: 1.25rem;
     }
     .o-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
       font-weight: 300; line-height: 1.2; color: var(--cream);
-      margin-bottom: 0.85rem; flex-shrink: 0;
+      margin-bottom: 0.9rem;
     }
     .o-title em { font-style: italic; color: var(--gold); }
     .o-body {
-      font-size: clamp(0.78rem, 1vw, 0.86rem);
-      color: var(--cream-dim); line-height: 1.75;
-      flex: 1; overflow: hidden;
+      font-size: 0.86rem;
+      color: var(--cream-dim); line-height: 1.78;
     }
     .o-body strong { color: var(--gold); font-weight: 400; }
     .o-badge {
-      display: inline-block; margin-top: 1.25rem;
+      display: inline-block; margin-top: 1.5rem;
       font-family: 'Cinzel', serif; font-size: 0.52rem;
       letter-spacing: 0.3em; color: var(--gold);
       border: 1px solid rgba(201,168,110,0.38);
-      padding: 0.28rem 0.72rem; flex-shrink: 0; align-self: flex-start;
+      padding: 0.28rem 0.72rem; align-self: flex-start;
     }
 
     /* Mobile: 2 cols, then 1 */
@@ -1004,7 +1010,7 @@
             <span class="oracle-back-label">DMWN</span>
           </div>
           <div class="oracle-face oracle-face-front">
-            <span class="o-num">01</span>
+            <span class="o-num">01 &nbsp;·&nbsp; DIGITAL DESIGN DECK</span>
             <h3 class="o-title">Your website is an <em>energetic portal</em></h3>
             <p class="o-body">Every person who lands on your site enters your field before they ever meet you. Slow load times, cluttered layouts, and broken links are energetic leaks. <strong>Your digital space deserves the same intentional curation as your healing room.</strong></p>
             <span class="o-badge">Portal</span>
@@ -1019,7 +1025,7 @@
             <span class="oracle-back-label">DMWN</span>
           </div>
           <div class="oracle-face oracle-face-front">
-            <span class="o-num">02</span>
+            <span class="o-num">02 &nbsp;·&nbsp; DIGITAL DESIGN DECK</span>
             <h3 class="o-title">First impressions are <em>felt, not read</em></h3>
             <p class="o-body">Your visitors decide within 3 seconds whether they feel safe enough to stay. That feeling comes from color, space, and imagery — not your words. <strong>Design your homepage the way you would set a sacred space.</strong></p>
             <span class="o-badge">Presence</span>
@@ -1034,7 +1040,7 @@
             <span class="oracle-back-label">DMWN</span>
           </div>
           <div class="oracle-face oracle-face-front">
-            <span class="o-num">03</span>
+            <span class="o-num">03 &nbsp;·&nbsp; DIGITAL DESIGN DECK</span>
             <h3 class="o-title">Fonts carry <em>frequency</em></h3>
             <p class="o-body">A harsh corporate font on a sound healing page creates dissonance before a word is read. Typography has its own energy. <strong>The fonts on your site should feel like an extension of your practice</strong> — soft, intentional, and aligned.</p>
             <span class="o-badge">Vibration</span>
@@ -1049,7 +1055,7 @@
             <span class="oracle-back-label">DMWN</span>
           </div>
           <div class="oracle-face oracle-face-front">
-            <span class="o-num">04</span>
+            <span class="o-num">04 &nbsp;·&nbsp; DIGITAL DESIGN DECK</span>
             <h3 class="o-title">White space is <em>not empty space</em></h3>
             <p class="o-body">In healing work you know that silence holds as much power as sound. <strong>Crowding your site out of fear of emptiness blocks the energy of what you're offering.</strong> Let your site breathe.</p>
             <span class="o-badge">Spaciousness</span>
@@ -1064,7 +1070,7 @@
             <span class="oracle-back-label">DMWN</span>
           </div>
           <div class="oracle-face oracle-face-front">
-            <span class="o-num">05</span>
+            <span class="o-num">05 &nbsp;·&nbsp; DIGITAL DESIGN DECK</span>
             <h3 class="o-title">Your colors speak when <em>you aren't</em></h3>
             <p class="o-body">Color is vibration. <strong>Every color on your site is communicating something to your visitor's nervous system</strong> before their conscious mind catches up. Choose your palette like you choose what to wear to ceremony.</p>
             <span class="o-badge">Transmission</span>
@@ -1079,7 +1085,7 @@
             <span class="oracle-back-label">DMWN</span>
           </div>
           <div class="oracle-face oracle-face-front">
-            <span class="o-num">06</span>
+            <span class="o-num">06 &nbsp;·&nbsp; DIGITAL DESIGN DECK</span>
             <h3 class="o-title">Stock photos <em>break the spell</em></h3>
             <p class="o-body">Generic smiling stock images are the digital equivalent of synthetic crystals. Your visitors can feel the inauthenticity. <strong>Real photos of you, your space, and your actual work create resonance.</strong></p>
             <span class="o-badge">Authenticity</span>
