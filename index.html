@@ -723,31 +723,82 @@
     }
 
     /* ═══════════════════════════════════
-       PROCESS
+       PROCESS — LIVING INSCRIPTION
     ═══════════════════════════════════ */
+
+    /* The sweeping line */
+    .inscription-line {
+      position: absolute; top: 0; left: -2px;
+      width: 2px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0;
+      filter: blur(1px);
+      box-shadow: 0 0 8px var(--gold), 0 0 18px rgba(201,168,110,0.4);
+      pointer-events: none; z-index: 4;
+    }
+
     .process-steps {
       display: grid; grid-template-columns: repeat(5,1fr);
-      margin-top: 4rem;
+      margin-top: 4rem; position: relative;
     }
+
     .process-step {
       padding: clamp(1.5rem,3vw,2.5rem) clamp(1rem,2vw,1.5rem);
       border-right: 1px solid var(--hairline);
+      position: relative; overflow: hidden;
     }
     .process-step:last-child { border-right: none; }
+
+    /* All text hidden until inscribed */
     .step-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 3.5rem; font-weight: 300; font-style: italic;
-      color: rgba(201,168,110,0.18); line-height: 1;
-      display: block; margin-bottom: 1rem;
+      font-size: 4.5rem; font-weight: 300; font-style: italic;
+      line-height: 1; display: block; margin-bottom: 1rem;
+      /* SVG-drawn number */
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,110,0.25);
+      transition: color 0.6s ease, -webkit-text-stroke 0.6s ease,
+                  text-shadow 0.6s ease;
+    }
+    .step-num.inscribed {
+      color: rgba(201,168,110,0.22);
+      -webkit-text-stroke: 1px rgba(201,168,110,0.15);
+      text-shadow: 0 0 30px rgba(201,168,110,0.3);
     }
     .step-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1.15rem,1.8vw,1.3rem);
       font-weight: 300; color: var(--cream); margin-bottom: 0.6rem;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
     }
+    .step-name.inscribed { opacity: 1; transform: none; }
     .step-name em { font-style: italic; color: var(--gold); }
     .step-desc {
       font-size: 0.8rem; color: var(--cream-dim); line-height: 1.65;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .step-desc.inscribed { opacity: 1; transform: none; }
+
+    /* Glow flash on step reveal */
+    .process-step::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(201,168,110,0.04);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .process-step.flash::after { opacity: 1; }
+
+    @media (max-width: 900px) {
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-step { border-right: none; border-bottom: 1px solid var(--hairline); }
+      .process-step:last-child { border-bottom: none; }
+    }
+    @media (max-width: 600px) {
+      .process-steps { grid-template-columns: 1fr; }
     }
 
     /* ═══════════════════════════════════
@@ -1270,28 +1321,30 @@
     <h2 class="section-title">The path from <em>vision to portal</em></h2>
   </div>
 
-  <div class="process-steps">
-    <div class="process-step rv">
+  <div class="process-steps" id="processSteps">
+    <div class="inscription-line" id="inscriptionLine"></div>
+
+    <div class="process-step" data-step="0">
       <span class="step-num">01</span>
       <h4 class="step-name"><em>Attunement</em></h4>
       <p class="step-desc">We begin by listening. Deep discovery into your practice, your ideal clients, your brand energy, and what you want people to feel.</p>
     </div>
-    <div class="process-step rv rv-d1">
+    <div class="process-step" data-step="1">
       <span class="step-num">02</span>
       <h4 class="step-name"><em>Alignment</em></h4>
       <p class="step-desc">Strategy and architecture. We map the site structure, content flow, and aesthetic direction before a single line of code is written.</p>
     </div>
-    <div class="process-step rv rv-d2">
+    <div class="process-step" data-step="2">
       <span class="step-num">03</span>
       <h4 class="step-name"><em>Creation</em></h4>
       <p class="step-desc">Full custom build. Design and development unified. No handoffs, no miscommunication. Your site is crafted as one cohesive transmission.</p>
     </div>
-    <div class="process-step rv rv-d3">
+    <div class="process-step" data-step="3">
       <span class="step-num">04</span>
       <h4 class="step-name"><em>Integration</em></h4>
       <p class="step-desc">You review, you feel it. We refine until the site is unmistakably yours. Two rounds of revisions included in every engagement.</p>
     </div>
-    <div class="process-step rv rv-d4">
+    <div class="process-step" data-step="4">
       <span class="step-num">05</span>
       <h4 class="step-name"><em>Activation</em></h4>
       <p class="step-desc">Launch day. Your digital portal opens. We handle deployment, domain setup, and a 30-day post-launch support window.</p>
@@ -1544,6 +1597,81 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   btn.style.letterSpacing = '0.2em';
   btn.disabled = true;
 });
+
+/* ── LIVING INSCRIPTION ── */
+(function () {
+  const stepsContainer = document.getElementById('processSteps');
+  const line = document.getElementById('inscriptionLine');
+  if (!stepsContainer || !line) return;
+
+  const steps = Array.from(stepsContainer.querySelectorAll('.process-step'));
+  let fired = false;
+
+  function runInscription() {
+    if (fired) return;
+    fired = true;
+
+    const totalW = stepsContainer.offsetWidth;
+    const DURATION = 3600; // ms total sweep
+    const startTime = performance.now();
+
+    // Build trigger X positions — midpoint of each step column
+    const triggers = steps.map(step => {
+      const r = step.getBoundingClientRect();
+      const cr = stepsContainer.getBoundingClientRect();
+      return r.left - cr.left + r.width * 0.45; // slightly before center
+    });
+
+    let nextTrigger = 0;
+
+    // Show the line
+    line.style.opacity = '1';
+    line.style.left = '0px';
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / DURATION, 1);
+      const x = progress * totalW;
+
+      line.style.transform = `translateX(${x}px)`;
+
+      // Inscribe steps as line passes their trigger point
+      while (nextTrigger < triggers.length && x >= triggers[nextTrigger]) {
+        const step = steps[nextTrigger];
+        const num  = step.querySelector('.step-num');
+        const name = step.querySelector('.step-name');
+        const desc = step.querySelector('.step-desc');
+
+        // Flash glow
+        step.classList.add('flash');
+        setTimeout(() => step.classList.remove('flash'), 500);
+
+        // Staggered text reveal
+        if (num)  setTimeout(() => num.classList.add('inscribed'),  0);
+        if (name) setTimeout(() => name.classList.add('inscribed'), 120);
+        if (desc) setTimeout(() => desc.classList.add('inscribed'), 260);
+
+        nextTrigger++;
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        // Fade line out
+        line.style.transition = 'opacity 0.8s ease';
+        line.style.opacity = '0';
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  const inscribeObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) runInscription(); });
+  }, { threshold: 0.3 });
+
+  inscribeObserver.observe(stepsContainer);
+})();
 </script>
 
 </body>
