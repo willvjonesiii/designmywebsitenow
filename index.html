@@ -317,19 +317,26 @@
       perspective: 1600px;
       perspective-origin: 50% 50%;
       margin-top: 4rem;
+      overflow: visible; /* let button hang below */
+      padding-bottom: 2.5rem; /* breathing room for the hanging button */
     }
     .port-card {
       position: absolute;
       left: 50%; top: 50%;
       width: 56%;
       aspect-ratio: 16/9;
-      overflow: hidden;
+      overflow: visible; /* allow button to hang below */
       cursor: none;
       will-change: transform, filter;
       transition:
         transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
         filter    0.9s ease,
         box-shadow 0.9s ease;
+    }
+    /* Inner clip — keeps image zoom contained */
+    .port-card-inner {
+      position: relative; width: 100%; height: 100%;
+      overflow: hidden;
     }
     /* ── ACTIVE — centered, full brightness, gold halo ── */
     .port-card[data-pos="active"] {
@@ -359,13 +366,13 @@
     .port-card[data-pos="next"]:hover {
       filter: brightness(0.65) saturate(0.75);
     }
-    .port-card img {
+    .port-card-inner img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: top center; display: block;
       transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .port-card[data-pos="active"]:hover img { transform: scale(1.04); }
-    /* Overlay — only on active card */
+    .port-card[data-pos="active"]:hover .port-card-inner img { transform: scale(1.04); }
+    /* Overlay — only visible on active card */
     .port-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top,
@@ -392,19 +399,28 @@
       font-family: 'Cinzel', serif; font-size: 0.6rem;
       letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--ink); background: var(--gold);
-      text-decoration: none; margin-top: 1rem; display: inline-block;
-      padding: 0.65rem 1.4rem; white-space: nowrap; flex-shrink: 0;
-      position: relative;
+      text-decoration: none; display: inline-block;
+      padding: 0.7rem 1.6rem; white-space: nowrap; flex-shrink: 0;
+      /* hang half off the bottom edge */
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%) translateY(50%);
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.4s ease, background 0.2s ease;
       animation: ctaPulse 2.4s ease-in-out infinite;
     }
+    .port-card[data-pos="active"] .port-cta {
+      opacity: 1;
+    }
     @keyframes ctaPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,110,0.55); }
-      50%       { box-shadow: 0 0 0 8px rgba(201,168,110,0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,110,0.6); }
+      50%       { box-shadow: 0 0 0 10px rgba(201,168,110,0); }
     }
     .port-cta:hover {
       background: var(--gold-lt);
       animation: none;
-      box-shadow: 0 0 0 2px rgba(201,168,110,0.6);
+      box-shadow: 0 0 0 2px rgba(201,168,110,0.7);
     }
     /* Dot indicators */
     .carousel-dots {
@@ -836,30 +852,36 @@
   <div class="carousel-scene rv" id="carouselScene">
 
     <div class="port-card" data-pos="active" data-idx="0">
-      <img src="images/rosa-diosa.png" alt="Rosa Diosa — Sacred Feminine Healing">
-      <div class="port-overlay">
-        <span class="port-tag">Sacred Feminine &nbsp;·&nbsp; Shamanic Healing</span>
-        <h3 class="port-name">Rosa <em>Diosa</em></h3>
-        <a href="https://www.rosadiosa.com/" class="port-cta" target="_blank" rel="noopener">View Live Site &nbsp;→</a>
+      <div class="port-card-inner">
+        <img src="images/rosa-diosa.png" alt="Rosa Diosa — Sacred Feminine Healing">
+        <div class="port-overlay">
+          <span class="port-tag">Sacred Feminine &nbsp;·&nbsp; Shamanic Healing</span>
+          <h3 class="port-name">Rosa <em>Diosa</em></h3>
+        </div>
       </div>
+      <a href="https://www.rosadiosa.com/" class="port-cta" target="_blank" rel="noopener">View Live Site &nbsp;→</a>
     </div>
 
     <div class="port-card" data-pos="next" data-idx="1">
-      <img src="images/pray-party.png" alt="Pray Party Repeat — Reiki &amp; Ceremony">
-      <div class="port-overlay">
-        <span class="port-tag">Reiki &nbsp;·&nbsp; Sound &nbsp;·&nbsp; Ceremony</span>
-        <h3 class="port-name">Pray Party <em>Repeat</em></h3>
-        <a href="https://praypartyrepeat.vercel.app/index.html" class="port-cta" target="_blank" rel="noopener">View Live Site &nbsp;→</a>
+      <div class="port-card-inner">
+        <img src="images/pray-party.png" alt="Pray Party Repeat — Reiki &amp; Ceremony">
+        <div class="port-overlay">
+          <span class="port-tag">Reiki &nbsp;·&nbsp; Sound &nbsp;·&nbsp; Ceremony</span>
+          <h3 class="port-name">Pray Party <em>Repeat</em></h3>
+        </div>
       </div>
+      <a href="https://praypartyrepeat.vercel.app/index.html" class="port-cta" target="_blank" rel="noopener">View Live Site &nbsp;→</a>
     </div>
 
     <div class="port-card" data-pos="prev" data-idx="2">
-      <img src="images/in-one-heart.png" alt="In One Heart — Mystical Pilgrimage">
-      <div class="port-overlay">
-        <span class="port-tag">Mystical Pilgrimage &nbsp;·&nbsp; Women's Circles</span>
-        <h3 class="port-name">In One <em>Heart</em></h3>
-        <a href="https://designmywebsitenow.com/inoneheart" class="port-cta" target="_blank" rel="noopener">View Live Demo &nbsp;→</a>
+      <div class="port-card-inner">
+        <img src="images/in-one-heart.png" alt="In One Heart — Mystical Pilgrimage">
+        <div class="port-overlay">
+          <span class="port-tag">Mystical Pilgrimage &nbsp;·&nbsp; Women's Circles</span>
+          <h3 class="port-name">In One <em>Heart</em></h3>
+        </div>
       </div>
+      <a href="https://designmywebsitenow.com/inoneheart" class="port-cta" target="_blank" rel="noopener">View Live Demo &nbsp;→</a>
     </div>
 
   </div>
