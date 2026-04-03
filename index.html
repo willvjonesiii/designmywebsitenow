@@ -325,9 +325,9 @@
       transition: transform 0.3s ease;
     }
 
-    /* 3-D flip inner — sizes to front face content */
+    /* 3-D flip inner — must fill card fully for absolute faces */
     .oracle-inner {
-      width: 100%;
+      width: 100%; height: 100%;
       position: relative;
       transform-style: preserve-3d;
     }
@@ -338,17 +338,15 @@
       transform: rotateY(180deg);
     }
 
-    /* Back face — absolute, overlays front, collapses when flipped */
+    /* Shared — both faces hidden when rotated away */
     .oracle-face {
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
     }
-    .oracle-face-back {
-      position: absolute; inset: 0;
-    }
 
     /* ── BACK FACE ── */
     .oracle-face-back {
+      position: absolute; inset: 0;
       background: var(--ink3);
       border: 1px solid rgba(201,168,110,0.5);
       display: flex; flex-direction: column;
