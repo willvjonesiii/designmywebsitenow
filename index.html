@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMWN — Conscious Web Design for Energy Workers</title>
+  <meta name="description" content="Premium custom web design for energy workers, healers, and sacred feminine practitioners. We build digital sanctuaries.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+
+    /* ══════════════════════════════════════════════════
+       DMWN — CONSCIOUS WEB DESIGN
+       Deep Olive Dark · Gold · Cream
+    ══════════════════════════════════════════════════ */
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink:       #161410;
+      --ink2:      #1e1c16;
+      --ink3:      #26231c;
+      --gold:      #c9a86e;
+      --gold-lt:   #e0c98a;
+      --gold-dim:  rgba(201,168,110,0.15);
+      --cream:     #f0ead8;
+      --cream-dim: rgba(240,234,216,0.55);
+      --hairline:  rgba(201,168,110,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CURSOR ── */
+    .cursor-dot {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      pointer-events: none; width: 8px; height: 8px;
+      border-radius: 50%; background: var(--gold);
+      transform: translate(-50%,-50%);
+      transition: transform 0.08s ease;
+    }
+    .cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      pointer-events: none; width: 34px; height: 34px;
+      border-radius: 50%; border: 1px solid rgba(201,168,110,0.55);
+      transform: translate(-50%,-50%);
+      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease,
+                  left 0.08s ease, top 0.08s ease;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.45;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .rv {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .rv.visible { opacity: 1; transform: none; }
+    .rv-d1 { transition-delay: 0.1s; }
+    .rv-d2 { transition-delay: 0.22s; }
+    .rv-d3 { transition-delay: 0.36s; }
+    .rv-d4 { transition-delay: 0.5s; }
+
+    /* ═══════════════════════════════════
+       NAV
+    ═══════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.6rem clamp(1.5rem, 5vw, 4rem);
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, padding 0.3s ease;
+    }
+    .nav.scrolled {
+      background: rgba(22,20,16,0.92);
+      backdrop-filter: blur(14px);
+      padding-top: 1rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .nav-brand {
+      font-family: 'Cinzel', serif; font-size: 1.05rem;
+      letter-spacing: 0.28em; font-weight: 500;
+      color: var(--gold); text-decoration: none;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .brand-mark { width: 26px; height: 26px; flex-shrink: 0; }
+    .nav-links {
+      display: flex; align-items: center; gap: 2.75rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--cream-dim); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .btn-nav {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--gold); color: var(--ink);
+      padding: 0.7rem 1.6rem; border: none;
+      text-decoration: none; white-space: nowrap; flex-shrink: 0;
+      cursor: none; transition: background 0.2s;
+      display: inline-block;
+    }
+    .btn-nav:hover { background: var(--gold-lt); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: none; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1px; background: var(--cream);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ═══════════════════════════════════
+       HERO
+    ═══════════════════════════════════ */
+    .hero {
+      position: relative; min-height: 100dvh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .hero-left {
+      position: relative; z-index: 3;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: clamp(7rem,13vw,11rem) clamp(1.5rem,5vw,4rem) clamp(4rem,8vw,6rem);
+      background: linear-gradient(to right, var(--ink) 55%, transparent 100%);
+    }
+    .hero-right { position: relative; }
+    .hero-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 15%;
+    }
+    .hero-right::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to right, var(--ink) 0%, transparent 35%, transparent 65%, var(--ink) 100%),
+        linear-gradient(to bottom, var(--ink) 0%, transparent 18%, transparent 78%, var(--ink) 100%);
+    }
+    .hero-eyebrow {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.75rem; display: block;
+    }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5.5vw, 5.25rem);
+      font-weight: 300; line-height: 1.05;
+      color: var(--cream); margin-bottom: 1.5rem;
+    }
+    .hero-h1 em {
+      font-style: italic; color: var(--gold);
+      display: block; font-size: 1.12em;
+    }
+    .hero-sub {
+      font-size: clamp(0.88rem, 1.4vw, 1rem);
+      color: var(--cream-dim); line-height: 1.8;
+      max-width: 40ch; margin-bottom: 2.75rem; font-weight: 300;
+    }
+    .hero-ctas {
+      display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
+    }
+    .btn-primary {
+      font-family: 'Cinzel', serif; font-size: 0.68rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--gold); color: var(--ink);
+      padding: 0.95rem 2.1rem; text-decoration: none;
+      white-space: nowrap; flex-shrink: 0;
+      transition: background 0.2s; display: inline-block; cursor: none;
+    }
+    .btn-primary:hover { background: var(--gold-lt); }
+    .btn-ghost {
+      font-family: 'Cinzel', serif; font-size: 0.68rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      border: 1px solid rgba(201,168,110,0.45); color: var(--gold);
+      padding: 0.95rem 2.1rem; text-decoration: none;
+      white-space: nowrap; flex-shrink: 0;
+      transition: border-color 0.2s, color 0.2s; display: inline-block; cursor: none;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold-lt); }
+    .scroll-hint {
+      position: absolute; bottom: 2.25rem; left: 50%;
+      transform: translateX(-50%); z-index: 4;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .scroll-hint span {
+      font-family: 'Cinzel', serif; font-size: 0.52rem;
+      letter-spacing: 0.35em; color: rgba(201,168,110,0.45);
+    }
+    .scroll-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, rgba(201,168,110,0.7), transparent);
+      animation: linePulse 2.2s ease infinite;
+    }
+    @keyframes linePulse {
+      0%,100% { opacity: 0.35; transform: scaleY(1); transform-origin: top; }
+      50%      { opacity: 1;    transform: scaleY(1.15); transform-origin: top; }
+    }
+
+    /* ═══════════════════════════════════
+       TICKER
+    ═══════════════════════════════════ */
+    .ticker {
+      background: var(--ink2); overflow: hidden;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      padding: 0.95rem 0; position: relative; z-index: 2;
+    }
+    .ticker-track {
+      display: flex; white-space: nowrap;
+      animation: tickRun 40s linear infinite;
+    }
+    .ticker-item {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); padding: 0 2rem;
+    }
+    .ticker-sep { color: rgba(201,168,110,0.35); }
+    @keyframes tickRun {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ═══════════════════════════════════
+       SHARED SECTION STYLES
+    ═══════════════════════════════════ */
+    .section {
+      padding: clamp(4.5rem,10vw,8rem) clamp(1.5rem,5vw,4rem);
+      position: relative; z-index: 2;
+    }
+    .section-alt { background: var(--ink2); }
+    .section-mid { background: var(--ink3); }
+
+    .eyebrow {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold); display: block; margin-bottom: 1.25rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.1rem, 4.5vw, 4rem);
+      font-weight: 300; line-height: 1.1; color: var(--cream);
+      margin-bottom: 1.25rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .section-body {
+      font-size: clamp(0.88rem, 1.4vw, 0.98rem);
+      color: var(--cream-dim); line-height: 1.85; max-width: 50ch;
+    }
+    .gold-rule {
+      width: 3rem; height: 1px; background: var(--gold);
+      opacity: 0.55; margin: 1.5rem 0;
+    }
+
+    /* ═══════════════════════════════════
+       PHILOSOPHY
+    ═══════════════════════════════════ */
+    .phil-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; margin-top: 4rem; background: var(--hairline);
+    }
+    .phil-card {
+      background: var(--ink2); padding: clamp(2rem,4vw,3rem);
+      position: relative; overflow: hidden; transition: background 0.3s;
+    }
+    .phil-card:hover { background: var(--ink3); }
+    .phil-wm {
+      position: absolute; right: -1.5rem; bottom: -1.5rem;
+      opacity: 0.045; pointer-events: none;
+    }
+    .phil-num {
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.3em; color: var(--gold);
+      display: block; margin-bottom: 1.25rem;
+    }
+    .phil-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+      font-weight: 300; line-height: 1.2; color: var(--cream);
+      margin-bottom: 0.9rem;
+    }
+    .phil-title em { font-style: italic; color: var(--gold); }
+    .phil-body {
+      font-size: 0.86rem; color: var(--cream-dim); line-height: 1.78;
+    }
+    .phil-body strong { color: var(--gold); font-weight: 400; }
+    .phil-label {
+      display: inline-block; margin-top: 1.5rem;
+      font-family: 'Cinzel', serif; font-size: 0.52rem;
+      letter-spacing: 0.3em; color: var(--gold);
+      border: 1px solid rgba(201,168,110,0.38); padding: 0.28rem 0.72rem;
+    }
+
+    /* ═══════════════════════════════════
+       PORTFOLIO
+    ═══════════════════════════════════ */
+    .port-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .port-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4; background: var(--ink3); cursor: none;
+    }
+    .port-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .port-card:hover img { transform: scale(1.07); }
+    .port-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,
+        rgba(22,20,16,0.94) 0%,
+        rgba(22,20,16,0.18) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 2rem; transition: background 0.35s;
+    }
+    .port-card:hover .port-overlay {
+      background: linear-gradient(to top,
+        rgba(22,20,16,0.97) 0%,
+        rgba(22,20,16,0.45) 60%, transparent 100%);
+    }
+    .port-tag {
+      font-family: 'Cinzel', serif; font-size: 0.52rem;
+      letter-spacing: 0.28em; color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .port-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem,2.5vw,2rem);
+      font-weight: 300; color: var(--cream); line-height: 1.2;
+    }
+    .port-name em { font-style: italic; color: var(--gold); }
+    .port-cta {
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.2em; color: var(--gold);
+      text-decoration: none; margin-top: 1rem; display: block;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .port-card:hover .port-cta { opacity: 1; transform: none; }
+
+    /* ═══════════════════════════════════
+       MEET WILL
+    ═══════════════════════════════════ */
+    .meet-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem,6vw,6rem); align-items: center; margin-top: 2rem;
+    }
+    .meet-photo-wrap { position: relative; }
+    .meet-photo {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover; object-position: center 12%; display: block;
+    }
+    .meet-badge {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      background: var(--gold); color: var(--ink);
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.2em; padding: 0.75rem 1.2rem;
+      text-transform: uppercase;
+    }
+    .meet-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.35rem,2.4vw,1.9rem);
+      font-style: italic; font-weight: 300;
+      color: var(--gold); line-height: 1.5;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem; margin: 2rem 0;
+    }
+    .meet-body {
+      font-size: clamp(0.88rem,1.4vw,0.96rem);
+      color: var(--cream-dim); line-height: 1.9; margin-bottom: 0.9rem;
+    }
+    .meet-body strong { color: var(--gold); font-weight: 400; }
+
+    /* ═══════════════════════════════════
+       SERVICES
+    ═══════════════════════════════════ */
+    .svc-grid {
+      display: grid; grid-template-columns: repeat(2,1fr);
+      gap: 1px; margin-top: 4rem; background: var(--hairline);
+    }
+    .svc-card {
+      background: var(--ink); padding: clamp(2rem,4vw,3rem);
+      transition: background 0.3s;
+    }
+    .svc-card:hover { background: var(--ink2); }
+    .svc-num {
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.3em; color: var(--gold);
+      display: block; margin-bottom: 1.5rem;
+    }
+    .svc-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem,2.4vw,2rem);
+      font-weight: 300; color: var(--cream); line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .svc-name em { font-style: italic; color: var(--gold); }
+    .svc-desc {
+      font-size: 0.86rem; color: var(--cream-dim);
+      line-height: 1.78; margin-bottom: 1.5rem;
+    }
+    .svc-price {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 0.2em; color: var(--gold);
+    }
+
+    /* ═══════════════════════════════════
+       PROCESS
+    ═══════════════════════════════════ */
+    .process-steps {
+      display: grid; grid-template-columns: repeat(5,1fr);
+      margin-top: 4rem;
+    }
+    .process-step {
+      padding: clamp(1.5rem,3vw,2.5rem) clamp(1rem,2vw,1.5rem);
+      border-right: 1px solid var(--hairline);
+    }
+    .process-step:last-child { border-right: none; }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 300; font-style: italic;
+      color: rgba(201,168,110,0.18); line-height: 1;
+      display: block; margin-bottom: 1rem;
+    }
+    .step-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem,1.8vw,1.3rem);
+      font-weight: 300; color: var(--cream); margin-bottom: 0.6rem;
+    }
+    .step-name em { font-style: italic; color: var(--gold); }
+    .step-desc {
+      font-size: 0.8rem; color: var(--cream-dim); line-height: 1.65;
+    }
+
+    /* ═══════════════════════════════════
+       CTA BAND
+    ═══════════════════════════════════ */
+    .cta-band {
+      background: var(--ink2); position: relative; z-index: 2; overflow: hidden;
+      border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+      padding: clamp(5rem,11vw,9rem) clamp(1.5rem,5vw,4rem);
+      text-align: center;
+    }
+    .cta-band-mark {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%,-50%);
+      width: min(70vw,580px); opacity: 0.025; pointer-events: none;
+    }
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem,6vw,5rem);
+      font-weight: 300; line-height: 1.15;
+      color: var(--cream); max-width: 17ch; margin: 0 auto 1.75rem;
+    }
+    .cta-title em { font-style: italic; color: var(--gold); }
+    .cta-sub {
+      font-size: clamp(0.88rem,1.4vw,0.98rem);
+      color: var(--cream-dim); max-width: 38ch;
+      margin: 0 auto 2.75rem; line-height: 1.75;
+    }
+
+    /* ═══════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════ */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem,6vw,6rem); align-items: start;
+    }
+    .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-label {
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase;
+    }
+    .form-input, .form-textarea {
+      width: 100%; background: var(--ink3);
+      border: 1px solid rgba(201,168,110,0.22);
+      color: var(--cream); padding: 0.9rem 1rem;
+      font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 300;
+      outline: none; transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-textarea { resize: vertical; }
+    .form-input::placeholder, .form-textarea::placeholder {
+      color: rgba(240,234,216,0.25);
+    }
+    .contact-info-block { margin-top: 2rem; }
+    .contact-info-label {
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.22em; color: var(--gold); margin-bottom: 0.35rem; display: block;
+    }
+    .contact-info-val {
+      font-size: 0.92rem; color: var(--cream-dim);
+    }
+
+    /* ═══════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════ */
+    footer {
+      background: var(--ink3);
+      border-radius: 3rem 3rem 0 0;
+      border-top: 1px solid var(--hairline);
+      padding: clamp(3rem,7vw,5rem) clamp(1.5rem,5vw,4rem) 2rem;
+      position: relative; z-index: 2;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand-name {
+      font-family: 'Cinzel', serif; font-size: 1rem;
+      letter-spacing: 0.28em; color: var(--gold);
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.85rem;
+    }
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-style: italic;
+      color: var(--cream-dim); line-height: 1.55; max-width: 28ch;
+    }
+    .footer-col-title {
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.3em; color: var(--gold); margin-bottom: 1.25rem;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.65rem; }
+    .footer-links a {
+      font-size: 0.83rem; color: var(--cream-dim);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid var(--hairline); padding-top: 1.5rem;
+      text-align: center; font-family: 'Cinzel', serif;
+      font-size: 0.62rem; letter-spacing: 0.15em;
+      color: rgba(240,234,216,0.28);
+    }
+
+    /* ═══════════════════════════════════
+       MOBILE
+    ═══════════════════════════════════ */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-left {
+        min-height: 100dvh;
+        background: linear-gradient(to bottom, rgba(22,20,16,0.55) 0%, var(--ink) 75%);
+        justify-content: flex-end;
+      }
+      .hero-right { position: absolute; inset: 0; z-index: -1; }
+      .hero-right::after {
+        background: linear-gradient(to bottom, transparent 25%, var(--ink) 88%);
+      }
+
+      .phil-grid { grid-template-columns: 1fr; }
+      .port-grid { grid-template-columns: 1fr 1fr; }
+      .meet-grid { grid-template-columns: 1fr; }
+      .meet-badge { right: 0; }
+      .svc-grid { grid-template-columns: 1fr; }
+
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-step { border-right: none; border-bottom: 1px solid var(--hairline); }
+      .process-step:last-child { border-bottom: none; }
+
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .port-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 375px) {
+      .hero-h1 { font-size: 2.4rem; }
+    }
+
+    /* ── MOBILE MENU OPEN STATE ── */
+    .nav-links.open {
+      display: flex !important; flex-direction: column;
+      position: fixed; inset: 0; z-index: 99;
+      background: rgba(22,20,16,0.98);
+      justify-content: center; align-items: center; gap: 2.5rem;
+    }
+    .nav-links.open a {
+      font-size: 1.4rem; letter-spacing: 0.12em;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor-dot"  id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav" id="mainNav">
+  <a href="#" class="nav-brand">
+    <svg class="brand-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="46" stroke="#c9a86e" stroke-width="1.5" opacity="0.65"/>
+      <polygon points="50,8 91,72 9,72"  stroke="#c9a86e" stroke-width="1.5" fill="none" opacity="0.85"/>
+      <polygon points="50,92 9,28 91,28" stroke="#c9a86e" stroke-width="1.5" fill="none" opacity="0.85"/>
+    </svg>
+    DMWN
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="btn-nav">Begin a Project</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-eyebrow rv">Conscious Web Design &nbsp;·&nbsp; DMWN</span>
+    <h1 class="hero-h1 rv rv-d1">
+      Your website is an<br>
+      <em>energetic portal.</em>
+    </h1>
+    <p class="hero-sub rv rv-d2">
+      We build digital sanctuaries for energy workers, healers, and sacred feminine practitioners — sites that transmit your medicine before a single word is read.
+    </p>
+    <div class="hero-ctas rv rv-d3">
+      <a href="#work" class="btn-primary">See Our Work</a>
+      <a href="#contact" class="btn-ghost">Begin a Project</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img class="hero-img" src="images/will.jpg" alt="Will Jones — DMWN Conscious Web Design">
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════ TICKER ═══════════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Reiki <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Breathwork <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Somatic Healing <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Shamanic Coaching <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Sacred Feminine <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Sound Healing <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Women's Circles <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Energy Medicine <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Spiritual Direction <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Akashic Records <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Plant Medicine <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Crystal Healing <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Reiki <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Breathwork <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Somatic Healing <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Shamanic Coaching <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Sacred Feminine <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Sound Healing <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Women's Circles <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Energy Medicine <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Spiritual Direction <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Akashic Records <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">Plant Medicine <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Crystal Healing <span class="ticker-sep">·</span></span>
+  </div>
+</div>
+
+<!-- ═══════════ PHILOSOPHY ═══════════ -->
+<section class="section section-alt" id="philosophy">
+  <div class="rv">
+    <span class="eyebrow">The Digital Energy Series</span>
+    <h2 class="section-title">Every pixel carries <em>frequency</em></h2>
+    <p class="section-body">Your website doesn't just display information — it transmits energy. We build sites that feel like an extension of your healing field from the first scroll.</p>
+  </div>
+
+  <div class="phil-grid">
+
+    <div class="phil-card rv">
+      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
+        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
+      </svg>
+      <span class="phil-num">01 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
+      <h3 class="phil-title">Your website is an <em>energetic portal</em></h3>
+      <p class="phil-body">Every person who lands on your site enters your field before they ever meet you. Slow load times, cluttered layouts, and broken links are energetic leaks. <strong>Your digital space deserves the same intentional curation as your healing room.</strong></p>
+      <span class="phil-label">Portal</span>
+    </div>
+
+    <div class="phil-card rv rv-d1">
+      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
+        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
+      </svg>
+      <span class="phil-num">02 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
+      <h3 class="phil-title">First impressions are <em>felt, not read</em></h3>
+      <p class="phil-body">Your visitors decide within 3 seconds whether they feel safe enough to stay. That feeling comes from color, space, and imagery — not your words. <strong>Design your homepage the way you would set a sacred space.</strong> What does someone feel the moment they walk in?</p>
+      <span class="phil-label">Presence</span>
+    </div>
+
+    <div class="phil-card rv rv-d2">
+      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
+        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
+      </svg>
+      <span class="phil-num">03 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
+      <h3 class="phil-title">Fonts carry <em>frequency</em></h3>
+      <p class="phil-body">A harsh corporate font on a sound healing page creates dissonance before a word is read. Typography has its own energy. <strong>The fonts on your site should feel like an extension of your practice</strong> — soft, intentional, and aligned with who you are.</p>
+      <span class="phil-label">Vibration</span>
+    </div>
+
+    <div class="phil-card rv">
+      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
+        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
+      </svg>
+      <span class="phil-num">04 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
+      <h3 class="phil-title">White space is <em>not empty space</em></h3>
+      <p class="phil-body">In healing work you know that silence holds as much power as sound. The same is true in design. <strong>Crowding your site out of fear of emptiness blocks the energy of what you're offering.</strong> Let your site breathe.</p>
+      <span class="phil-label">Spaciousness</span>
+    </div>
+
+    <div class="phil-card rv rv-d1">
+      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
+        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
+      </svg>
+      <span class="phil-num">05 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
+      <h3 class="phil-title">Your colors are speaking when <em>you aren't</em></h3>
+      <p class="phil-body">Color is vibration. <strong>Every color on your site is communicating something to your visitor's nervous system</strong> before their conscious mind catches up. Choose your palette the way you choose what to wear to a ceremony.</p>
+      <span class="phil-label">Transmission</span>
+    </div>
+
+    <div class="phil-card rv rv-d2">
+      <svg class="phil-wm" width="150" height="150" viewBox="0 0 100 100" fill="none">
+        <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="1" fill="none"/>
+        <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="1" fill="none"/>
+      </svg>
+      <span class="phil-num">06 &nbsp;·&nbsp; DIGITAL ENERGY SERIES</span>
+      <h3 class="phil-title">Stock photos <em>break the spell</em></h3>
+      <p class="phil-body">Generic smiling stock images are the digital equivalent of synthetic crystals. Your visitors can feel the inauthenticity. <strong>Real photos of you, your space, and your actual work create resonance.</strong></p>
+      <span class="phil-label">Authenticity</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ PORTFOLIO ═══════════ -->
+<section class="section" id="work">
+  <div class="rv">
+    <span class="eyebrow">Selected Work</span>
+    <h2 class="section-title">Digital <em>sanctuaries</em> we've built</h2>
+    <p class="section-body">Every site is custom-coded from the ground up. No templates. No themes. Each one transmits the unique medicine of the practitioner behind it.</p>
+  </div>
+
+  <div class="port-grid">
+
+    <div class="port-card rv">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=80" alt="In One Heart — Mystical Pilgrimage">
+      <div class="port-overlay">
+        <span class="port-tag">Mystical Pilgrimage &nbsp;·&nbsp; Women's Circles</span>
+        <h3 class="port-name">In One <em>Heart</em></h3>
+        <a href="https://designmywebsitenow.com/inoneheart" class="port-cta" target="_blank" rel="noopener">View Live Demo &nbsp;→</a>
+      </div>
+    </div>
+
+    <div class="port-card rv rv-d1">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=700&q=80" alt="Pray Party Repeat — Sacred Community">
+      <div class="port-overlay">
+        <span class="port-tag">Sacred Community &nbsp;·&nbsp; Spiritual Events</span>
+        <h3 class="port-name">Pray Party <em>Repeat</em></h3>
+        <a href="https://www.praypartyrepeat.com" class="port-cta" target="_blank" rel="noopener">View Live Site &nbsp;→</a>
+      </div>
+    </div>
+
+    <div class="port-card rv rv-d2">
+      <img src="https://images.unsplash.com/photo-1573126617899-41f1dffb196c?w=700&q=80" alt="Ase Reiki — Energy Healing">
+      <div class="port-overlay">
+        <span class="port-tag">Reiki &nbsp;·&nbsp; Energy Healing</span>
+        <h3 class="port-name">Ase <em>Reiki</em></h3>
+        <a href="https://designmywebsitenow.com/asereiki" class="port-cta" target="_blank" rel="noopener">View Live Demo &nbsp;→</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ MEET WILL ═══════════ -->
+<section class="section section-alt" id="about">
+  <span class="eyebrow rv">The Craftsman</span>
+  <div class="meet-grid">
+
+    <div class="meet-photo-wrap rv">
+      <img class="meet-photo" src="images/will.jpg" alt="Will Jones — Founder, DMWN">
+      <div class="meet-badge">Conscious Web Design</div>
+    </div>
+
+    <div>
+      <h2 class="section-title rv">Will <em>Jones</em></h2>
+      <div class="gold-rule rv"></div>
+      <blockquote class="meet-quote rv">
+        "I don't build websites. I build the digital extension of your healing field."
+      </blockquote>
+      <p class="meet-body rv">
+        Will Jones has spent a decade at the intersection of digital craft and conscious living. Having built sanctuaries for Reiki masters, breathwork facilitators, shamanic coaches, and sacred feminine practitioners, he understands that your website is not a marketing tool — it is a transmission.
+      </p>
+      <p class="meet-body rv">
+        His work is grounded in a single conviction: <strong>the practitioner is the brand.</strong> Every design decision flows from you — your imagery, your energy, your words. No templates. No shortcuts. No compromise on the frequency your site carries.
+      </p>
+      <a href="#contact" class="btn-primary rv" style="margin-top: 1.75rem;">Work With Will &nbsp;→</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<section class="section" id="services">
+  <div class="rv">
+    <span class="eyebrow">What We Build</span>
+    <h2 class="section-title">Sacred craft, <em>every time</em></h2>
+    <p class="section-body">No templates. No page builders. Every site is custom-coded to honor the unique frequency of your practice and the clients you're called to serve.</p>
+  </div>
+
+  <div class="svc-grid">
+
+    <div class="svc-card rv">
+      <span class="svc-num">01</span>
+      <h3 class="svc-name">Custom Web <em>Design</em></h3>
+      <p class="svc-desc">A fully custom-coded digital sanctuary built from scratch. Hero, services, bio, testimonials, contact — everything your clients need to feel your work before they ever book a session.</p>
+      <span class="svc-price">From $1,500</span>
+    </div>
+
+    <div class="svc-card rv rv-d1">
+      <span class="svc-num">02</span>
+      <h3 class="svc-name">Brand <em>Identity</em></h3>
+      <p class="svc-desc">Logo, color palette, typography system, and visual language — aligned to your practice's energetic signature and built to carry across every touchpoint you inhabit.</p>
+      <span class="svc-price">From $500</span>
+    </div>
+
+    <div class="svc-card rv">
+      <span class="svc-num">03</span>
+      <h3 class="svc-name">Sacred <em>Landing Pages</em></h3>
+      <p class="svc-desc">A single, high-intention page built to move visitors from curiosity to commitment. Perfect for a new offering, a retreat, a course launch, or a live event.</p>
+      <span class="svc-price">From $750</span>
+    </div>
+
+    <div class="svc-card rv rv-d1">
+      <span class="svc-num">04</span>
+      <h3 class="svc-name">Site <em>Redesigns</em></h3>
+      <p class="svc-desc">Your Wix or Squarespace site may have served you — but your practice has evolved. We rebuild it from the ground up to match who you are now and the clients you're ready to call in.</p>
+      <span class="svc-price">Custom quote</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ PROCESS ═══════════ -->
+<section class="section section-mid" id="process">
+  <div class="rv">
+    <span class="eyebrow">How It Works</span>
+    <h2 class="section-title">The path from <em>vision to portal</em></h2>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-step rv">
+      <span class="step-num">01</span>
+      <h4 class="step-name"><em>Attunement</em></h4>
+      <p class="step-desc">We begin by listening. Deep discovery into your practice, your ideal clients, your brand energy, and what you want people to feel.</p>
+    </div>
+    <div class="process-step rv rv-d1">
+      <span class="step-num">02</span>
+      <h4 class="step-name"><em>Alignment</em></h4>
+      <p class="step-desc">Strategy and architecture. We map the site structure, content flow, and aesthetic direction before a single line of code is written.</p>
+    </div>
+    <div class="process-step rv rv-d2">
+      <span class="step-num">03</span>
+      <h4 class="step-name"><em>Creation</em></h4>
+      <p class="step-desc">Full custom build. Design and development unified — no handoffs, no miscommunication. Your site is crafted as one cohesive transmission.</p>
+    </div>
+    <div class="process-step rv rv-d3">
+      <span class="step-num">04</span>
+      <h4 class="step-name"><em>Integration</em></h4>
+      <p class="step-desc">You review, you feel it. We refine until the site is unmistakably yours. Two rounds of revisions included in every engagement.</p>
+    </div>
+    <div class="process-step rv rv-d4">
+      <span class="step-num">05</span>
+      <h4 class="step-name"><em>Activation</em></h4>
+      <p class="step-desc">Launch day. Your digital portal opens. We handle deployment, domain setup, and a 30-day post-launch support window.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA BAND ═══════════ -->
+<section class="cta-band">
+  <svg class="cta-band-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="46"    stroke="#c9a86e" stroke-width="0.75"/>
+    <polygon points="50,5 95,75 5,75"  stroke="#c9a86e" stroke-width="0.75" fill="none"/>
+    <polygon points="50,95 5,25 95,25" stroke="#c9a86e" stroke-width="0.75" fill="none"/>
+    <circle cx="50" cy="50" r="18"    stroke="#c9a86e" stroke-width="0.75"/>
+  </svg>
+  <h2 class="cta-title rv">Your clients <em>feel</em> your site before they read it.</h2>
+  <p class="cta-sub rv">Make sure what they feel is aligned with the medicine you carry.</p>
+  <div class="rv rv-d1">
+    <a href="#contact" class="btn-primary">Begin Your Project &nbsp;→</a>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section class="section section-alt" id="contact">
+  <div class="contact-grid">
+    <div>
+      <span class="eyebrow rv">Begin</span>
+      <h2 class="section-title rv">Let's build your <em>sanctuary</em></h2>
+      <div class="gold-rule rv"></div>
+      <p class="section-body rv">Tell us about your practice and what you're building. We'll be in touch within 48 hours.</p>
+      <div class="contact-info-block rv">
+        <span class="contact-info-label">Email</span>
+        <p class="contact-info-val">will@designmywebsitenow.com</p>
+      </div>
+      <div class="contact-info-block rv" style="margin-top:1.25rem;">
+        <span class="contact-info-label">Based in</span>
+        <p class="contact-info-val">Available worldwide</p>
+      </div>
+    </div>
+
+    <form id="contactForm" class="rv" style="display:flex;flex-direction:column;gap:1.1rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-field">
+          <label class="form-label" for="fname">Name</label>
+          <input class="form-input" type="text" id="fname" name="name" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="femail">Email</label>
+          <input class="form-input" type="email" id="femail" name="email" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="fpractice">Your Practice / Modality</label>
+        <input class="form-input" type="text" id="fpractice" name="practice" placeholder="e.g. Reiki, Breathwork, Somatic Coaching…">
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="fmessage">Tell Us About Your Vision</label>
+        <textarea class="form-textarea" id="fmessage" name="message" rows="5"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="submitBtn" style="width:100%;border:none;padding:1.05rem;text-align:center;">
+        Send Your Vision &nbsp;→
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">
+        <svg width="20" height="20" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="46"    stroke="#c9a86e" stroke-width="2" opacity="0.7"/>
+          <polygon points="50,8 91,72 9,72"  stroke="#c9a86e" stroke-width="2" fill="none"/>
+          <polygon points="50,92 9,28 91,28" stroke="#c9a86e" stroke-width="2" fill="none"/>
+        </svg>
+        DMWN
+      </div>
+      <p class="footer-tagline">Conscious Web Design for energy workers, healers, and sacred feminine practitioners.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigate</p>
+      <ul class="footer-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">We Serve</p>
+      <ul class="footer-links">
+        <li><a href="#contact">Reiki &amp; Energy Healing</a></li>
+        <li><a href="#contact">Shamanic Coaching</a></li>
+        <li><a href="#contact">Sacred Feminine</a></li>
+        <li><a href="#contact">Women's Circles</a></li>
+        <li><a href="#contact">Breathwork &amp; Somatic</a></li>
+        <li><a href="#contact">Sound Healing</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 &nbsp;DMWN — Design My Website Now &nbsp;·&nbsp; Conscious Web Design &nbsp;·&nbsp; All Rights Reserved
+  </div>
+</footer>
+
+<script>
+/* ── CURSOR ── */
+const dot  = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left  = mx + 'px';
+  dot.style.top   = my + 'px';
+  ring.style.left = mx + 'px';
+  ring.style.top  = my + 'px';
+});
+document.querySelectorAll('a, button, .port-card, .phil-card, .svc-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.width  = '54px';
+    ring.style.height = '54px';
+    ring.style.borderColor = 'rgba(201,168,110,0.9)';
+  });
+  el.addEventListener('mouseleave', () => {
+    ring.style.width  = '34px';
+    ring.style.height = '34px';
+    ring.style.borderColor = 'rgba(201,168,110,0.55)';
+  });
+});
+
+/* ── SCROLL REVEAL ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+
+/* ── HERO entrance on load ── */
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero .rv').forEach(el =>
+    setTimeout(() => el.classList.add('visible'), 300)
+  );
+});
+
+/* ── NAV SCROLL STATE ── */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── HAMBURGER MENU ── */
+const hamburger = document.getElementById('hamburger');
+const navLinks  = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => navLinks.classList.remove('open'))
+);
+
+/* ── CONTACT FORM ── */
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Message Received ✦';
+  btn.style.background    = 'transparent';
+  btn.style.color         = 'var(--gold)';
+  btn.style.border        = '1px solid rgba(201,168,110,0.45)';
+  btn.style.letterSpacing = '0.2em';
+  btn.disabled = true;
+});
+</script>
+
+</body>
+</html>
