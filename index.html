@@ -964,23 +964,16 @@
        CTA BAND
     ═══════════════════════════════════ */
     .cta-band {
-      position: relative; z-index: 2;
-      background: var(--ink2);
+      background: var(--ink2); position: relative; z-index: 2; overflow: hidden;
       border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
       padding: clamp(5rem,11vw,9rem) clamp(1.5rem,5vw,4rem);
       text-align: center;
-      /* clip merkaba without overflow:hidden breaking sticky/fixed children */
-      clip-path: inset(0);
-    }
-    .cta-band-content {
-      position: relative; z-index: 1;
     }
     .cta-band-mark {
       position: absolute; left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: min(72vw,600px); opacity: 0.07; pointer-events: none;
+      transform: translate(-50%,-50%);
+      width: min(70vw,580px); opacity: 0.025; pointer-events: none;
       mix-blend-mode: screen;
-      will-change: transform;
     }
     .cta-title {
       font-family: 'Cormorant Garamond', serif;
@@ -1572,14 +1565,12 @@
 </div>
 
 <!-- ═══════════ CTA BAND ═══════════ -->
-<section class="cta-band" id="ctaBand">
-  <div class="cta-band-content" id="ctaBandContent">
-    <img class="cta-band-mark" id="ctaMerkaba" src="images/merkaba.png" alt="">
-    <h2 class="cta-title rv">Your clients <em>feel</em> your site before they read it.</h2>
-    <p class="cta-sub rv">Make sure what they feel is aligned with the medicine you carry.</p>
-    <div class="rv rv-d1">
-      <a href="#contact" class="btn-primary">Begin Your Project &nbsp;→</a>
-    </div>
+<section class="cta-band">
+  <img class="cta-band-mark" src="images/merkaba.png" alt="">
+  <h2 class="cta-title rv">Your clients <em>feel</em> your site before they read it.</h2>
+  <p class="cta-sub rv">Make sure what they feel is aligned with the medicine you carry.</p>
+  <div class="rv rv-d1">
+    <a href="#contact" class="btn-primary">Begin Your Project &nbsp;→</a>
   </div>
 </section>
 
@@ -1855,36 +1846,6 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeVideo(); closeQuote(); }
   });
-})();
-
-/* ── CTA BAND PARALLAX ── */
-(function () {
-  const band    = document.getElementById('ctaBand');
-  const merkaba = document.getElementById('ctaMerkaba');
-  if (!band || !merkaba) return;
-
-  let baselineY = null;
-
-  function onScroll() {
-    const scrollY = window.scrollY;
-
-    // Set baseline the first time (when section is in view)
-    if (baselineY === null) {
-      const rect = band.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        baselineY = scrollY;
-      }
-    }
-
-    if (baselineY === null) return;
-
-    // Offset merkaba by exact scroll delta — cancels its movement, keeps it frozen
-    const delta = scrollY - baselineY;
-    merkaba.style.transform = `translate(-50%, calc(-50% + ${delta}px))`;
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
 })();
 
 /* ── LIVING INSCRIPTION ── */
