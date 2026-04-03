@@ -746,7 +746,9 @@
       padding: clamp(1.5rem,3vw,2.5rem) clamp(1rem,2vw,1.5rem);
       border-right: 1px solid var(--hairline);
       position: relative; overflow: hidden;
+      transition: transform 0.3s ease;
     }
+    .process-step:hover { transform: scale(1.04); }
     .process-step:last-child { border-right: none; }
 
     /* All text hidden until inscribed */
@@ -763,7 +765,6 @@
     .step-num.inscribed {
       color: rgba(201,168,110,0.22);
       -webkit-text-stroke: 1px rgba(201,168,110,0.15);
-      text-shadow: 0 0 30px rgba(201,168,110,0.3);
     }
     .step-name {
       font-family: 'Cormorant Garamond', serif;
@@ -1612,7 +1613,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     fired = true;
 
     const totalW = stepsContainer.offsetWidth;
-    const DURATION = 3600; // ms total sweep
+    const DURATION = 5800; // ms total sweep
     const startTime = performance.now();
 
     // Build trigger X positions — midpoint of each step column
