@@ -303,9 +303,10 @@
       perspective: 1400px;
     }
 
-    /* Each card outer shell — no fixed aspect ratio, height driven by content */
+    /* Each card outer shell — oracle card ratio 5:9 (~standard deck) */
     .oracle-card {
       position: relative;
+      aspect-ratio: 5/9;
       opacity: 0;
       transform: translateX(-50px) rotate(-6deg);
       cursor: none;
@@ -380,51 +381,51 @@
       text-indent: 0.45em; /* optical centering with letter-spacing */
     }
 
-    /* ── FRONT FACE — identical to original phil-card ── */
+    /* ── FRONT FACE ── */
     .oracle-face-front {
-      position: relative; /* drives card height */
-      width: 100%;
+      position: absolute; inset: 0;
       background: var(--ink2);
       border: 1px solid rgba(201,168,110,0.35);
       transform: rotateY(180deg);
       display: flex; flex-direction: column;
-      padding: clamp(2rem, 4vw, 3rem);
+      padding: clamp(1rem, 2.2vw, 1.6rem);
       overflow: hidden;
       transition: background 0.3s;
     }
-    /* Merkaba watermark bottom-right — matches original phil-wm */
+    /* Merkaba watermark bottom-right */
     .oracle-face-front::after {
       content: '';
-      position: absolute; right: -1.5rem; bottom: -1.5rem;
-      width: 150px; height: 150px;
+      position: absolute; right: -1rem; bottom: -1rem;
+      width: 110px; height: 110px;
       background: url('images/merkaba.png') center / contain no-repeat;
       mix-blend-mode: screen;
       opacity: 0.12;
       pointer-events: none;
     }
     .o-num {
-      font-family: 'Cinzel', serif; font-size: 0.58rem;
-      letter-spacing: 0.3em; color: var(--gold);
-      display: block; margin-bottom: 1.25rem;
+      font-family: 'Cinzel', serif; font-size: 0.5rem;
+      letter-spacing: 0.22em; color: var(--gold);
+      display: block; margin-bottom: 0.65rem; flex-shrink: 0;
     }
     .o-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+      font-size: clamp(0.95rem, 1.4vw, 1.25rem);
       font-weight: 300; line-height: 1.2; color: var(--cream);
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.6rem; flex-shrink: 0;
     }
     .o-title em { font-style: italic; color: var(--gold); }
     .o-body {
-      font-size: 0.86rem;
-      color: var(--cream-dim); line-height: 1.78;
+      font-size: clamp(0.68rem, 0.9vw, 0.78rem);
+      color: var(--cream-dim); line-height: 1.65;
+      flex: 1; overflow: hidden;
     }
     .o-body strong { color: var(--gold); font-weight: 400; }
     .o-badge {
-      display: inline-block; margin-top: 1.5rem;
-      font-family: 'Cinzel', serif; font-size: 0.52rem;
-      letter-spacing: 0.3em; color: var(--gold);
+      display: inline-block; margin-top: 0.6rem;
+      font-family: 'Cinzel', serif; font-size: 0.44rem;
+      letter-spacing: 0.25em; color: var(--gold);
       border: 1px solid rgba(201,168,110,0.38);
-      padding: 0.28rem 0.72rem; align-self: flex-start;
+      padding: 0.2rem 0.55rem; align-self: flex-start; flex-shrink: 0;
     }
 
     /* Mobile: 2 cols, then 1 */
@@ -1167,10 +1168,10 @@
         "I'm not just building your website. I'm transmitting your field into the digital realm."
       </blockquote>
       <p class="meet-body rv">
-        Will Jones has been building websites for over a decade. But in May 2022, something shifted — he received his Usui/Holy Fire® Reiki I &amp; II certification through The International Center for Reiki Training, and what began as professional curiosity became a fundamental rewiring of how he understands the digital world.
+        Will has always been two things: creative and spiritual. He earned his B.A. in Communications studying web design — and from the beginning, digital craft was his medium of expression, not just his vocation.
       </p>
       <p class="meet-body rv" style="margin-top:1rem;">
-        His occupation is web design, and while he creates sites for anyone, he especially loves building for those who do energy work. Because he's one of them.
+        In 2022, he answered a calling he'd felt for most of his life — toward energy healing. What he found in that training changed how he sees everything he creates. The principles of energy work — presence, intention, frequency, space — don't stay in the healing room. <strong>They translate directly into how a website feels.</strong> He saw it clearly, and he hasn't designed the same way since.
       </p>
     </div>
   </div>
@@ -1194,7 +1195,7 @@
       </figure>
 
       <p class="meet-body rv rv-d2" style="align-self:center;">
-        Reiki connected him to a lived awareness of the energy from Source that moves through all things — and, he discovered, through all websites. <strong>A site functions as an energetic portal for its host.</strong> The layout, the color temperature, the white space, the rhythm of the scroll — all of it is felt before it is read. That awareness now lives in every site he builds.
+        The attunements gave him new eyes. He saw that the principles guiding energy healing — intention, presence, spaciousness, resonance — are the same principles that make a website feel alive or feel dead. <strong>The layout, the color temperature, the white space, the rhythm of the scroll — all of it is felt before it is read.</strong> That understanding now lives in every site he builds.
       </p>
 
     </div>
