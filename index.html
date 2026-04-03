@@ -295,17 +295,17 @@
     .deck-pip:nth-child(3) { transform: rotate(2deg); }
     .deck-pile.dealt-out .deck-pip { opacity: 0; transform: scale(0.8); }
 
-    /* Row of 6 oracle cards */
+    /* Row of 3×2 oracle cards */
     .oracle-row {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: clamp(0.5rem, 1vw, 0.85rem);
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1rem, 2vw, 1.75rem);
       perspective: 1400px;
     }
 
     /* Each card outer shell */
     .oracle-card {
-      aspect-ratio: 2/3;
+      aspect-ratio: 3/4;
       position: relative;
       opacity: 0;
       transform: translateX(-50px) rotate(-6deg);
@@ -351,31 +351,32 @@
       border: 1px solid rgba(201,168,110,0.5);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 0.5rem; overflow: hidden;
+      gap: 0.75rem; overflow: hidden;
     }
     /* Double inner border */
     .oracle-face-back::before {
       content: '';
-      position: absolute; inset: 0.45rem;
-      border: 1px solid rgba(201,168,110,0.25);
+      position: absolute; inset: 0.6rem;
+      border: 1px solid rgba(201,168,110,0.22);
       pointer-events: none; z-index: 0;
     }
     /* Corner ornaments */
     .oracle-face-back::after {
       content: '✦';
-      position: absolute; bottom: 0.6rem; right: 0.7rem;
-      font-size: 0.45rem; color: rgba(201,168,110,0.4);
+      position: absolute; bottom: 1rem; right: 1rem;
+      font-size: 0.55rem; color: rgba(201,168,110,0.35);
       z-index: 0;
     }
     .oracle-back-mark {
-      width: 62%; mix-blend-mode: screen; opacity: 0.85;
+      width: 55%; mix-blend-mode: screen; opacity: 0.9;
       position: relative; z-index: 1;
     }
     .oracle-back-label {
-      font-family: 'Cinzel', serif; font-size: 0.42rem;
-      letter-spacing: 0.35em; color: rgba(201,168,110,0.55);
-      position: absolute; bottom: 0.65rem; left: 50%;
-      transform: translateX(-50%); z-index: 1; white-space: nowrap;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+      letter-spacing: 0.45em; color: var(--gold);
+      position: relative; z-index: 1;
+      text-indent: 0.45em; /* optical centering with letter-spacing */
     }
 
     /* ── FRONT FACE ── */
@@ -384,7 +385,7 @@
       border: 1px solid rgba(201,168,110,0.35);
       transform: rotateY(180deg);
       display: flex; flex-direction: column;
-      padding: clamp(0.6rem, 1.2vw, 1rem);
+      padding: clamp(1.5rem, 3vw, 2.5rem);
       overflow: hidden;
     }
     /* Top gold accent line */
@@ -395,37 +396,37 @@
       margin-bottom: clamp(0.5rem, 1vw, 0.85rem); flex-shrink: 0;
     }
     .o-num {
-      font-family: 'Cinzel', serif; font-size: 0.48rem;
-      letter-spacing: 0.28em; color: var(--gold);
-      display: block; margin-bottom: 0.5rem;
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.3em; color: var(--gold);
+      display: block; margin-bottom: 1rem;
     }
     .o-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.78rem, 1.1vw, 1rem);
-      font-weight: 300; line-height: 1.25; color: var(--cream);
-      margin-bottom: 0.5rem; flex-shrink: 0;
+      font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+      font-weight: 300; line-height: 1.2; color: var(--cream);
+      margin-bottom: 0.85rem; flex-shrink: 0;
     }
     .o-title em { font-style: italic; color: var(--gold); }
     .o-body {
-      font-size: clamp(0.58rem, 0.75vw, 0.7rem);
-      color: var(--cream-dim); line-height: 1.65;
+      font-size: clamp(0.78rem, 1vw, 0.86rem);
+      color: var(--cream-dim); line-height: 1.75;
       flex: 1; overflow: hidden;
     }
     .o-body strong { color: var(--gold); font-weight: 400; }
     .o-badge {
-      display: inline-block; margin-top: 0.6rem;
-      font-family: 'Cinzel', serif; font-size: 0.42rem;
-      letter-spacing: 0.28em; color: var(--gold);
-      border: 1px solid rgba(201,168,110,0.35);
-      padding: 0.2rem 0.55rem; flex-shrink: 0; align-self: flex-start;
+      display: inline-block; margin-top: 1.25rem;
+      font-family: 'Cinzel', serif; font-size: 0.52rem;
+      letter-spacing: 0.3em; color: var(--gold);
+      border: 1px solid rgba(201,168,110,0.38);
+      padding: 0.28rem 0.72rem; flex-shrink: 0; align-self: flex-start;
     }
 
-    /* Mobile: 3 cols */
-    @media (max-width: 800px) {
-      .oracle-row { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 480px) {
+    /* Mobile: 2 cols, then 1 */
+    @media (max-width: 600px) {
       .oracle-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 400px) {
+      .oracle-row { grid-template-columns: 1fr; }
     }
 
     /* ═══════════════════════════════════
