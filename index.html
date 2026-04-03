@@ -803,57 +803,114 @@
     }
 
     /* ═══════════════════════════════════
-       TESTIMONIAL VIDEO
+       TESTIMONIALS
     ═══════════════════════════════════ */
     .testi-section {
       padding: clamp(5rem,11vw,9rem) clamp(1.5rem,5vw,4rem);
       text-align: center;
       position: relative; z-index: 2;
     }
-    /* Play trigger card */
-    .testi-play-btn {
-      display: inline-flex; flex-direction: column;
-      align-items: center; gap: 1.4rem;
-      margin-top: 3rem; cursor: none;
-      border: none; background: none; padding: 0;
-      color: var(--cream);
+    .testi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.25rem, 2.5vw, 2rem);
+      max-width: 1000px;
+      margin: 3rem auto 0;
     }
+    /* Shared card */
+    .testi-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      border-radius: 0.75rem; overflow: hidden;
+      border: 1px solid var(--hairline);
+      cursor: none;
+    }
+    .testi-card-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      transition: transform 0.6s ease;
+    }
+    .testi-card:hover .testi-card-img { transform: scale(1.04); }
+    /* Dark gradient from bottom */
+    .testi-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(14,12,9,0.92) 0%, rgba(14,12,9,0.35) 55%, transparent 100%);
+    }
+    /* Bottom text block */
+    .testi-card-body {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: clamp(1.5rem,3vw,2.5rem);
+      text-align: left;
+    }
+    .testi-card-name {
+      font-family: 'Cinzel', serif; font-size: 0.72rem;
+      letter-spacing: 0.2em; color: var(--gold);
+      text-transform: uppercase; display: block; margin-bottom: 0.6rem;
+    }
+    .testi-card-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      font-style: italic; font-weight: 300;
+      color: var(--cream); line-height: 1.55;
+      margin-bottom: 1rem;
+    }
+    .testi-card-cta {
+      font-family: 'Cinzel', serif; font-size: 0.6rem;
+      letter-spacing: 0.18em; color: var(--cream-dim);
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+    .testi-card:hover .testi-card-cta { color: var(--gold); }
+
+    /* Play ring on video card */
     .testi-play-ring {
-      width: 88px; height: 88px; border-radius: 50%;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px; height: 72px; border-radius: 50%;
       border: 1px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
-      position: relative;
+      background: rgba(14,12,9,0.4);
+      backdrop-filter: blur(4px);
       transition: transform 0.35s ease, box-shadow 0.35s ease;
+      pointer-events: none;
     }
     .testi-play-ring::before {
       content: '';
       position: absolute; inset: -6px; border-radius: 50%;
       border: 1px solid rgba(201,168,110,0.2);
-      transition: opacity 0.35s ease;
     }
     .testi-play-ring svg {
-      width: 26px; height: 26px; fill: var(--gold);
-      margin-left: 4px; /* optical center for play triangle */
+      width: 22px; height: 22px; fill: var(--gold);
+      margin-left: 3px;
     }
-    .testi-play-btn:hover .testi-play-ring {
-      transform: scale(1.1);
-      box-shadow: 0 0 40px rgba(201,168,110,0.25);
-    }
-    .testi-play-label {
-      font-family: 'Cinzel', serif; font-size: 0.68rem;
-      letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase;
+    .testi-card:hover .testi-play-ring {
+      transform: translate(-50%, -50%) scale(1.12);
+      box-shadow: 0 0 40px rgba(201,168,110,0.3);
     }
 
-    /* Video lightbox */
-    .video-lb {
+    /* Shared lightbox base */
+    .lb-overlay {
       position: fixed; inset: 0; z-index: 2000;
       background: rgba(14,12,9,0.96);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none;
       transition: opacity 0.4s ease;
     }
-    .video-lb.open { opacity: 1; pointer-events: all; }
+    .lb-overlay.open { opacity: 1; pointer-events: all; }
+    .lb-close {
+      position: absolute; top: -3rem; right: 0;
+      background: none; border: none; cursor: none;
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      letter-spacing: 0.2em; color: var(--cream-dim);
+      text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem;
+      transition: color 0.2s ease;
+    }
+    .lb-close:hover { color: var(--gold); }
+    .lb-close span { font-size: 1.1rem; line-height: 1; }
+
+    /* Video lightbox */
     .video-lb-inner {
       position: relative; width: min(90vw, 980px);
       aspect-ratio: 16/9;
@@ -862,20 +919,52 @@
       box-shadow: 0 0 80px rgba(201,168,110,0.1), 0 0 200px rgba(0,0,0,0.8);
       transform: scale(0.94); transition: transform 0.4s ease;
     }
-    .video-lb.open .video-lb-inner { transform: scale(1); }
+    .lb-overlay.open .video-lb-inner { transform: scale(1); }
     .video-lb-inner iframe {
       position: absolute; inset: 0; width: 100%; height: 100%; border: none;
     }
-    .video-lb-close {
-      position: absolute; top: -3rem; right: 0;
-      background: none; border: none; cursor: none;
-      font-family: 'Cinzel', serif; font-size: 0.65rem;
-      letter-spacing: 0.2em; color: var(--cream-dim);
-      text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem;
-      transition: color 0.2s ease;
+
+    /* Quote lightbox */
+    .quote-lb-inner {
+      position: relative; width: min(90vw, 680px);
+      padding: clamp(3rem,6vw,5rem) clamp(2rem,5vw,4.5rem);
+      border-radius: 0.75rem;
+      border: 1px solid var(--hairline);
+      background: var(--ink2);
+      box-shadow: 0 0 80px rgba(201,168,110,0.08), 0 0 200px rgba(0,0,0,0.8);
+      transform: scale(0.94); transition: transform 0.4s ease;
+      text-align: left;
     }
-    .video-lb-close:hover { color: var(--gold); }
-    .video-lb-close span { font-size: 1.1rem; line-height: 1; }
+    .lb-overlay.open .quote-lb-inner { transform: scale(1); }
+    .quote-lb-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem; line-height: 0.6;
+      color: var(--gold); opacity: 0.35;
+      display: block; margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .quote-lb-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+      font-style: italic; font-weight: 300;
+      color: var(--cream); line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+    .quote-lb-attr {
+      font-family: 'Cinzel', serif; font-size: 0.68rem;
+      letter-spacing: 0.2em; color: var(--gold);
+      text-transform: uppercase;
+    }
+    .quote-lb-role {
+      font-size: 0.78rem; color: var(--cream-dim);
+      margin-top: 0.25rem; font-family: 'Jost', sans-serif;
+      font-weight: 300;
+    }
+
+    @media (max-width: 640px) {
+      .testi-grid { grid-template-columns: 1fr; }
+      .testi-card { aspect-ratio: 4/5; }
+    }
 
     /* ═══════════════════════════════════
        CTA BAND
@@ -1428,30 +1517,62 @@
   </div>
 </section>
 
-<!-- ═══════════ TESTIMONIAL VIDEO ═══════════ -->
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
 <section class="testi-section section-alt" id="testimonials">
   <span class="eyebrow rv">In Their Words</span>
   <h2 class="section-title rv">What it feels like to <em>work with us</em></h2>
   <div class="gold-rule rv"></div>
-  <div class="rv rv-d1">
-    <button class="testi-play-btn" id="testiPlayBtn" aria-label="Watch testimonial">
+
+  <div class="testi-grid">
+
+    <!-- Left: Pilar — text testimonial -->
+    <div class="testi-card rv" id="pilarCard" role="button" tabindex="0" aria-label="Read Pilar's testimonial">
+      <img class="testi-card-img" src="https://images.squarespace-cdn.com/content/v1/6605978ae81da54339f1b80d/0cc2ace8-0e74-44bd-b05f-0b1ae7d50fcf/PilarDeLaCruz_Feb2025_LaanclaCreative-1.jpg" alt="Pilar de La Cruz">
+      <div class="testi-card-overlay"></div>
+      <div class="testi-card-body">
+        <span class="testi-card-name">Pilar de La Cruz</span>
+        <p class="testi-card-quote">"I came to Will with no website and a lot of overwhelm. He took that overwhelm off my plate completely."</p>
+        <span class="testi-card-cta">Read her experience &nbsp;→</span>
+      </div>
+    </div>
+
+    <!-- Right: Video testimonial -->
+    <div class="testi-card rv rv-d1" id="videoCard" role="button" tabindex="0" aria-label="Watch video testimonial">
+      <img class="testi-card-img" src="https://static.wixstatic.com/media/854f5a_abb4bfe8234c4489b381d0831a2d2a1b~mv2.jpeg/v1/crop/x_105,y_0,w_796,h_796/fill/w_840,h_840,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/unnamed.jpeg" alt="Video testimonial">
+      <div class="testi-card-overlay"></div>
       <div class="testi-play-ring">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="5,3 19,12 5,21"/></svg>
       </div>
-      <span class="testi-play-label">Watch Testimonial</span>
-    </button>
+      <div class="testi-card-body">
+        <span class="testi-card-name">Client Testimonial</span>
+        <p class="testi-card-quote">"A transformation you have to hear to believe."</p>
+        <span class="testi-card-cta">Watch the video &nbsp;→</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- ═══════════ VIDEO LIGHTBOX ═══════════ -->
-<div class="video-lb" id="videoLb" role="dialog" aria-modal="true" aria-label="Testimonial video">
+<div class="lb-overlay" id="videoLb" role="dialog" aria-modal="true" aria-label="Testimonial video">
   <div class="video-lb-inner">
-    <button class="video-lb-close" id="videoLbClose"><span>✕</span> Close</button>
+    <button class="lb-close" id="videoLbClose"><span>✕</span> Close</button>
     <iframe id="videoLbFrame"
       src=""
       allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
       title="Client Testimonial">
     </iframe>
+  </div>
+</div>
+
+<!-- ═══════════ QUOTE LIGHTBOX ═══════════ -->
+<div class="lb-overlay" id="quoteLb" role="dialog" aria-modal="true" aria-label="Pilar's testimonial">
+  <div class="quote-lb-inner">
+    <button class="lb-close" id="quoteLbClose"><span>✕</span> Close</button>
+    <span class="quote-lb-mark">"</span>
+    <p class="quote-lb-text">I came to Will with no website and a lot of overwhelm. He took that overwhelm off my plate completely. I didn't have to think about a single technical thing. What he handed back to me was a site that captured my energy in a way I couldn't have put into words myself. I finally feel like my work is seen.</p>
+    <p class="quote-lb-attr">Pilar de La Cruz</p>
+    <p class="quote-lb-role">Wellness Coach</p>
   </div>
 </div>
 
@@ -1701,29 +1822,51 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   btn.disabled = true;
 });
 
-/* ── VIDEO LIGHTBOX ── */
+/* ── LIGHTBOXES ── */
 (function () {
-  const lb    = document.getElementById('videoLb');
-  const frame = document.getElementById('videoLbFrame');
-  const openBtn  = document.getElementById('testiPlayBtn');
-  const closeBtn = document.getElementById('videoLbClose');
-  const SRC = 'https://player.vimeo.com/video/982301349?badge=0&autopause=0&autoplay=1&player_id=0&app_id=58479';
+  const VIMEO_SRC = 'https://player.vimeo.com/video/982301349?badge=0&autopause=0&autoplay=1&player_id=0&app_id=58479';
 
-  function openLb() {
-    frame.src = SRC;
-    lb.classList.add('open');
+  // Video lightbox
+  const videoLb    = document.getElementById('videoLb');
+  const videoFrame = document.getElementById('videoLbFrame');
+  const videoCard  = document.getElementById('videoCard');
+  const videoClose = document.getElementById('videoLbClose');
+
+  function openVideo() {
+    videoFrame.src = VIMEO_SRC;
+    videoLb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-  function closeLb() {
-    lb.classList.remove('open');
-    frame.src = '';
+  function closeVideo() {
+    videoLb.classList.remove('open');
+    videoFrame.src = '';
     document.body.style.overflow = '';
   }
+  if (videoCard)  videoCard.addEventListener('click', openVideo);
+  if (videoClose) videoClose.addEventListener('click', closeVideo);
+  videoLb.addEventListener('click', e => { if (e.target === videoLb) closeVideo(); });
 
-  if (openBtn)  openBtn.addEventListener('click', openLb);
-  if (closeBtn) closeBtn.addEventListener('click', closeLb);
-  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+  // Quote lightbox
+  const quoteLb    = document.getElementById('quoteLb');
+  const pilarCard  = document.getElementById('pilarCard');
+  const quoteClose = document.getElementById('quoteLbClose');
+
+  function openQuote() {
+    quoteLb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeQuote() {
+    quoteLb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  if (pilarCard)  pilarCard.addEventListener('click', openQuote);
+  if (quoteClose) quoteClose.addEventListener('click', closeQuote);
+  quoteLb.addEventListener('click', e => { if (e.target === quoteLb) closeQuote(); });
+
+  // Escape closes whichever is open
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeVideo(); closeQuote(); }
+  });
 })();
 
 /* ── LIVING INSCRIPTION ── */
