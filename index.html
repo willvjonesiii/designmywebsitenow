@@ -970,10 +970,15 @@
        CTA BAND
     ═══════════════════════════════════ */
     .cta-band {
-      background: var(--ink2); position: relative; z-index: 2; overflow: hidden;
+      position: relative; z-index: 2; overflow: hidden;
       border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
       padding: clamp(5rem,11vw,9rem) clamp(1.5rem,5vw,4rem);
       text-align: center;
+    }
+    .cta-band-bg {
+      position: absolute; inset: -30% 0;
+      background: var(--ink2);
+      will-change: transform;
     }
     .cta-band-mark {
       position: absolute; left: 50%; top: 50%;
@@ -1544,8 +1549,8 @@
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="5,3 19,12 5,21"/></svg>
       </div>
       <div class="testi-card-body">
-        <span class="testi-card-name">Client Testimonial</span>
-        <p class="testi-card-quote">"A transformation you have to hear to believe."</p>
+        <span class="testi-card-name">Marines Rodríguez</span>
+        <p class="testi-card-quote">"I absolutely loved working with Will..."</p>
         <span class="testi-card-cta">Watch the video &nbsp;→</span>
       </div>
     </div>
@@ -1577,7 +1582,8 @@
 </div>
 
 <!-- ═══════════ CTA BAND ═══════════ -->
-<section class="cta-band">
+<section class="cta-band" id="ctaBand">
+  <div class="cta-band-bg" id="ctaBandBg"></div>
   <img class="cta-band-mark" src="images/merkaba.png" alt="">
   <h2 class="cta-title rv">Your clients <em>feel</em> your site before they read it.</h2>
   <p class="cta-sub rv">Make sure what they feel is aligned with the medicine you carry.</p>
@@ -1844,7 +1850,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   }
   if (videoCard)  videoCard.addEventListener('click', openVideo);
   if (videoClose) videoClose.addEventListener('click', closeVideo);
-  videoLb.addEventListener('click', e => { if (e.target === videoLb) closeVideo(); });
+  videoLb.addEventListener('click', closeVideo);
 
   // Quote lightbox
   const quoteLb    = document.getElementById('quoteLb');
@@ -1861,12 +1867,28 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   }
   if (pilarCard)  pilarCard.addEventListener('click', openQuote);
   if (quoteClose) quoteClose.addEventListener('click', closeQuote);
-  quoteLb.addEventListener('click', e => { if (e.target === quoteLb) closeQuote(); });
+  quoteLb.addEventListener('click', closeQuote);
 
   // Escape closes whichever is open
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeVideo(); closeQuote(); }
   });
+})();
+
+/* ── CTA BAND PARALLAX ── */
+(function () {
+  const band = document.getElementById('ctaBand');
+  const bg   = document.getElementById('ctaBandBg');
+  if (!band || !bg) return;
+  function onScroll() {
+    const rect = band.getBoundingClientRect();
+    const vh   = window.innerHeight;
+    // progress: -1 (above viewport) → 0 (centered) → 1 (below viewport)
+    const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+    bg.style.transform = `translateY(${progress * 55}px)`;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 
 /* ── LIVING INSCRIPTION ── */
