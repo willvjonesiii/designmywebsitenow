@@ -449,16 +449,18 @@
     }
 
     /* ═══════════════════════════════════
-       MEET WILL
+       MEET WILL — Editorial Bio
     ═══════════════════════════════════ */
-    .meet-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
+
+    /* ── Top: portrait + intro ── */
+    .about-top {
+      display: grid; grid-template-columns: 1fr 1.4fr;
       gap: clamp(3rem,6vw,6rem); align-items: center; margin-top: 2rem;
     }
-    .meet-photo-wrap { position: relative; }
-    .meet-photo {
+    .about-portrait-wrap { position: relative; }
+    .about-portrait {
       width: 100%; aspect-ratio: 3/4;
-      object-fit: cover; object-position: center 12%; display: block;
+      object-fit: cover; object-position: center 15%; display: block;
     }
     .meet-badge {
       position: absolute; bottom: -1.5rem; right: -1.5rem;
@@ -477,9 +479,83 @@
     }
     .meet-body {
       font-size: clamp(0.88rem,1.4vw,0.96rem);
-      color: var(--cream-dim); line-height: 1.9; margin-bottom: 0.9rem;
+      color: var(--cream-dim); line-height: 1.9;
     }
     .meet-body strong { color: var(--gold); font-weight: 400; }
+
+    /* ── Story Band: Reiki Journey ── */
+    .story-band {
+      margin-top: clamp(4rem,8vw,7rem);
+      background: var(--ink3);
+      border: 1px solid var(--hairline);
+      padding: clamp(2.5rem,5vw,4rem);
+    }
+    .story-band-header {
+      display: flex; align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--hairline);
+      padding-bottom: 1.25rem; margin-bottom: 2.5rem;
+    }
+    .story-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-style: italic;
+      color: var(--cream-dim);
+    }
+    .story-band-inner {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: clamp(1.5rem,3vw,3rem); align-items: start;
+    }
+    /* Polaroid-style story photos */
+    .story-photo {
+      margin: 0; background: var(--ink2);
+      padding: 0.6rem 0.6rem 2.5rem;
+      border: 1px solid var(--hairline);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    }
+    .story-photo img {
+      width: 100%; display: block;
+      object-fit: cover; aspect-ratio: 4/3;
+    }
+    .story-photo figcaption {
+      font-family: 'Cinzel', serif; font-size: 0.52rem;
+      letter-spacing: 0.2em; color: var(--gold);
+      text-align: center; margin-top: 0.85rem;
+      text-transform: uppercase;
+    }
+    .story-photo--left  { transform: rotate(-2.5deg); margin-top: 1rem; }
+    .story-photo--right { transform: rotate(2deg); }
+
+    /* ── Closing: library + CTA ── */
+    .about-closing {
+      display: grid; grid-template-columns: 1fr 1.5fr;
+      gap: clamp(3rem,6vw,5rem); align-items: center;
+      margin-top: clamp(4rem,8vw,7rem);
+    }
+    .about-closing-text { display: flex; flex-direction: column; gap: 1rem; }
+    .about-books {
+      margin: 0; position: relative; overflow: hidden;
+    }
+    .about-books img {
+      width: 100%; display: block;
+      object-fit: cover; aspect-ratio: 4/3;
+      object-position: center top;
+    }
+    .about-books::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--ink2) 0%, transparent 30%);
+      pointer-events: none;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 900px) {
+      .about-top { grid-template-columns: 1fr; }
+      .meet-badge { right: 0; }
+      .story-band-inner { grid-template-columns: 1fr 1fr; }
+      .story-band-inner .meet-body { grid-column: 1 / -1; }
+      .about-closing { grid-template-columns: 1fr; }
+      .about-books::after { background: linear-gradient(to bottom, var(--ink2) 0%, transparent 25%); }
+    }
 
     /* ═══════════════════════════════════
        SERVICES
@@ -896,30 +972,70 @@
 
 <!-- ═══════════ MEET WILL ═══════════ -->
 <section class="section section-alt" id="about">
-  <span class="eyebrow rv">The Craftsman</span>
-  <div class="meet-grid">
 
-    <div class="meet-photo-wrap rv">
-      <img class="meet-photo" src="images/will-2.jpg" alt="Will Jones — Founder, DMWN">
+  <!-- ── TOP: Portrait + Intro ── -->
+  <div class="about-top">
+    <div class="about-portrait-wrap rv">
+      <img class="about-portrait" src="images/will-3.jpg" alt="Will Jones — Founder, DMWN">
       <div class="meet-badge">Conscious Web Design</div>
     </div>
-
     <div>
+      <span class="eyebrow rv">The Craftsman</span>
       <h2 class="section-title rv">Will <em>Jones</em></h2>
       <div class="gold-rule rv"></div>
       <blockquote class="meet-quote rv">
-        "I don't build websites. I build the digital extension of your healing field."
+        "I'm not just building your website. I'm transmitting your field into the digital realm."
       </blockquote>
       <p class="meet-body rv">
-        Will Jones has spent a decade at the intersection of digital craft and conscious living. Having built sanctuaries for Reiki masters, breathwork facilitators, shamanic coaches, and sacred feminine practitioners, he understands that your website is not a marketing tool — it is a transmission.
+        Will Jones has been building websites for over a decade. But in May 2022, something shifted — he received his Usui/Holy Fire® Reiki I &amp; II certification through The International Center for Reiki Training, and what began as professional curiosity became a fundamental rewiring of how he understands the digital world.
+      </p>
+      <p class="meet-body rv" style="margin-top:1rem;">
+        His occupation is web design, and while he creates sites for anyone, he especially loves building for those who do energy work. Because he's one of them.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── STORY BAND: The Reiki Journey ── -->
+  <div class="story-band rv">
+    <div class="story-band-header">
+      <span class="eyebrow" style="margin:0;">The Reiki Journey</span>
+      <span class="story-date">The International Center for Reiki Training &nbsp;·&nbsp; May 15, 2022</span>
+    </div>
+    <div class="story-band-inner">
+
+      <figure class="story-photo story-photo--left rv">
+        <img src="images/reiki-training.jpg" alt="Reiki Level I & II Training, May 2022">
+        <figcaption>Level I &amp; II Training</figcaption>
+      </figure>
+
+      <figure class="story-photo story-photo--right rv rv-d1">
+        <img src="images/reiki-cert.jpg" alt="Reiki Certificate — William Jones, May 15 2022">
+        <figcaption>Certified · Usui / Holy Fire®</figcaption>
+      </figure>
+
+      <p class="meet-body rv rv-d2" style="align-self:center;">
+        Reiki connected him to a lived awareness of the energy from Source that moves through all things — and, he discovered, through all websites. <strong>A site functions as an energetic portal for its host.</strong> The layout, the color temperature, the white space, the rhythm of the scroll — all of it is felt before it is read. That awareness now lives in every site he builds.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- ── CLOSING: Sacred Library + CTA ── -->
+  <div class="about-closing">
+    <div class="about-closing-text">
+      <p class="meet-body rv">
+        When he works with energy workers, healers, and sacred feminine practitioners, he brings something most web designers can't — the experience of having sat at the same table, studied the same symbols, and felt the same current.
       </p>
       <p class="meet-body rv">
-        His work is grounded in a single conviction: <strong>the practitioner is the brand.</strong> Every design decision flows from you — your imagery, your energy, your words. No templates. No shortcuts. No compromise on the frequency your site carries.
+        His library of oracle decks, energy medicine texts, and sacred geometry studies isn't decoration. <strong>It's research.</strong>
       </p>
-      <a href="#contact" class="btn-primary rv" style="margin-top: 1.75rem;">Work With Will &nbsp;→</a>
+      <a href="#contact" class="btn-primary rv" style="margin-top:2rem; display:inline-block;">Work With Will &nbsp;→</a>
     </div>
-
+    <figure class="about-books rv rv-d1">
+      <img src="images/sacred-library.jpg" alt="Will's oracle deck and sacred text collection">
+    </figure>
   </div>
+
 </section>
 
 <!-- ═══════════ SERVICES ═══════════ -->
