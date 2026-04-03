@@ -303,10 +303,10 @@
       perspective: 1400px;
     }
 
-    /* Each card outer shell — oracle card ratio 5:9 (~standard deck) */
+    /* Each card — 3:4 ratio, uniform across all 6 */
     .oracle-card {
+      aspect-ratio: 3/4;
       position: relative;
-      aspect-ratio: 5/9;
       opacity: 0;
       transform: translateX(-50px) rotate(-6deg);
       cursor: none;
@@ -325,7 +325,7 @@
       transition: transform 0.3s ease;
     }
 
-    /* 3-D flip inner — must fill card fully for absolute faces */
+    /* 3-D flip inner */
     .oracle-inner {
       width: 100%; height: 100%;
       position: relative;
@@ -338,29 +338,27 @@
       transform: rotateY(180deg);
     }
 
-    /* Shared — both faces hidden when rotated away */
+    /* Both faces fill the card, hidden when rotated away */
     .oracle-face {
+      position: absolute; inset: 0;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
     }
 
     /* ── BACK FACE ── */
     .oracle-face-back {
-      position: absolute; inset: 0;
       background: var(--ink3);
       border: 1px solid rgba(201,168,110,0.5);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       gap: 0.75rem; overflow: hidden;
     }
-    /* Double inner border */
     .oracle-face-back::before {
       content: '';
       position: absolute; inset: 0.6rem;
       border: 1px solid rgba(201,168,110,0.22);
       pointer-events: none; z-index: 0;
     }
-    /* Corner ornaments */
     .oracle-face-back::after {
       content: '✦';
       position: absolute; bottom: 1rem; right: 1rem;
@@ -376,57 +374,60 @@
       font-size: clamp(0.9rem, 1.4vw, 1.2rem);
       letter-spacing: 0.45em; color: var(--gold);
       position: relative; z-index: 1;
-      text-indent: 0.45em; /* optical centering with letter-spacing */
+      text-indent: 0.45em;
     }
 
     /* ── FRONT FACE ── */
     .oracle-face-front {
-      position: absolute; inset: 0;
       background: var(--ink2);
       border: 1px solid rgba(201,168,110,0.35);
       transform: rotateY(180deg);
       display: flex; flex-direction: column;
-      padding: clamp(1rem, 2.2vw, 1.6rem);
+      padding: clamp(1.5rem, 3vw, 2.5rem);
       overflow: hidden;
-      transition: background 0.3s;
     }
-    /* Merkaba watermark bottom-right */
+    /* Top gold accent line */
+    .oracle-face-front::before {
+      content: '';
+      display: block; width: 100%; height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin-bottom: clamp(0.5rem, 1vw, 0.85rem); flex-shrink: 0;
+    }
+    /* Merkaba watermark */
     .oracle-face-front::after {
       content: '';
       position: absolute; right: -1rem; bottom: -1rem;
       width: 110px; height: 110px;
       background: url('images/merkaba.png') center / contain no-repeat;
-      mix-blend-mode: screen;
-      opacity: 0.12;
-      pointer-events: none;
+      mix-blend-mode: screen; opacity: 0.12; pointer-events: none;
     }
     .o-num {
-      font-family: 'Cinzel', serif; font-size: 0.5rem;
-      letter-spacing: 0.22em; color: var(--gold);
-      display: block; margin-bottom: 0.65rem; flex-shrink: 0;
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.3em; color: var(--gold);
+      display: block; margin-bottom: 1rem; flex-shrink: 0;
     }
     .o-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+      font-size: clamp(1.1rem, 1.8vw, 1.6rem);
       font-weight: 300; line-height: 1.2; color: var(--cream);
-      margin-bottom: 0.6rem; flex-shrink: 0;
+      margin-bottom: 0.85rem; flex-shrink: 0;
     }
     .o-title em { font-style: italic; color: var(--gold); }
     .o-body {
-      font-size: clamp(0.68rem, 0.9vw, 0.78rem);
-      color: var(--cream-dim); line-height: 1.65;
+      font-size: clamp(0.78rem, 1vw, 0.86rem);
+      color: var(--cream-dim); line-height: 1.75;
       flex: 1; overflow: hidden;
     }
     .o-body strong { color: var(--gold); font-weight: 400; }
     .o-badge {
-      display: inline-block; margin-top: 0.6rem;
-      font-family: 'Cinzel', serif; font-size: 0.44rem;
-      letter-spacing: 0.25em; color: var(--gold);
+      display: inline-block; margin-top: 1.25rem;
+      font-family: 'Cinzel', serif; font-size: 0.52rem;
+      letter-spacing: 0.3em; color: var(--gold);
       border: 1px solid rgba(201,168,110,0.38);
-      padding: 0.2rem 0.55rem; align-self: flex-start; flex-shrink: 0;
+      padding: 0.28rem 0.72rem; flex-shrink: 0; align-self: flex-start;
     }
 
-    /* Mobile: 2 cols, then 1 */
+    /* Mobile */
     @media (max-width: 600px) {
       .oracle-row { grid-template-columns: repeat(2, 1fr); }
     }
