@@ -136,6 +136,13 @@
       transition: width 0.2s ease, height 0.2s ease;
       animation: cursorSpin 12s linear infinite;
     }
+    @media (max-width: 600px) {
+      .cursor-merkaba {
+        width: 28px; height: 28px;
+        left: calc(clamp(1.5rem, 5vw, 4rem) + 14px);
+        top: calc(1.6rem + 14px);
+      }
+    }
     .cursor-merkaba.hovering {
       width: 52px; height: 52px;
     }
