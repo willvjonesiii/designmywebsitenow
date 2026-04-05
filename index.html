@@ -419,11 +419,13 @@
       flex: 1; overflow: hidden;
     }
     .o-body strong { color: var(--gold); font-weight: 400; }
-    @container (max-width: 200px) {
-      .o-title { font-size: 4.8cqi; margin-bottom: 0.4rem; }
-      .o-body  { font-size: 3.1cqi; line-height: 1.5; }
-      .o-num   { font-size: 2.4cqi; margin-bottom: 0.4rem; }
-      .o-badge { font-size: 2.4cqi; margin-top: 0.4rem; }
+    @container (max-width: 210px) {
+      .oracle-face-front { padding: 0.7rem 0.75rem; }
+      .oracle-face-front::before { margin-bottom: 0.4rem; }
+      .o-title { font-size: 10cqi; line-height: 1.15; margin-bottom: 0.35rem; }
+      .o-body  { font-size: 7.2cqi; line-height: 1.45; }
+      .o-num   { font-size: 5cqi; letter-spacing: 0.15em; margin-bottom: 0.3rem; }
+      .o-badge { font-size: 4.5cqi; margin-top: 0.35rem; padding: 0.2rem 0.5rem; }
     }
     .o-badge {
       display: inline-block; margin-top: 0.75rem;
