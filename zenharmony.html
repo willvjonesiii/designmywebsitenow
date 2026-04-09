@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zen Harmony | Reiki, Sound Healing & Mindfulness — North Myrtle Beach, SC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..500&display=swap" rel="stylesheet">
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    /* ─── TOKENS ─── */
+    :root {
+      --ink:        #f6f2eb;
+      --mid:        #ddd8cf;
+      --cream:      #0c1318;
+      --cream-warm: #141e27;
+      --teal:       #7ab8c8;
+      --teal-deep:  #3d8fa8;
+      --purple:     #625A8C;
+      --purple-glow:rgba(98,90,140,0.5);
+      --sage:       #8aab9d;
+      --muted:      rgba(12,19,24,0.55);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVBAR ─── */
+    #nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.6rem clamp(1.5rem, 5vw, 4rem);
+      transition: background 0.45s ease, backdrop-filter 0.45s ease, box-shadow 0.45s ease;
+    }
+    #nav.scrolled {
+      background: rgba(246, 242, 235, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 1px 0 rgba(122,184,200,0.15);
+    }
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.75;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-cta {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid var(--teal);
+      padding: 0.5rem 1.4rem;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--teal); color: var(--ink); }
+
+    /* ─── HERO PORTAL ─── */
+    .hero {
+      height: max(720px, 56.25vw);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--ink);
+      padding: clamp(5rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem) clamp(4rem, 5vw, 5.5rem);
+      gap: 0;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      opacity: 0.1;
+      filter: blur(3px) saturate(0.4);
+      pointer-events: none;
+    }
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(246,242,235,0.25) 0%, rgba(246,242,235,0.55) 100%);
+      pointer-events: none;
+    }
+    .hero-text-top {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 2rem;
+    }
+    .hero-eyebrow {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.06;
+      color: var(--cream);
+    }
+    .hero-h1 em { font-style: italic; color: var(--purple); }
+
+    /* ─── PORTAL ─── */
+    .portal-wrap {
+      position: relative;
+      z-index: 2;
+      width: clamp(180px, 26vw, 320px);
+      height: clamp(180px, 26vw, 320px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      flex-shrink: 0;
+    }
+    .portal-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      animation: portal-pulse 3.5s ease-in-out infinite;
+    }
+    .portal-ring-1 {
+      inset: 26%;
+      border-color: rgba(98,90,140,1);
+      border-width: 2px;
+      animation-duration: 2.8s;
+      animation-delay: 0s;
+    }
+    .portal-ring-2 {
+      inset: 14%;
+      border-color: rgba(98,90,140,0.85);
+      border-width: 1.5px;
+      animation-delay: 0.35s;
+    }
+    .portal-ring-3 {
+      inset: 2%;
+      border-color: rgba(98,90,140,0.65);
+      animation-delay: 0.7s;
+      animation-duration: 3.5s;
+    }
+    .portal-ring-4 {
+      inset: -12%;
+      border-color: rgba(98,90,140,0.45);
+      animation-delay: 1.05s;
+      animation-duration: 4s;
+    }
+    .portal-ring-5 {
+      inset: -28%;
+      border-color: rgba(122,184,200,0.3);
+      animation-delay: 1.4s;
+      animation-duration: 4.5s;
+    }
+    @keyframes portal-pulse {
+      0%, 100% { opacity: 0.45; transform: scale(1); }
+      50%       { opacity: 1;    transform: scale(1.035); }
+    }
+    .yin-yang-spin {
+      position: relative;
+      z-index: 1;
+      width: 52%;
+      height: 52%;
+      object-fit: contain;
+      animation: portal-rotate 20s linear infinite;
+      filter: drop-shadow(0 0 18px rgba(98,90,140,0.7)) drop-shadow(0 0 40px rgba(98,90,140,0.3));
+    }
+    @keyframes portal-rotate {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* ─── HERO TEXT BOTTOM ─── */
+    .hero-text-bottom {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(12,19,24,0.75);
+      max-width: 54ch;
+      margin: 0 auto 2rem;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .btn-primary {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--purple);
+      color: var(--cream);
+      padding: 0.9rem 2.2rem;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-weight: 500;
+      transition: background 0.25s;
+    }
+    .btn-primary:hover { background: var(--teal); color: var(--ink); }
+    .btn-ghost {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid rgba(12,19,24,0.35);
+      color: var(--cream);
+      padding: 0.9rem 2.2rem;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--cream); }
+    .hero-contact {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(12,19,24,0.7);
+    }
+
+    /* ─── HERO BOTTOM FADE ─── */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 7rem;
+      background: linear-gradient(to bottom, transparent, var(--purple));
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ─── HERO PRACTITIONER BADGE ─── */
+    .hero-practitioner {
+      position: absolute;
+      bottom: 2rem; right: 2.5rem;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(12,19,24,0.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 0.6rem 1.1rem 0.6rem 0.5rem;
+      border-radius: 3rem;
+      border: 1px solid rgba(246,242,235,0.12);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .hero-practitioner:hover {
+      background: rgba(98,90,140,0.55);
+      border-color: rgba(98,90,140,0.5);
+    }
+    .hero-practitioner-photo {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 1px solid rgba(98,90,140,0.7);
+      flex-shrink: 0;
+    }
+    .hero-practitioner-text strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #f6f2eb;
+    }
+    .hero-practitioner-text span {
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-band {
+      background: var(--purple);
+      overflow: hidden;
+      padding: 0.85rem 0;
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: scroll-marquee 32s linear infinite;
+    }
+    .marquee-item {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cream);
+      padding: 0 2.5rem;
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+    @keyframes scroll-marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── YOUTUBE HERO BG ─── */
+    .yt-bg-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .yt-bg-wrap iframe {
+      position: absolute;
+      top: 50%; left: 50%;
+      /* always covers container regardless of aspect ratio */
+      width: max(100%, 177.78vh);
+      height: max(100%, 56.25vw);
+      transform: translate(-50%, -50%);
+      border: none;
+      pointer-events: none;
+    }
+    /* hide YT bg on mobile — autoplay blocked anyway */
+    @media (max-width: 768px) {
+      .yt-bg-wrap { display: none; }
+      .hero-bg    { display: block; }
+    }
+    @media (min-width: 769px) {
+      .hero-bg { display: none; }
+    }
+
+    /* ─── MEET MAXINE (framed inset) ─── */
+    .meet-section {
+      background: var(--cream-warm);
+      padding: clamp(4.5rem, 10vw, 8.5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .meet-grid-framed {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .meet-image-wrap {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+    .meet-image-wrap img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      animation: sanctuary-float 7s ease-in-out infinite;
+    }
+    .meet-image-wrap::before {
+      content: '';
+      position: absolute;
+      top: -1.2rem; left: -1.2rem;
+      right: 1.2rem; bottom: 2.8rem;
+      border: 1px solid rgba(98,90,140,0.45);
+      pointer-events: none;
+      animation: sanctuary-frame 7s ease-in-out infinite;
+    }
+    .meet-image-wrap::after {
+      content: 'MAXINE CHEN · RMT · VST';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--sage);
+    }
+
+    /* ─── SECTION UTILITIES ─── */
+    .section-pad {
+      padding: clamp(4.5rem, 10vw, 8.5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .section-eyebrow {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.08;
+    }
+    .section-title em { font-style: italic; color: var(--purple); }
+    .max-w { max-width: 1320px; margin-left: auto; margin-right: auto; }
+
+    /* ─── SANCTUARY (full-bleed left) ─── */
+    .sanctuary-section {
+      padding: 0;
+      background: var(--cream);
+    }
+    .sanctuary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 80vh;
+    }
+    .sanctuary-photo {
+      position: relative;
+      overflow: hidden;
+    }
+    .sanctuary-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .sanctuary-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 55%, var(--cream) 100%);
+    }
+    .sanctuary-content {
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(3rem, 6vw, 6rem) clamp(2.5rem, 5vw, 5rem);
+    }
+    .sanctuary-content p {
+      font-size: clamp(0.92rem, 1.05vw, 1rem);
+      line-height: 1.85;
+      color: rgba(246,242,235,0.82);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ─── VIDEO THUMBNAIL ─── */
+    .video-thumb-section {
+      background: var(--cream);
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem) clamp(5rem, 10vw, 9rem);
+    }
+    .video-thumb-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .video-thumb-header {
+      text-align: center;
+      margin-bottom: 2.8rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(122,184,200,0.2);
+    }
+    .video-thumb-header .section-eyebrow { color: var(--teal); margin-bottom: 1.2rem; }
+    .video-thumb-header .section-title { color: var(--ink); }
+    .video-thumb-wrap {
+      position: relative;
+      cursor: pointer;
+      border: 1px solid rgba(98,90,140,0.35);
+      overflow: hidden;
+    }
+    .video-thumb-wrap img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .video-thumb-wrap:hover img { transform: scale(1.03); }
+    .play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(98,90,140,0.88);
+      border: 2px solid rgba(246,242,235,0.55);
+      color: #f6f2eb;
+      font-size: 1.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 6px;
+      transition: background 0.25s, transform 0.25s;
+      pointer-events: none;
+    }
+    .video-thumb-wrap:hover .play-btn {
+      background: var(--purple);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* ─── LIGHTBOX ─── */
+    .yt-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(12,19,24,0.93);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .yt-lightbox.open { display: flex; }
+    .yt-lightbox-inner {
+      position: relative;
+      width: min(92vw, 1000px);
+      aspect-ratio: 16/9;
+      cursor: default;
+    }
+    .yt-lightbox-inner iframe {
+      width: 100%; height: 100%;
+      border: none;
+      display: block;
+    }
+    .yt-close {
+      position: absolute;
+      top: -3rem; right: 0;
+      background: none;
+      border: none;
+      color: rgba(246,242,235,0.75);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 0.4rem 0;
+      transition: color 0.2s;
+    }
+    .yt-close:hover { color: var(--teal); }
+
+    /* ─── KEYFRAMES (shared) ─── */
+    @keyframes sanctuary-float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50%       { transform: translateY(-10px) scale(1.012); }
+    }
+    @keyframes sanctuary-frame {
+      0%, 100% { transform: translate(0px, 0px); opacity: 0.4; }
+      50%       { transform: translate(4px, -6px); opacity: 0.7; }
+    }
+
+    /* ─── SERVICES ─── */
+    .services-bg { background: var(--ink); }
+    .services-header { text-align: center; margin-bottom: 3rem; }
+    .services-header .section-title { color: var(--cream); }
+    .services-header .section-eyebrow { color: var(--teal); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .service-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+    .service-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .service-card:hover img { transform: scale(1.06); }
+    .service-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(12,19,24,0.95) 0%, rgba(12,19,24,0.45) 45%, rgba(12,19,24,0.1) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(1.5rem, 2.5vw, 2.5rem);
+    }
+    .svc-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+    .svc-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: #f6f2eb;
+      margin-bottom: 0.9rem;
+    }
+    .svc-name em { font-style: italic; color: var(--purple); }
+    .svc-desc {
+      font-size: 0.86rem;
+      line-height: 1.7;
+      color: rgba(246,242,235,0.72);
+      margin-bottom: 1.6rem;
+      max-width: 34ch;
+    }
+    .svc-link {
+      font-size: 0.67rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .svc-link:hover { gap: 0.9rem; color: var(--purple); }
+
+    /* ─── MEET MAXINE content styles ─── */
+    .meet-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .meet-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.55rem, 2.2vw, 2.1rem);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.4;
+      color: var(--mid);
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--purple);
+      margin-bottom: 2rem;
+    }
+    .meet-bio p {
+      font-size: 0.94rem;
+      line-height: 1.85;
+      color: rgba(246,242,235,0.8);
+      margin-bottom: 1rem;
+    }
+    .cred-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .cred-tag {
+      font-size: 0.64rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--sage);
+      color: var(--sage);
+    }
+
+    /* ─── SPECIAL SERVICES ─── */
+    .special-bg { background: var(--ink); }
+    .special-header { text-align: center; margin-bottom: 1rem; }
+    .special-header .section-title { color: var(--cream); }
+    .special-header .section-eyebrow { color: var(--teal); }
+    .special-sub {
+      text-align: center;
+      font-size: 0.96rem;
+      line-height: 1.75;
+      color: rgba(12,19,24,0.65);
+      max-width: 55ch;
+      margin: 0 auto 3.5rem;
+    }
+    .special-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .special-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+    }
+    .special-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+    .special-card:hover img { transform: scale(1.04); }
+    .special-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(12,19,24,0.96) 0%, rgba(12,19,24,0.3) 55%, rgba(12,19,24,0.08) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem 2rem;
+    }
+    .sp-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      line-height: 1;
+      color: rgba(198,156,109,0.18);
+      margin-bottom: 0.5rem;
+    }
+    .sp-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 2.2vw, 2rem);
+      font-weight: 400;
+      color: #f6f2eb;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+    .sp-name em { font-style: italic; color: var(--purple); }
+    .sp-desc {
+      font-size: 0.86rem;
+      line-height: 1.7;
+      color: rgba(246,242,235,0.68);
+      max-width: 36ch;
+      margin-bottom: 1.5rem;
+    }
+    .sp-link {
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .sp-link:hover { gap: 0.85rem; color: var(--purple); }
+
+    /* ─── CTA BAND ─── */
+    .cta-band {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      background: var(--mid);
+      padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=60') center/cover no-repeat;
+      opacity: 0.1;
+    }
+    .cta-inner { position: relative; z-index: 1; }
+    .cta-band h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.08;
+      margin-bottom: 1.2rem;
+    }
+    .cta-band h2 em { font-style: italic; color: var(--teal); }
+    .cta-band p {
+      font-size: 1rem;
+      color: rgba(12,19,24,0.65);
+      max-width: 50ch;
+      margin: 0 auto 2.8rem;
+      line-height: 1.75;
+    }
+    .cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      color: var(--cream);
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem) 2rem;
+      border-radius: 3rem 3rem 0 0;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr;
+      gap: 3.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(12,19,24,0.12);
+      margin-bottom: 1.8rem;
+    }
+    .footer-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .footer-contact-info {
+      font-size: 0.84rem;
+      line-height: 2.1;
+      color: rgba(12,19,24,0.6);
+    }
+    .footer-contact-info a { color: var(--teal); text-decoration: none; }
+    .footer-contact-info a:hover { color: var(--purple); }
+    .footer-col-head {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 1.2rem;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.65rem; }
+    .footer-links a {
+      font-size: 0.84rem;
+      color: rgba(12,19,24,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--teal); }
+    .footer-bottom {
+      text-align: center;
+      font-size: 0.72rem;
+      color: rgba(12,19,24,0.4);
+      line-height: 1.8;
+    }
+    .footer-bottom a { color: var(--teal); text-decoration: none; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .rv { opacity: 1; transform: none; }
+    .js-loaded .rv {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .js-loaded .rv.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s !important; }
+    .d2 { transition-delay: 0.18s !important; }
+    .d3 { transition-delay: 0.28s !important; }
+    .d4 { transition-delay: 0.38s !important; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero { padding-top: 7rem; }
+      .portal-wrap { width: clamp(160px, 60vw, 260px); height: clamp(160px, 60vw, 260px); }
+      .hero-practitioner { display: none; }
+      .sanctuary-grid { grid-template-columns: 1fr; }
+      .sanctuary-photo { height: 55vh; order: -1; }
+      .sanctuary-photo::after { background: linear-gradient(to bottom, transparent 55%, var(--cream) 100%); }
+      .sanctuary-content { padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 2.5rem); }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card { aspect-ratio: 16/10; }
+      .meet-grid-framed { grid-template-columns: 1fr; gap: 2.5rem; }
+      .meet-image-wrap img { aspect-ratio: 4/3; }
+      .meet-image-wrap::before { bottom: 1rem; }
+      .special-grid { grid-template-columns: 1fr; }
+      .special-card { min-height: 340px; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 1200px) and (min-width: 901px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card:nth-child(3) { grid-column: span 2; aspect-ratio: 16/7; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="nav">
+    <a href="#" class="nav-brand">Zen Harmony</a>
+    <ul class="nav-links">
+      <li><a href="https://zen-harmony.com/services/healing-therapies/reiki-energy-healing-150442847" target="_blank">Reiki</a></li>
+      <li><a href="https://zen-harmony.com/services/healing-therapies/mindfulness-meditation-150484381" target="_blank">Wellness</a></li>
+      <li><a href="https://zen-harmony.com/services/healing-therapies/sound-vibrational-therapy-150442848" target="_blank">Sound Therapy</a></li>
+      <li><a href="https://zen-harmony.com/services/healing-therapies/special-services-150468351" target="_blank">Special Services</a></li>
+      <li><a href="https://zen-harmony.com/meet-the-expert/maxine-chen-rmt-vst" target="_blank">The Practitioner</a></li>
+      <li><a href="https://zen-harmony.com/blog" target="_blank">Blog</a></li>
+    </ul>
+    <a href="https://zen-harmony.com/contact-us" target="_blank" class="nav-cta">Book a Session</a>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <!-- Desktop: YouTube video background -->
+    <div class="yt-bg-wrap" aria-hidden="true">
+      <iframe
+        src="https://www.youtube.com/embed/0kDBfmARzWY?autoplay=1&mute=1&loop=1&playlist=0kDBfmARzWY&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1"
+        allow="autoplay; fullscreen"
+        title=""
+      ></iframe>
+    </div>
+    <!-- Mobile fallback: Maxine photo -->
+    <img class="hero-bg" aria-hidden="true"
+      src="https://img77.uenicdn.com/image/upload/v1713904745/business/c15bc9a0-8cdb-40c9-a743-73a1fd3eba77/thumbnail-Maxine-jpg.jpg"
+      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1200&q=60';"
+      alt=""
+    />
+    <div class="hero-bg-overlay"></div>
+
+    <!-- Top text -->
+    <div class="hero-text-top rv">
+      <h1 class="hero-h1">Step into the<br><em>enchanted realm</em></h1>
+    </div>
+
+    <!-- Portal: rotating yin yang -->
+    <div class="portal-wrap rv d1">
+      <div class="portal-ring portal-ring-5"></div>
+      <div class="portal-ring portal-ring-4"></div>
+      <div class="portal-ring portal-ring-3"></div>
+      <div class="portal-ring portal-ring-2"></div>
+      <div class="portal-ring portal-ring-1"></div>
+      <img class="yin-yang-spin"
+        src="https://img77.uenicdn.com/image/upload/v1714420119/business/fdde7c44d2fc44f38fa56c422be0e6e1.png"
+        alt="Zen Harmony"
+      />
+    </div>
+
+    <!-- Sub + CTAs -->
+    <div class="hero-text-bottom rv d2">
+      <p class="hero-sub">Where vibration becomes medicine and sound becomes sanctuary.</p>
+      <div class="hero-ctas">
+        <a href="https://zen-harmony.com/contact-us" target="_blank" class="btn-primary">Book a Session</a>
+        <a href="#services" class="btn-ghost">Explore Services</a>
+      </div>
+      <span class="hero-contact">(843) 214-2447 · Complimentary Consultation</span>
+    </div>
+
+    <!-- Practitioner badge -->
+    <a href="#practitioner" class="hero-practitioner">
+      <img class="hero-practitioner-photo"
+        src="https://img77.uenicdn.com/image/upload/v1713904745/business/c15bc9a0-8cdb-40c9-a743-73a1fd3eba77/thumbnail-Maxine-jpg.jpg"
+        alt="Maxine Chen"
+        onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1559757175-5700dde675bc?w=200&q=80';"
+      />
+      <div class="hero-practitioner-text">
+        <strong>Maxine Chen</strong>
+        <span>RMT · VST · Master Reiki Practitioner</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- ══ MARQUEE ══ -->
+  <div class="marquee-band" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Reiki Energy Healing ✦</span>
+      <span class="marquee-item">Sound &amp; Vibrational Therapy ✦</span>
+      <span class="marquee-item">Mindfulness &amp; Meditation ✦</span>
+      <span class="marquee-item">Group Sound Baths ✦</span>
+      <span class="marquee-item">Mobile Sessions ✦</span>
+      <span class="marquee-item">Grief Coaching ✦</span>
+      <span class="marquee-item">Trance &amp; Hypnotherapy ✦</span>
+      <span class="marquee-item">Transformational Life Coaching ✦</span>
+      <span class="marquee-item">Reiki Energy Healing ✦</span>
+      <span class="marquee-item">Sound &amp; Vibrational Therapy ✦</span>
+      <span class="marquee-item">Mindfulness &amp; Meditation ✦</span>
+      <span class="marquee-item">Group Sound Baths ✦</span>
+      <span class="marquee-item">Mobile Sessions ✦</span>
+      <span class="marquee-item">Grief Coaching ✦</span>
+      <span class="marquee-item">Trance &amp; Hypnotherapy ✦</span>
+      <span class="marquee-item">Transformational Life Coaching ✦</span>
+    </div>
+  </div>
+
+  <!-- ══ SANCTUARY ══ -->
+  <section class="sanctuary-section" id="sanctuary">
+    <div class="sanctuary-grid">
+      <div class="sanctuary-photo rv">
+        <img
+          src="https://images.unsplash.com/photo-1458501534264-7d326fa0ca04?q=80&w=1170&auto=format&fit=crop"
+          alt="Zen Harmony healing sanctuary"
+        />
+      </div>
+      <div class="sanctuary-content">
+        <span class="section-eyebrow rv">Your Sanctuary</span>
+        <h2 class="section-title rv d1" style="margin-bottom:1.5rem;">
+          A place where<br><em>balance</em> returns.
+        </h2>
+        <p class="rv d2">
+          At Zen Harmony &amp; Sound Healing, we honor the ancient wisdom of Reiki, blending time-honored techniques with intuitive, modern practice. Reiki is more than energy healing — it's a gateway to deep restoration, spiritual balance, and emotional clarity.
+        </p>
+        <p class="rv d2">
+          Step into the enchanted realm of Sound Therapy Healing, where vibration becomes medicine and sound becomes sanctuary. At Zen Harmony &amp; Sound Healing, we use the transformative power of frequencies to awaken your body's natural healing abilities, clear emotional blockages, and restore balance across your energy systems.
+        </p>
+        <a href="#services" class="btn-primary rv d3" style="align-self:flex-start;">Explore All Therapies →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FEATURED VIDEO (within dark zone) ══ -->
+  <section class="video-thumb-section">
+    <div class="video-thumb-inner">
+      <div class="video-thumb-header rv">
+        <span class="section-eyebrow">Experience Zen Harmony</span>
+        <h2 class="section-title">Hear it. <em>Feel it.</em></h2>
+      </div>
+      <div class="video-thumb-wrap rv d1" onclick="openYTLightbox()" role="button" aria-label="Play video">
+        <img
+          src="https://img.youtube.com/vi/0kDBfmARzWY/maxresdefault.jpg"
+          alt="Watch Maxine guide you through Reiki and Sound Healing at Zen Harmony"
+        />
+        <div class="play-btn" aria-hidden="true">▶</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICES ══ -->
+  <section id="services" class="services-bg section-pad">
+    <div class="max-w">
+      <div class="services-header">
+        <span class="section-eyebrow rv">What We Offer</span>
+        <h2 class="section-title rv d1">The healing <em>arts</em></h2>
+      </div>
+    </div>
+    <div class="services-grid max-w">
+      <div class="service-card rv">
+        <img src="https://plus.unsplash.com/premium_photo-1688464908102-44394d82da60?q=80&w=735&auto=format&fit=crop" alt="Reiki Energy Healing"/>
+        <div class="service-overlay">
+          <span class="svc-num">01 ✦</span>
+          <h3 class="svc-name">Reiki &amp; Energy<br><em>Healing</em></h3>
+          <p class="svc-desc">Restore balance, release stress, and awaken your body's natural healing energy in a gentle, transformative session.</p>
+          <a href="https://zen-harmony.com/services/healing-therapies/reiki-energy-healing-150442847" target="_blank" class="svc-link">Discover Reiki →</a>
+        </div>
+      </div>
+      <div class="service-card rv d1">
+        <img src="https://plus.unsplash.com/premium_photo-1674675646818-01d7a7bae64c?q=80&w=687&auto=format&fit=crop" alt="Mindfulness and Meditation"/>
+        <div class="service-overlay">
+          <span class="svc-num">02 ✦</span>
+          <h3 class="svc-name">Mindfulness &amp;<br><em>Meditation</em></h3>
+          <p class="svc-desc">Cultivate inner peace, sharpen self-awareness, and reconnect with the present moment through guided mindfulness and meditation practices.</p>
+          <a href="https://zen-harmony.com/services/healing-therapies/mindfulness-meditation-150484381" target="_blank" class="svc-link">Start Your Journey →</a>
+        </div>
+      </div>
+      <div class="service-card rv d2">
+        <img src="https://plus.unsplash.com/premium_photo-1689254722620-ef2f76571532?q=80&w=687&auto=format&fit=crop" alt="Sound and Vibrational Therapy"/>
+        <div class="service-overlay">
+          <span class="svc-num">03 ✦</span>
+          <h3 class="svc-name">Sound &amp; Vibrational<br><em>Therapy</em></h3>
+          <p class="svc-desc">Let therapeutic sound frequencies wash over your body &amp; mind to clear energy blockages, deepen relaxation, and restore harmony from the inside out.</p>
+          <a href="https://zen-harmony.com/services/healing-therapies/sound-vibrational-therapy-150442848" target="_blank" class="svc-link">Experience Now →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ MEET MAXINE ══ -->
+  <section class="meet-section" id="practitioner">
+    <div class="meet-grid-framed">
+      <div class="meet-image-wrap rv">
+        <img
+          src="https://img77.uenicdn.com/image/upload/v1713904745/business/c15bc9a0-8cdb-40c9-a743-73a1fd3eba77/thumbnail-Maxine-jpg.jpg"
+          alt="Maxine Chen, RMT, VST"
+          onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&q=80';"
+        />
+      </div>
+      <div class="meet-content">
+        <span class="section-eyebrow rv">The Practitioner</span>
+        <h2 class="section-title rv d1" style="margin-bottom:1.5rem;">Maxine Chen,<br><em>RMT · VST</em></h2>
+        <blockquote class="meet-quote rv d2">
+          "Her gentle approach and intuitive nature allow her to create a safe and supportive environment where healing can unfold naturally."
+        </blockquote>
+        <div class="meet-bio rv d3">
+          <p>Maxine Chen is a dedicated healer with a passion for holistic wellness. As a Master Reiki Practitioner and Sound/Vibrational Therapist, she brings a wealth of knowledge and experience to her practice — with a compassionate heart and a nurturing spirit.</p>
+          <p>Maxine's journey into the healing arts began from a place of personal experience, as she sought to help her sister cope with the challenges of Cerebellar Ataxia. That love became her life's calling.</p>
+        </div>
+        <div class="cred-tags rv d3">
+          <span class="cred-tag">Master Reiki Practitioner</span>
+          <span class="cred-tag">Sound &amp; Vibrational Therapist</span>
+          <span class="cred-tag">Somatic &amp; Mindful Therapies</span>
+          <span class="cred-tag">Grief Coaching</span>
+          <span class="cred-tag">Trance &amp; Hypnotherapy</span>
+          <span class="cred-tag">Transformational Life Coach</span>
+        </div>
+        <a href="https://zen-harmony.com/meet-the-expert/maxine-chen-rmt-vst" target="_blank" class="btn-primary rv d4">Meet Maxine →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SPECIAL SERVICES ══ -->
+  <section class="special-bg section-pad">
+    <div class="max-w">
+      <div class="special-header">
+        <span class="section-eyebrow rv">Beyond the Session</span>
+        <h2 class="section-title rv d1">Special <em>offerings</em></h2>
+      </div>
+      <p class="special-sub rv d2">
+        Personalized services including guided group sound baths, mobile energy sessions, and healing gift certificates — each thoughtfully crafted to meet your unique needs.
+      </p>
+    </div>
+    <div class="special-grid max-w">
+      <div class="special-card rv">
+        <img src="https://plus.unsplash.com/premium_photo-1689254722340-88c4bda7ff33?q=80&w=687&auto=format&fit=crop" alt="Group Sound Bath"/>
+        <div class="special-card-overlay">
+          <div class="sp-num">01</div>
+          <h3 class="sp-name">Group Sound<br><em>Baths</em></h3>
+          <p class="sp-desc">A shared sound healing experience where therapeutic frequencies wash over the group, fostering collective peace and deep energetic restoration.</p>
+          <a href="https://zen-harmony.com/services/healing-therapies/special-services-150468351" target="_blank" class="sp-link">Learn More →</a>
+        </div>
+      </div>
+      <div class="special-card rv d1">
+        <img src="https://plus.unsplash.com/premium_photo-1743168544607-37cb2de9fb15?q=80&w=1170&auto=format&fit=crop" alt="Mobile wellness services"/>
+        <div class="special-card-overlay">
+          <div class="sp-num">02</div>
+          <h3 class="sp-name">Mobile<br><em>Services</em></h3>
+          <p class="sp-desc">We come to you — bringing healing therapies directly to your home, office, or event. Restoration without the journey, delivered with intention.</p>
+          <a href="https://zen-harmony.com/services/healing-therapies/special-services-150468351" target="_blank" class="sp-link">Learn More →</a>
+        </div>
+      </div>
+      <div class="special-card rv d2">
+        <img src="https://images.unsplash.com/photo-1678716218931-7561f3f976a0?q=80&w=764&auto=format&fit=crop" alt="Gift of healing"/>
+        <div class="special-card-overlay">
+          <div class="sp-num">03</div>
+          <h3 class="sp-name">Gift the Gift<br>of <em>Healing</em></h3>
+          <p class="sp-desc">Gift peace and renewal with a healing certificate — a meaningful, transformative present for someone you love deeply.</p>
+          <a href="https://zen-harmony.com/services/healing-therapies/special-services-150468351" target="_blank" class="sp-link">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA BAND ══ -->
+  <div class="cta-band">
+    <div class="cta-inner">
+      <h2 class="rv">Begin your <em>healing</em><br>journey today.</h2>
+      <p class="rv d1">Your first consultation is complimentary. Take the first gentle step toward restoration, clarity, and lasting inner peace.</p>
+      <div class="cta-btns rv d2">
+        <a href="https://zen-harmony.com/contact-us" target="_blank" class="btn-primary">Book a Free Consultation</a>
+        <a href="tel:+18432142447" class="btn-ghost">(843) 214-2447</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">Zen Harmony</div>
+          <div class="footer-tagline">Wellness for Mind, Body &amp; Spirit</div>
+          <div class="footer-contact-info">
+            North Myrtle Beach, South Carolina<br>
+            <a href="tel:+18432142447">(843) 214-2447</a><br>
+            <a href="https://zen-harmony.com/contact-us" target="_blank">Connect via Email</a><br>
+            <a href="https://www.facebook.com/" target="_blank">Facebook</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-head">Therapies</div>
+          <ul class="footer-links">
+            <li><a href="https://zen-harmony.com/services/healing-therapies/reiki-energy-healing-150442847" target="_blank">Reiki &amp; Energy Healing</a></li>
+            <li><a href="https://zen-harmony.com/services/healing-therapies/mindfulness-meditation-150484381" target="_blank">Mindfulness &amp; Meditation</a></li>
+            <li><a href="https://zen-harmony.com/services/healing-therapies/sound-vibrational-therapy-150442848" target="_blank">Sound &amp; Vibrational Therapy</a></li>
+            <li><a href="https://zen-harmony.com/services/healing-therapies/special-services-150468351" target="_blank">Special Services</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Explore</div>
+          <ul class="footer-links">
+            <li><a href="https://zen-harmony.com/meet-the-expert/maxine-chen-rmt-vst" target="_blank">Meet the Practitioner</a></li>
+            <li><a href="https://zen-harmony.com/blog" target="_blank">Inspiring Blog</a></li>
+            <li><a href="https://zen-harmony.com/contact-us" target="_blank">Contact &amp; Booking</a></li>
+            <li><a href="https://zen-harmony.com/services" target="_blank">Book Therapies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2025 Zen Harmony &amp; Sound Healing &nbsp;·&nbsp; North Myrtle Beach, SC &nbsp;·&nbsp; All rights reserved<br>
+        Site crafted by <a href="https://www.designmywebsitenow.com/" target="_blank">designmywebsitenow.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══ YOUTUBE LIGHTBOX ══ -->
+  <div id="ytLightbox" class="yt-lightbox" onclick="if(event.target===this)closeYTLightbox()">
+    <div class="yt-lightbox-inner">
+      <button class="yt-close" onclick="closeYTLightbox()">✕ Close</button>
+      <iframe id="ytLightboxFrame" src=""
+        title="Zen Harmony — Reiki &amp; Sound Healing"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50), { passive: true });
+    document.body.classList.add('js-loaded');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+
+    function openYTLightbox() {
+      document.getElementById('ytLightboxFrame').src = 'https://www.youtube.com/embed/0kDBfmARzWY?autoplay=1&rel=0&modestbranding=1';
+      document.getElementById('ytLightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeYTLightbox() {
+      document.getElementById('ytLightboxFrame').src = '';
+      document.getElementById('ytLightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeYTLightbox(); });
+  </script>
+
+</body>
+</html>
