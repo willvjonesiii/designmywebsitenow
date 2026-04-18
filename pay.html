@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Payment | Merkaba Web Portals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    :root {
+      --ink:       #161410;
+      --ink2:      #1e1c16;
+      --ink3:      #26231c;
+      --gold:      #c9a86e;
+      --gold-lt:   #e0c98a;
+      --cream:     #f0ead8;
+      --cream-dim: rgba(240,234,216,0.55);
+      --hairline:  rgba(201,168,110,0.2);
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--ink);
+      color: var(--cream);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; top: 0; right: 0; bottom: 0; left: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none; z-index: 0; opacity: 0.7;
+    }
+
+    .wrap {
+      position: relative; z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: clamp(2rem, 6vw, 5rem) clamp(1.2rem, 4vw, 2.5rem) 5rem;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: clamp(3rem, 8vw, 5rem);
+    }
+    .merkaba-mark { width: 34px; height: 34px; opacity: 0.9; }
+    .brand-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    /* ── HERO TEXT ── */
+    .pay-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-bottom: 0.8rem;
+    }
+    .pay-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+    .pay-title em { font-style: italic; color: var(--gold); }
+    .pay-sub {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--cream-dim);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    /* ── AMOUNT TOGGLE ── */
+    .toggle-wrap {
+      display: flex;
+      gap: 1px;
+      background: var(--hairline);
+      border: 1px solid var(--hairline);
+      width: fit-content;
+      margin-bottom: 2.5rem;
+    }
+    .toggle-btn {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      background: var(--ink2);
+      border: none;
+      padding: 0.75rem 1.8rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .toggle-btn.active {
+      background: var(--gold);
+      color: var(--ink);
+    }
+    .toggle-btn:hover:not(.active) { color: var(--gold); }
+
+    /* ── PAYMENT PANELS ── */
+    .payment-panel { display: none; }
+    .payment-panel.active { display: block; }
+
+    .panel-card {
+      background: var(--ink2);
+      border: 1px solid var(--hairline);
+      padding: clamp(1.8rem, 4vw, 3rem);
+    }
+    .panel-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.65;
+      margin-bottom: 0.5rem;
+    }
+    .panel-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .panel-desc {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--cream-dim);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    /* Stripe buy button container */
+    .stripe-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    stripe-buy-button {
+      width: 100%;
+    }
+
+    /* Custom amount panel */
+    .custom-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .amount-input-wrap {
+      position: relative;
+    }
+    .currency-symbol {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--gold);
+      pointer-events: none;
+    }
+    .amount-input {
+      width: 100%;
+      background: var(--ink3);
+      border: 1px solid var(--hairline);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      padding: 0.85rem 1rem 0.85rem 2.2rem;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .amount-input:focus { border-color: var(--gold); }
+    .amount-input::placeholder { color: rgba(240,234,216,0.2); }
+    .note-input {
+      width: 100%;
+      background: var(--ink3);
+      border: 1px solid var(--hairline);
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 300;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .note-input:focus { border-color: var(--gold); }
+    .note-input::placeholder { color: rgba(240,234,216,0.2); }
+    .custom-btn {
+      background: var(--gold);
+      color: var(--ink);
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 1rem 2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .custom-btn:hover { background: var(--gold-lt); }
+    .custom-note {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--cream-dim);
+      line-height: 1.65;
+      opacity: 0.7;
+    }
+
+    /* ── ACCEPTED METHODS ── */
+    .methods-row {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .methods-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.46rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      opacity: 0.5;
+      white-space: nowrap;
+    }
+    .method-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .method-pill {
+      font-family: 'Cinzel', serif;
+      font-size: 0.44rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      border: 1px solid var(--hairline);
+      padding: 0.3rem 0.7rem;
+      opacity: 0.6;
+    }
+
+    /* ── SECURITY BADGE ── */
+    .security {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .lock-icon {
+      width: 14px; height: 14px;
+      opacity: 0.4;
+    }
+    .security-text {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--cream-dim);
+      opacity: 0.5;
+    }
+    .security-text a {
+      color: var(--gold);
+      text-decoration: none;
+      opacity: 0.7;
+    }
+
+    /* ── FOOTER ── */
+    .pay-footer {
+      margin-top: 4rem;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.46rem;
+      letter-spacing: 0.2em;
+      color: var(--cream-dim);
+      opacity: 0.35;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 520px) {
+      .toggle-wrap { width: 100%; }
+      .toggle-btn { flex: 1; padding: 0.75rem 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site-header">
+    <img class="merkaba-mark"
+      src="https://designmywebsitenow.com/images/merkaba.png"
+      alt="Merkaba"
+      onerror="this.style.display='none'"
+    />
+    <span class="brand-name">Merkaba Web Portals</span>
+  </header>
+
+  <div class="pay-eyebrow">Secure Payment</div>
+  <h1 class="pay-title">Open your <em>portal.</em></h1>
+  <p class="pay-sub">Select your payment option below. All transactions are encrypted and processed securely through Stripe. Questions? Reach out at <a href="mailto:admin@designmywebsitenow.com" style="color:var(--gold);text-decoration:none;">admin@designmywebsitenow.com</a></p>
+
+  <!-- AMOUNT TOGGLE -->
+  <div class="toggle-wrap" role="tablist">
+    <button class="toggle-btn active" onclick="showPanel('deposit')" role="tab">Deposit &mdash; $750</button>
+    <button class="toggle-btn" onclick="showPanel('full')" role="tab">Full Payment &mdash; $1,500</button>
+    <button class="toggle-btn" onclick="showPanel('custom')" role="tab">Custom Amount</button>
+  </div>
+
+  <!-- DEPOSIT PANEL -->
+  <div class="payment-panel active" id="panel-deposit">
+    <div class="panel-card">
+      <div class="panel-label">Project Deposit</div>
+      <div class="panel-amount">$750</div>
+      <p class="panel-desc">50% deposit to secure your project start date. Work begins within 24 hours of receipt. Balance of $750 is due upon final delivery and approval.</p>
+      <div class="stripe-wrap">
+        <stripe-buy-button
+          buy-button-id="buy_btn_1TNcjAEejd0Gtstva19wiR09"
+          publishable-key="pk_live_51TNcc2Eejd0Gtstv2tyECsjR060uW9va2UwgNRZauVtIWT35weFkVWopFoDz3Tc2nq9ZFcJWqCBGWSSnMNZ63Oy500q5ibtpEb"
+        ></stripe-buy-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL PAYMENT PANEL -->
+  <div class="payment-panel" id="panel-full">
+    <div class="panel-card">
+      <div class="panel-label">Full Project Payment</div>
+      <div class="panel-amount">$1,500</div>
+      <p class="panel-desc">Full payment upfront. Work begins within 24 hours of receipt. Includes all deliverables, two revision rounds, and 30-day post-launch support.</p>
+      <div class="stripe-wrap">
+        <!-- ADD FULL PAYMENT BUY BUTTON ID HERE -->
+        <!-- Create a $1,500 buy button in your Stripe dashboard and paste the code here -->
+        <button class="custom-btn" onclick="window.location.href='mailto:admin@designmywebsitenow.com?subject=Full Payment - Merkaba Web Portals&body=Hi Will, I would like to make a full payment of $1,500 for my project.'" style="width:100%;padding:1.1rem;">
+          Contact to Pay in Full
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOM AMOUNT PANEL -->
+  <div class="payment-panel" id="panel-custom">
+    <div class="panel-card">
+      <div class="panel-label">Custom Amount</div>
+      <div class="panel-amount" id="customDisplay">$0</div>
+      <p class="panel-desc">Enter any amount agreed upon with Will. Include a note so we can match your payment to your project.</p>
+      <div class="custom-form">
+        <div class="amount-input-wrap">
+          <span class="currency-symbol">$</span>
+          <input
+            class="amount-input"
+            type="number"
+            id="customAmount"
+            placeholder="0"
+            min="1"
+            oninput="updateDisplay(this.value)"
+          />
+        </div>
+        <input
+          class="note-input"
+          type="text"
+          id="customNote"
+          placeholder="Your name / project note (e.g. Maxine Chen - balance payment)"
+        />
+        <button class="custom-btn" onclick="handleCustom()">Proceed to Payment</button>
+        <p class="custom-note">You will be redirected to a secure Stripe checkout page. All major cards, Apple Pay, Google Pay, and more accepted.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCEPTED METHODS -->
+  <div class="methods-row">
+    <span class="methods-label">Accepted</span>
+    <div class="method-pills">
+      <span class="method-pill">Visa</span>
+      <span class="method-pill">Mastercard</span>
+      <span class="method-pill">Amex</span>
+      <span class="method-pill">Apple Pay</span>
+      <span class="method-pill">Google Pay</span>
+      <span class="method-pill">Link</span>
+      <span class="method-pill">Klarna</span>
+      <span class="method-pill">Afterpay</span>
+      <span class="method-pill">Cash App</span>
+    </div>
+  </div>
+
+  <!-- SECURITY -->
+  <div class="security">
+    <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="3" y="11" width="18" height="11" rx="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+    <span class="security-text">256-bit SSL encryption. Payments processed by <a href="https://stripe.com" target="_blank">Stripe</a>. Merkaba Web Portals never stores your card details.</span>
+  </div>
+
+  <footer class="pay-footer">
+    &copy; 2026 Merkaba Web Portals &nbsp;·&nbsp; designmywebsitenow.com
+  </footer>
+
+</div>
+
+<script>
+  function showPanel(id) {
+    document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  function updateDisplay(val) {
+    const n = parseFloat(val) || 0;
+    document.getElementById('customDisplay').textContent = '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0 });
+  }
+
+  function handleCustom() {
+    const amount = document.getElementById('customAmount').value;
+    const note   = document.getElementById('customNote').value;
+    if (!amount || parseFloat(amount) < 1) {
+      alert('Please enter a valid amount.');
+      return;
+    }
+    // Replace with a Stripe Payment Link that has "customer chooses price" enabled
+    // Dashboard: Products > Payment Links > "Let customer decide"
+    const base = 'https://buy.stripe.com/REPLACE_WITH_CUSTOM_AMOUNT_LINK';
+    const url  = base + '?prefilled_quantity=1&client_reference_id=' + encodeURIComponent(note || 'Custom payment');
+    window.location.href = url;
+  }
+</script>
+</body>
+</html>
