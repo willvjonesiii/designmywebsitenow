@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Design Proposal — Zen Harmony | Design My Website Now</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    /* ── DMWN TOKENS ── */
+    :root {
+      --ink:      #0d0d0d;
+      --cream:    #f5f2ec;
+      --teal:     #009ab5;
+      --teal-dim: rgba(0,154,181,0.12);
+      --mid:      #6b6b6b;
+      --rule:     rgba(13,13,13,0.1);
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --sans:     'DM Sans', system-ui, sans-serif;
+      --mono:     'DM Mono', monospace;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    /* ── HEADER ── */
+    .doc-header {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 3.5rem clamp(2rem, 5vw, 4rem);
+      margin-bottom: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .doc-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--teal);
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+    }
+    .dmwn-brand {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .doc-type {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,242,236,0.4);
+      text-align: right;
+    }
+    .header-client {
+      margin-bottom: 2.5rem;
+    }
+    .prepared-for {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,242,236,0.4);
+      margin-bottom: 0.6rem;
+    }
+    .client-name {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--cream);
+    }
+    .client-name em { font-style: italic; color: var(--teal); }
+    .client-sub {
+      font-size: 0.82rem;
+      color: rgba(245,242,236,0.5);
+      letter-spacing: 0.06em;
+      margin-top: 0.4rem;
+    }
+    .header-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      border-top: 1px solid rgba(245,242,236,0.1);
+      padding-top: 1.8rem;
+    }
+    .meta-label {
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,242,236,0.35);
+      margin-bottom: 0.3rem;
+    }
+    .meta-value {
+      font-size: 0.82rem;
+      color: var(--cream);
+      font-weight: 400;
+    }
+    .meta-value.highlight { color: var(--teal); font-weight: 500; }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section:last-of-type { border-bottom: none; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--teal-dim);
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--teal); }
+    .body-text {
+      font-size: 0.93rem;
+      line-height: 1.85;
+      color: #3a3a3a;
+      max-width: 62ch;
+    }
+
+    /* ── WHY DMWN GRID ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .why-item {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 1.5rem;
+      position: relative;
+    }
+    .why-num {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+    .why-text {
+      font-size: 0.84rem;
+      line-height: 1.7;
+      color: rgba(245,242,236,0.75);
+    }
+
+    /* ── INVESTMENT TABLE ── */
+    .investment-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+    }
+    .investment-table thead tr {
+      border-bottom: 2px solid var(--ink);
+    }
+    .investment-table th {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding: 0.6rem 0;
+      text-align: left;
+      font-weight: 400;
+    }
+    .investment-table th:last-child { text-align: right; }
+    .investment-table td {
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+    .investment-table td:last-child {
+      text-align: right;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      white-space: nowrap;
+      color: var(--ink);
+    }
+    .line-name {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+    }
+    .line-desc {
+      font-size: 0.78rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .total-row td {
+      border-bottom: none;
+      border-top: 2px solid var(--ink);
+      padding-top: 1.4rem;
+    }
+    .total-row .line-name {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+    .total-row td:last-child {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--teal);
+    }
+    .payment-note {
+      margin-top: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      background: var(--teal-dim);
+      border-left: 3px solid var(--teal);
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: #2a5a65;
+    }
+    .payment-note strong { color: var(--ink); }
+
+    /* ── TIMELINE ── */
+    .timeline { margin-top: 1.5rem; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-milestone {
+      font-size: 0.88rem;
+      color: var(--ink);
+    }
+    .timeline-date {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--teal);
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+    }
+    .timeline-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+      margin-right: 0.75rem;
+      vertical-align: middle;
+    }
+
+    /* ── TERMS ── */
+    .terms-list { margin-top: 1rem; counter-reset: terms; }
+    .term-item {
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 0.86rem;
+      line-height: 1.75;
+      color: #3a3a3a;
+    }
+    .term-item:last-child { border-bottom: none; }
+    .term-num {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--teal);
+      padding-top: 0.15rem;
+    }
+
+    /* ── SIGNATURE ── */
+    .sig-section {
+      margin-top: 3rem;
+      padding: 2.5rem;
+      background: var(--ink);
+      color: var(--cream);
+    }
+    .sig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .sig-block-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,242,236,0.4);
+      margin-bottom: 1rem;
+    }
+    .sig-party {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 0.2rem;
+    }
+    .sig-role {
+      font-size: 0.74rem;
+      color: var(--teal);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+    .sig-canvas-wrap {
+      border-bottom: 1px solid rgba(245,242,236,0.25);
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    #sigCanvas {
+      display: block;
+      width: 100%;
+      height: 90px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+    .sig-instructions {
+      font-size: 0.68rem;
+      color: rgba(245,242,236,0.3);
+      letter-spacing: 0.08em;
+    }
+    .sig-name-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(245,242,236,0.25);
+      color: var(--cream);
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      padding: 0.4rem 0;
+      outline: none;
+      margin-bottom: 0.5rem;
+    }
+    .sig-name-input::placeholder { color: rgba(245,242,236,0.2); }
+    .sig-date {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: rgba(245,242,236,0.4);
+      margin-top: 0.75rem;
+    }
+    .sig-clear {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,242,236,0.3);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem 0;
+      margin-top: 0.25rem;
+      transition: color 0.2s;
+    }
+    .sig-clear:hover { color: var(--teal); }
+
+    /* ── STRIPE PAYMENT ── */
+    .payment-section {
+      margin-top: 3rem;
+      padding: 2.5rem;
+      border: 1px solid var(--rule);
+      text-align: center;
+    }
+    .payment-title {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+    .payment-title em { font-style: italic; color: var(--teal); }
+    .payment-sub {
+      font-size: 0.82rem;
+      color: var(--mid);
+      margin-bottom: 2rem;
+      line-height: 1.65;
+    }
+    /* ── STRIPE PLACEHOLDER ── Swap this entire block when you have your Stripe key */
+    #stripe-container {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    #stripe-elements-mount {
+      border: 1px solid var(--rule);
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      min-height: 46px;
+      background: #fff;
+      /* Stripe Elements will inject the card input here */
+    }
+    .pay-btn {
+      display: block;
+      width: 100%;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 1rem 2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .pay-btn:hover { background: var(--teal); }
+    .pay-btn:disabled { background: #aaa; cursor: not-allowed; }
+    #payment-message {
+      font-size: 0.8rem;
+      color: var(--mid);
+      margin-top: 1rem;
+    }
+    .payment-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .payment-badge {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--rule);
+    }
+
+    /* ── CTA ── */
+    .cta-strip {
+      margin-top: 3rem;
+      padding: 2.5rem;
+      background: var(--teal);
+      text-align: center;
+    }
+    .cta-strip h3 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .cta-strip p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 1.5rem;
+    }
+    .cta-email {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: #fff;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .cta-email:hover { border-color: #fff; }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      color: rgba(13,13,13,0.3);
+      text-transform: uppercase;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body::before { display: none; }
+      .payment-section, .cta-strip { display: none; }
+      .page { padding: 0 1rem; }
+      .doc-header { break-inside: avoid; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .header-meta { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+      .why-grid { grid-template-columns: 1fr; }
+      .sig-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <div class="doc-header">
+    <div class="header-top">
+      <div class="dmwn-brand">Design My Website Now</div>
+      <div class="doc-type">Web Design Proposal<br>Off-Platform Rate</div>
+    </div>
+    <div class="header-client">
+      <div class="prepared-for">Prepared For</div>
+      <div class="client-name">Zen<br><em>Harmony</em></div>
+      <div class="client-sub">Reiki, Sound Healing &amp; Mindfulness &nbsp;·&nbsp; North Myrtle Beach, SC</div>
+    </div>
+    <div class="header-meta">
+      <div>
+        <div class="meta-label">Date</div>
+        <div class="meta-value">April 15, 2026</div>
+      </div>
+      <div>
+        <div class="meta-label">Prepared By</div>
+        <div class="meta-value">Will Jones · DMWN</div>
+      </div>
+      <div>
+        <div class="meta-label">Valid For</div>
+        <div class="meta-value">30 Days</div>
+      </div>
+      <div>
+        <div class="meta-label">Project Total</div>
+        <div class="meta-value highlight">$1,500</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- ══ OVERVIEW ══ -->
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <h2 class="section-title">A sacred digital presence<br>built to <em>convert clients.</em></h2>
+      <p class="body-text">Thank you for sharing your vision for Zen Harmony. The healing work you do — Reiki, sound therapy, and mindfulness — deserves a website that feels as intentional and transformative as the experience itself.</p>
+      <p class="body-text" style="margin-top:1rem;">This proposal covers a full homepage redesign: premium editorial design, YouTube video integration, portal hero animation, mobile-responsive build, and Vercel deployment — scoped to deliver maximum impact within our agreed budget.</p>
+
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <div class="why-text">I select projects I'm genuinely excited about. Zen Harmony's sacred feminine positioning is exactly the kind of work I do best — premium, precise, conversion-focused.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <div class="why-text">Agreed deadlines are set in stone. Revisions are handled promptly — no waiting weeks for feedback turnarounds.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <div class="why-text">Your existing copy, testimonials, and brand voice are preserved exactly as written. Nothing is paraphrased or reinvented without your approval.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <div class="why-text">Over a decade of web design experience. The same premium quality delivered to coaches, healers, and wellness brands goes into every project.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ INVESTMENT ══ -->
+    <div class="section">
+      <div class="section-label">Investment</div>
+      <h2 class="section-title">Project Fees &amp;<br><em>Deliverables.</em></h2>
+
+      <table class="investment-table">
+        <thead>
+          <tr>
+            <th>Deliverable</th>
+            <th>Fee</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="line-name">Custom Homepage Design (UI/UX)</div>
+              <div class="line-desc">Bespoke visual system — sacred feminine editorial aesthetic, typography pairing, color palette, portal hero concept, full component library</div>
+            </td>
+            <td>$400</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="line-name">Frontend Development</div>
+              <div class="line-desc">Full HTML/CSS/JS build — scroll-reveal animations, rotating yin yang portal, entrance effects, all interactions polished to production quality</div>
+            </td>
+            <td>$350</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="line-name">YouTube Video Integration</div>
+              <div class="line-desc">Hero background video (autoplay/muted) + featured video section with custom thumbnail and YouTube lightbox modal</div>
+            </td>
+            <td>$100</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="line-name">Mobile-Responsive Design</div>
+              <div class="line-desc">Pixel-perfect across all screen sizes and devices — tested at 375px, 768px, and 1440px breakpoints</div>
+            </td>
+            <td>$125</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="line-name">SEO Foundation</div>
+              <div class="line-desc">Page title, meta description, structured data markup, semantic HTML, sitemap-ready architecture</div>
+            </td>
+            <td>$100</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="line-name">Performance &amp; Core Web Vitals</div>
+              <div class="line-desc">Image compression, lazy loading, speed tuning for Google ranking signals, optimized asset delivery</div>
+            </td>
+            <td>$75</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="line-name">Hosting Setup &amp; Deployment (1 Year)</div>
+              <div class="line-desc">Vercel — globally distributed CDN, 99.99% uptime, automatic SSL certificate, GitHub-connected CI/CD pipeline</div>
+            </td>
+            <td>$125</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="line-name">Content Migration &amp; Brand Alignment</div>
+              <div class="line-desc">All existing copy, testimonials, service descriptions, and imagery from zen-harmony.com preserved and integrated verbatim</div>
+            </td>
+            <td>$75</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="line-name">Post-Launch Support (30 Days)</div>
+              <div class="line-desc">Bug fixes, content tweaks, and minor adjustments after go-live — responsive turnaround guaranteed</div>
+            </td>
+            <td>$75</td>
+          </tr>
+          <tr class="total-row">
+            <td>
+              <div class="line-name">Your Project Total</div>
+            </td>
+            <td>$1,500</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="payment-note">
+        <strong>Payment schedule:</strong> 50% deposit ($750) due to begin work · 50% balance ($750) due upon delivery and approval of final site.<br>
+        Accepted via <strong>Stripe · Zelle · PayPal</strong>
+      </div>
+    </div>
+
+    <!-- ══ TIMELINE ══ -->
+    <div class="section">
+      <div class="section-label">Timeline</div>
+      <h2 class="section-title">Milestones &amp;<br><em>Delivery Schedule.</em></h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-milestone"><span class="timeline-dot"></span>Kickoff &amp; 50% Deposit Received — work begins immediately</div>
+          <div class="timeline-date">Day 1</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-milestone"><span class="timeline-dot"></span>First Draft Delivery — full design concept presented for review</div>
+          <div class="timeline-date">Day 5–7</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-milestone"><span class="timeline-dot"></span>Revision Round 1 — feedback incorporated, updated build delivered</div>
+          <div class="timeline-date">Day 9–10</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-milestone"><span class="timeline-dot"></span>Second Draft Delivery — refined version for final review</div>
+          <div class="timeline-date">Day 12–13</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-milestone"><span class="timeline-dot"></span>Revision Round 2 — final adjustments if required</div>
+          <div class="timeline-date">Day 14–15</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-milestone"><span class="timeline-dot"></span>Final QA, cross-device testing &amp; launch preparation</div>
+          <div class="timeline-date">Day 16</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-milestone"><span class="timeline-dot"></span><strong>Site Live</strong> — final delivery, balance payment due</div>
+          <div class="timeline-date">Day 17–18</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TERMS ══ -->
+    <div class="section">
+      <div class="section-label">Terms</div>
+      <h2 class="section-title">Terms &amp;<br><em>Conditions.</em></h2>
+
+      <div class="terms-list">
+        <div class="term-item">
+          <div class="term-num">01</div>
+          <div>Payment: 50% deposit ($750) due upfront; 50% balance ($750) due upon approval of final deliverable. Accepted via Stripe, Zelle, or PayPal.</div>
+        </div>
+        <div class="term-item">
+          <div class="term-num">02</div>
+          <div>This rate applies to work completed off-platform and directly between both parties. Platform rate is $1,700. By proceeding, both parties agree to work directly.</div>
+        </div>
+        <div class="term-item">
+          <div class="term-num">03</div>
+          <div>All design resources (fonts, licensed stock photography, icons) are included in the project fee. Full usage rights transfer to client upon receipt of final payment.</div>
+        </div>
+        <div class="term-item">
+          <div class="term-num">04</div>
+          <div>Upon completion and receipt of final payment, client owns full rights to all design files, source code, and deliverables produced under this agreement.</div>
+        </div>
+        <div class="term-item">
+          <div class="term-num">05</div>
+          <div>Up to two rounds of revisions are included. Additional revision rounds beyond scope will be quoted separately before work begins.</div>
+        </div>
+        <div class="term-item">
+          <div class="term-num">06</div>
+          <div>In the event of cancellation after work commences, client is responsible for payment proportional to work completed at time of cancellation.</div>
+        </div>
+        <div class="term-item">
+          <div class="term-num">07</div>
+          <div>Post-launch support covers bug fixes and minor content adjustments within 30 days of go-live. New feature requests or additional pages will be scoped and quoted separately.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SIGNATURES ══ -->
+    <div class="sig-section">
+      <div class="sig-grid">
+        <!-- Designer -->
+        <div>
+          <div class="sig-block-label">Designer / Contractor</div>
+          <div class="sig-party">Will Jones</div>
+          <div class="sig-role">DMWN · Design My Website Now</div>
+          <div class="sig-canvas-wrap">
+            <canvas id="sigCanvasDesigner" width="340" height="90"></canvas>
+          </div>
+          <div class="sig-instructions">Signed digitally · April 15, 2026</div>
+        </div>
+        <!-- Client -->
+        <div>
+          <div class="sig-block-label">Client · Zen Harmony</div>
+          <div class="sig-party">Maxine Chen</div>
+          <div class="sig-role">RMT · VST · Zen Harmony &amp; Sound Healing</div>
+          <div class="sig-canvas-wrap">
+            <canvas id="sigCanvas" width="340" height="90"></canvas>
+          </div>
+          <button class="sig-clear" onclick="clearSig()">✕ Clear signature</button>
+          <div>
+            <input class="sig-name-input" type="text" id="printedName" placeholder="Print your name to confirm" />
+          </div>
+          <div class="sig-date" id="sigDateDisplay"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ STRIPE PAYMENT ══ -->
+    <div class="payment-section">
+      <h3 class="payment-title">Ready to begin?<br><em>Pay your deposit securely.</em></h3>
+      <p class="payment-sub">Pay your 50% deposit ($750) below to lock in your project start date.<br>Balance of $750 is due upon final delivery and approval.</p>
+
+      <div id="stripe-container">
+        <!-- ══════════════════════════════════════════════════════════
+             STRIPE INTEGRATION — INSERT YOUR CODE HERE
+             1. Load Stripe.js: <script src="https://js.stripe.com/v3/"></script>
+             2. Initialize: const stripe = Stripe('YOUR_PUBLISHABLE_KEY');
+             3. Mount Elements to #stripe-elements-mount
+             4. Handle confirmPayment on button click
+             ══════════════════════════════════════════════════════════ -->
+        <div id="stripe-elements-mount">
+          <!-- Stripe Card Element mounts here -->
+          <div style="padding:0.6rem 0;font-size:0.8rem;color:#aaa;font-family:'DM Mono',monospace;letter-spacing:0.1em;">STRIPE CARD ELEMENT · PENDING INTEGRATION</div>
+        </div>
+        <button class="pay-btn" id="payBtn" onclick="handleStripePayment()">
+          Pay Deposit — $750.00
+        </button>
+        <div id="payment-message"></div>
+      </div>
+
+      <div class="payment-badges">
+        <span class="payment-badge">Stripe Secured</span>
+        <span class="payment-badge">256-bit SSL</span>
+        <span class="payment-badge">Zelle Available</span>
+        <span class="payment-badge">PayPal Available</span>
+      </div>
+    </div>
+
+    <!-- ══ CTA ══ -->
+    <div class="cta-strip">
+      <h3>Ready to go live?</h3>
+      <p>Sign and return this proposal with your 50% deposit — kickoff call scheduled within 24 hours and build begins immediately.</p>
+      <a href="mailto:admin@designmywebsitenow.com" class="cta-email">admin@designmywebsitenow.com</a>
+    </div>
+
+    <!-- ══ FOOTER ══ -->
+    <div class="doc-footer">
+      &copy; 2026 Design My Website Now &nbsp;·&nbsp; designmywebsitenow.com &nbsp;·&nbsp; admin@designmywebsitenow.com
+    </div>
+
+  </div><!-- /page -->
+
+  <script>
+    // ── SIGNATURE CANVAS (Client) ──
+    const canvas = document.getElementById('sigCanvas');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    let hasSig = false;
+
+    function getPos(e) {
+      const r = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / r.width;
+      const scaleY = canvas.height / r.height;
+      if (e.touches) {
+        return {
+          x: (e.touches[0].clientX - r.left) * scaleX,
+          y: (e.touches[0].clientY - r.top) * scaleY
+        };
+      }
+      return {
+        x: (e.clientX - r.left) * scaleX,
+        y: (e.clientY - r.top) * scaleY
+      };
+    }
+
+    ctx.strokeStyle = '#f5f2ec';
+    ctx.lineWidth = 1.8;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    canvas.addEventListener('mousedown', e => { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+    canvas.addEventListener('mousemove', e => { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; stampDate(); });
+    canvas.addEventListener('mouseup', () => drawing = false);
+    canvas.addEventListener('mouseleave', () => drawing = false);
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
+    canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; stampDate(); }, { passive: false });
+    canvas.addEventListener('touchend', () => drawing = false);
+
+    function clearSig() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hasSig = false;
+      document.getElementById('sigDateDisplay').textContent = '';
+    }
+
+    function stampDate() {
+      if (!document.getElementById('sigDateDisplay').textContent) {
+        const now = new Date();
+        document.getElementById('sigDateDisplay').textContent =
+          'Signed ' + now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      }
+    }
+
+    // ── DESIGNER PRE-SIGNATURE ──
+    (function drawDesignerSig() {
+      const dc = document.getElementById('sigCanvasDesigner');
+      const dx = dc.getContext('2d');
+      dx.strokeStyle = '#f5f2ec';
+      dx.lineWidth = 1.5;
+      dx.lineCap = 'round';
+      dx.lineJoin = 'round';
+      // Stylized "WJ" cursive path
+      const pts = [
+        [30,65],[38,40],[46,65],[54,40],[62,65],  // W
+        [75,40],[75,65],[88,40]                    // J
+      ];
+      dx.beginPath();
+      dx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length; i++) dx.lineTo(pts[i][0], pts[i][1]);
+      dx.stroke();
+    })();
+
+    // ── STRIPE PLACEHOLDER ──
+    function handleStripePayment() {
+      // TODO: Replace this function body with your Stripe payment intent logic
+      // Example:
+      // const { error } = await stripe.confirmPayment({ elements, confirmParams: { return_url: '...' } });
+      const msg = document.getElementById('payment-message');
+      msg.textContent = 'Stripe integration pending. Contact admin@designmywebsitenow.com to pay via Zelle or PayPal.';
+      msg.style.color = '#009ab5';
+    }
+
+    // ── PRINT HELPER ──
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        // allow normal print — CSS handles it
+      }
+    });
+  </script>
+
+</body>
+</html>
